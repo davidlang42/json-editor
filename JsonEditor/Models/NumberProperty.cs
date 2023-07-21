@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,27 @@ namespace JsonEditor.Models
 {
     internal class NumberProperty : Property
     {
-        public long? Value { get; set; }
-        public double? Minimum { get; set; }
-        public double? Maximum { get; set; }
+        private long? _value;
+        public long? Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value != _value)
+                {
+                    _value = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
-        public NumberProperty(string key) : base(key) { }
+        public double? Minimum { get; init; }
+        public double? Maximum { get; init; }
+
+        public NumberProperty(string key, bool required) : base(key, required) { }
 
         public override string? ToJsonAssignment() => Value == null ? null : $"\"{Key}\": {Value}";
 
@@ -37,12 +54,10 @@ namespace JsonEditor.Models
             var stepper = new Stepper
             {
                 BindingContext = this,
-                Increment = 1
+                Increment = 1,
+                Minimum = Minimum ?? long.MinValue,
+                Maximum = Maximum ?? long.MaxValue,
             };
-            if (Minimum.HasValue)
-                stepper.Minimum = Minimum.Value;
-            if (Maximum.HasValue)
-                stepper.Maximum = Maximum.Value;
             stepper.SetBinding(Stepper.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
             grid.Add(stepper);
             grid.SetColumn(stepper, 1);
@@ -50,6 +65,7 @@ namespace JsonEditor.Models
             {
                 var slider = new Slider
                 {
+                    BindingContext = this,
                     Minimum = Minimum.Value,
                     Maximum = Maximum.Value
                 };

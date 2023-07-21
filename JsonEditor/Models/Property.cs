@@ -2,20 +2,30 @@
 using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Models
 {
-    public abstract class Property
+    public abstract class Property : INotifyPropertyChanged
     {
         public string Key { get; }
-        public bool Required { get; set; }
+        public bool Required { get; }
 
-        public Property(string key)
+        public Property(string key, bool required)
         {
             Key = key;
+            Required = required;
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>Convert this property's current value to a Json assignment, or null if the value is not set.</summary>
@@ -26,19 +36,19 @@ namespace JsonEditor.Models
         public static Property For(string key, JSchema schema, JToken? current)
         {
             var value = (current as JValue)?.Value;
+            var required = schema.Required.Contains(key);
             Property property = schema.Type switch
             {
-                JSchemaType.String => new StringProperty(key) {
+                JSchemaType.String => new StringProperty(key, required) {
                     Value = value as string ?? ""
                 },
-                JSchemaType.Integer => new NumberProperty(key) {
+                JSchemaType.Integer => new NumberProperty(key, required) {
                     Value = value as long? ?? 0,
                     Minimum = ToNullableInt64(schema.Minimum),
                     Maximum = ToNullableInt64(schema.Maximum)
                 },
-                _ => new UnsupportedProperty(key, current?.ToString())
+                _ => new UnsupportedProperty(key, required, current?.ToString())
             };
-            property.Required = schema.Required.Contains(key);
             return property;
         }
 

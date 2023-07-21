@@ -11,7 +11,7 @@ namespace JsonEditor.Models
     {
         readonly string? rawJson;
 
-        public UnsupportedProperty(string key, string? raw_json) : base(key)
+        public UnsupportedProperty(string key, bool required, string? raw_json) : base(key, required)
         {
             rawJson = raw_json;
         }

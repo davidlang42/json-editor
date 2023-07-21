@@ -1,4 +1,5 @@
 using JsonEditor.Converters;
+using JsonEditor.Extensions;
 using JsonEditor.Models;
 using Newtonsoft.Json;
 
@@ -67,7 +68,7 @@ public class EditJson : ContentPage
                 grid.Add(null_switch);
                 grid.SetRow(null_switch, i);
                 grid.SetColumn(null_switch, 1);
-                content.SetBinding(VisualElement.IsVisibleProperty, nameof(Property.Include));
+                content.SetBindingRecursively(VisualElement.IsVisibleProperty, nameof(Property.Include));
                 var null_label = new Label
                 {
                     BindingContext = property,

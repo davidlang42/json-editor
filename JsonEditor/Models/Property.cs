@@ -67,6 +67,10 @@ namespace JsonEditor.Models
                     Minimum = schema.Minimum,
                     Maximum = schema.Maximum
                 },
+                JSchemaType.Boolean => new BooleanProperty(parent, key, required)
+                {
+                    Value = value as bool?
+                },
                 _ => new UnsupportedProperty(parent, key, required)
                 {
                     Value = token

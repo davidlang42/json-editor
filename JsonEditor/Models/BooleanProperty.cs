@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace JsonEditor.Models
 {
-    internal class StringProperty : Property
+    internal class BooleanProperty : Property
     {
-        private string? _value;
-        public string? Value
+        private bool? _value;
+        public bool? Value
         {
             get => _value;
             set
@@ -35,36 +35,38 @@ namespace JsonEditor.Models
             set
             {
                 if (value)
-                    Value ??= "";
+                    Value ??= false;
                 else
                     Value = null;
             }
         }
 
-        public StringProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
+        public BooleanProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
 
         public override JToken? ValueAsJToken() => Value;
 
         public override IView GenerateEditView()
         {
-            var entry = new Entry
+            var checkbox = new CheckBox
             {
                 BindingContext = this
             };
-            entry.SetBinding(Entry.TextProperty, nameof(Value));
+            checkbox.SetBinding(CheckBox.IsCheckedProperty, nameof(Value));
             if (Required)
             {
                 ValueIsNotNull = true;
-                return entry;
+                return checkbox;
             }
             else
             {
-                entry.SetBinding(VisualElement.IsVisibleProperty, nameof(ValueIsNotNull));
-                var null_switch = new Switch {
+                checkbox.SetBinding(VisualElement.IsVisibleProperty, nameof(ValueIsNotNull));
+                var null_switch = new Switch
+                {
                     BindingContext = this
                 };
                 null_switch.SetBinding(Switch.IsToggledProperty, nameof(ValueIsNotNull));
-                var label = new Label {
+                var label = new Label
+                {
                     BindingContext = this,
                     Text = "(null)",
                     FontAttributes = FontAttributes.Italic
@@ -79,8 +81,8 @@ namespace JsonEditor.Models
                     }
                 };
                 grid.Add(null_switch);
-                grid.Add(entry);
-                grid.SetColumn(entry, 1);
+                grid.Add(checkbox);
+                grid.SetColumn(checkbox, 1);
                 grid.Add(label);
                 grid.SetColumn(label, 1);
                 return grid;

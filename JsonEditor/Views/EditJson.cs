@@ -38,7 +38,7 @@ public class EditJson : ContentPage
             Margin = 5,
             ColumnDefinitions =
             {
-                new ColumnDefinition(new GridLength(100, GridUnitType.Absolute)),
+                new ColumnDefinition(new GridLength(200, GridUnitType.Absolute)),
                 new ColumnDefinition(GridLength.Star)
             }
         };

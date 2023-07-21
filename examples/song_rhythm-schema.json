@@ -32,8 +32,7 @@
       "rhythm_pattern": {
         "type": "integer",
         "format": "uint8",
-        "minimum": 0.0,
-        "maximum": 10.0
+        "minimum": 0.0
       },
       "rhythm_set": {
         "type": "integer",
@@ -56,6 +55,15 @@
       },
       "unused3": {
         "$ref": "#/definitions/Bits_size_2"
+      },
+      "optional_number": {
+        "type": "integer",
+        "format": "uint8",
+        "minimum": 0.0,
+        "maximum": 10.0
+      },
+      "optional_bool": {
+        "type": "boolean"
       }
     },
     "definitions": {

@@ -1,0 +1,2287 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RD300NX",
+  "type": "object",
+  "required": [
+    "e_piano",
+    "piano",
+    "system",
+    "user_sets"
+  ],
+  "properties": {
+    "user_sets": {
+      "type": "array",
+      "items": [
+        {
+          "$ref": "#/definitions/LiveSet"
+        }
+      ],
+      "maxItems": 60,
+      "minItems": 60
+    },
+    "piano": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LiveSet"
+      },
+      "maxItems": 10,
+      "minItems": 10
+    },
+    "e_piano": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LiveSet"
+      },
+      "maxItems": 15,
+      "minItems": 15
+    },
+    "system": {
+      "$ref": "#/definitions/System"
+    }
+  },
+  "definitions": {
+    "LiveSet": {
+      "type": "object",
+      "required": [
+        "chorus",
+        "common",
+        "layers",
+        "mfx",
+        "reverb",
+        "song_rhythm",
+        "unused_layer",
+        "unused_mfx",
+        "unused_resonance"
+      ],
+      "properties": {
+        "common": {
+          "$ref": "#/definitions/LiveSetCommon"
+        },
+        "song_rhythm": {
+          "$ref": "#/definitions/SongRhythm"
+        },
+        "chorus": {
+          "$ref": "#/definitions/Chorus"
+        },
+        "reverb": {
+          "$ref": "#/definitions/Reverb"
+        },
+        "mfx": {
+          "$ref": "#/definitions/Mfx"
+        },
+        "unused_mfx": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mfx"
+          },
+          "maxItems": 7,
+          "minItems": 7
+        },
+        "unused_resonance": {
+          "$ref": "#/definitions/Resonance"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogicalLayer"
+          },
+          "maxItems": 3,
+          "minItems": 3
+        },
+        "unused_layer": {
+          "$ref": "#/definitions/LogicalLayer"
+        },
+        "padding": {
+          "$ref": "#/definitions/Bits_size_8"
+        }
+      }
+    },
+    "LiveSetCommon": {
+      "type": "object",
+      "required": [
+        "fc1_assign",
+        "fc2_assign",
+        "key_off_position",
+        "key_touch_curve_offset",
+        "key_touch_curve_type",
+        "key_touch_velocity",
+        "key_touch_velocity_delay_sense",
+        "key_touch_velocity_key_follow",
+        "live_set_tempo",
+        "name",
+        "s1_assign",
+        "s1_state",
+        "s2_assign",
+        "s2_state",
+        "slider_assign",
+        "slider_select",
+        "sound_focus_switch",
+        "sound_focus_type",
+        "sound_focus_value",
+        "split_switch_external",
+        "split_switch_internal",
+        "unused_eq_settings",
+        "unused_harmonic_bar_assign",
+        "unused_mfx_control_destination",
+        "voice_reserve"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16
+        },
+        "voice_reserve": {
+          "$ref": "#/definitions/Optional_map_of_MidiChannel_to_VoiceReserve"
+        },
+        "live_set_tempo": {
+          "type": "integer",
+          "format": "uint16",
+          "minimum": 0.0
+        },
+        "fc1_assign": {
+          "$ref": "#/definitions/PedalFunction"
+        },
+        "fc2_assign": {
+          "$ref": "#/definitions/PedalFunction"
+        },
+        "sound_focus_switch": {
+          "type": "boolean"
+        },
+        "sound_focus_type": {
+          "$ref": "#/definitions/SoundFocusType"
+        },
+        "sound_focus_value": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "s1_assign": {
+          "$ref": "#/definitions/ButtonFunction"
+        },
+        "s2_assign": {
+          "$ref": "#/definitions/ButtonFunction"
+        },
+        "s1_state": {
+          "type": "boolean"
+        },
+        "s2_state": {
+          "type": "boolean"
+        },
+        "unused_eq_settings": {
+          "$ref": "#/definitions/Bits_size_68"
+        },
+        "key_touch_velocity": {
+          "$ref": "#/definitions/KeyTouchVelocity"
+        },
+        "key_touch_curve_type": {
+          "$ref": "#/definitions/KeyTouchCurveType"
+        },
+        "key_touch_curve_offset": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "key_touch_velocity_delay_sense": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "key_touch_velocity_key_follow": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "key_off_position": {
+          "$ref": "#/definitions/KeyOffPosition"
+        },
+        "slider_select": {
+          "$ref": "#/definitions/SliderSelect"
+        },
+        "slider_assign": {
+          "$ref": "#/definitions/Required_map_of_Layer_to_SliderFunction"
+        },
+        "split_switch_internal": {
+          "type": "boolean"
+        },
+        "split_switch_external": {
+          "type": "boolean"
+        },
+        "unused_harmonic_bar_assign": {
+          "$ref": "#/definitions/Required_map_of_Layer_to_StateMap_for_HarmonicBar"
+        },
+        "unused_mfx_control_destination": {
+          "$ref": "#/definitions/Layer"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_7"
+        }
+      }
+    },
+    "Optional_map_of_MidiChannel_to_VoiceReserve": {
+      "type": "object",
+      "properties": {
+        "Channel1": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel2": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel3": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel4": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel5": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel6": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel7": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel8": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel9": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel10": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel11": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel12": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel13": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel14": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel15": {
+          "$ref": "#/definitions/VoiceReserve"
+        },
+        "Channel16": {
+          "$ref": "#/definitions/VoiceReserve"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VoiceReserve": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Full"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Voices"
+          ],
+          "properties": {
+            "Voices": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "PedalFunction": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Off",
+            "BendUp",
+            "BendDown",
+            "AfterTouch",
+            "OctaveUp",
+            "OctaveDown",
+            "StartStop",
+            "TapTempo",
+            "RhythmPlayStop",
+            "SongPlayStop",
+            "SongReset",
+            "Mfx1Switch",
+            "UnusedMfx2Switch",
+            "RotarySpeed",
+            "SoundFocusValue",
+            "LiveSetUp",
+            "LiveSetDown"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "ControlChange"
+          ],
+          "properties": {
+            "ControlChange": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "SoundFocusType": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "PianoType1",
+            "PianoType2",
+            "UnusedEPianoType",
+            "SoundLift",
+            "Enhancer",
+            "MidBoost"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Other"
+          ],
+          "properties": {
+            "Other": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ButtonFunction": {
+      "type": "string",
+      "enum": [
+        "Off",
+        "CouplePlusOctave",
+        "CoupleMinusOctave",
+        "CouplePlus2Octave",
+        "CoupleMinus2Octave",
+        "CouplePlus5th",
+        "CoupleMinus4th",
+        "OctaveUp",
+        "OctaveDown",
+        "StartStop",
+        "TapTempo",
+        "SongPlayStop",
+        "SongReset",
+        "SongBackward",
+        "SongForward",
+        "Mfx1Switch",
+        "UnusedMfx2Switch",
+        "RotarySpeed",
+        "LiveSetUp",
+        "LiveSetDown",
+        "PanelLock"
+      ]
+    },
+    "Bits_size_68": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){8}[01]{4}$"
+    },
+    "KeyTouchVelocity": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Real"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Fixed"
+          ],
+          "properties": {
+            "Fixed": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "KeyTouchCurveType": {
+      "type": "string",
+      "enum": [
+        "SuperLight",
+        "Light",
+        "Medium",
+        "Heavy",
+        "SuperHeavy"
+      ]
+    },
+    "OffsetU8": {
+      "type": "integer",
+      "format": "int8"
+    },
+    "KeyOffPosition": {
+      "type": "string",
+      "enum": [
+        "Standard",
+        "Deep"
+      ]
+    },
+    "SliderSelect": {
+      "type": "string",
+      "enum": [
+        "LayerLevel",
+        "Control"
+      ]
+    },
+    "Required_map_of_Layer_to_SliderFunction": {
+      "type": "object",
+      "required": [
+        "Lower1",
+        "UnusedLower2",
+        "Upper1",
+        "Upper2"
+      ],
+      "properties": {
+        "Upper1": {
+          "$ref": "#/definitions/SliderFunction"
+        },
+        "Upper2": {
+          "$ref": "#/definitions/SliderFunction"
+        },
+        "Lower1": {
+          "$ref": "#/definitions/SliderFunction"
+        },
+        "UnusedLower2": {
+          "$ref": "#/definitions/SliderFunction"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SliderFunction": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Off",
+            "BendUp",
+            "BendDown",
+            "AfterTouch",
+            "Mfx1Control",
+            "UnusedMfx2Control"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "ControlChange"
+          ],
+          "properties": {
+            "ControlChange": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Required_map_of_Layer_to_StateMap_for_HarmonicBar": {
+      "type": "object",
+      "required": [
+        "Lower1",
+        "UnusedLower2",
+        "Upper1",
+        "Upper2"
+      ],
+      "properties": {
+        "Upper1": {
+          "$ref": "#/definitions/StateMap_for_HarmonicBar"
+        },
+        "Upper2": {
+          "$ref": "#/definitions/StateMap_for_HarmonicBar"
+        },
+        "Lower1": {
+          "$ref": "#/definitions/StateMap_for_HarmonicBar"
+        },
+        "UnusedLower2": {
+          "$ref": "#/definitions/StateMap_for_HarmonicBar"
+        }
+      },
+      "additionalProperties": false
+    },
+    "StateMap_for_HarmonicBar": {
+      "type": "object",
+      "required": [
+        "off",
+        "on"
+      ],
+      "properties": {
+        "on": {
+          "$ref": "#/definitions/HarmonicBar"
+        },
+        "off": {
+          "$ref": "#/definitions/HarmonicBar"
+        }
+      }
+    },
+    "HarmonicBar": {
+      "type": "string",
+      "enum": [
+        "F16",
+        "F5_1_3",
+        "F8",
+        "F4",
+        "F2_2_3",
+        "F1_3_5",
+        "F2",
+        "F1_1_3",
+        "F1"
+      ]
+    },
+    "Layer": {
+      "type": "string",
+      "enum": [
+        "Upper1",
+        "Upper2",
+        "Lower1",
+        "UnusedLower2"
+      ]
+    },
+    "Bits_size_7": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{7}$"
+    },
+    "SongRhythm": {
+      "type": "object",
+      "required": [
+        "audio_level",
+        "rhythm_level",
+        "rhythm_midi_out_channel",
+        "rhythm_output_port",
+        "rhythm_pattern",
+        "rhythm_set",
+        "song_level",
+        "song_output_port"
+      ],
+      "properties": {
+        "unused1": {
+          "$ref": "#/definitions/Bits_size_1"
+        },
+        "audio_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "song_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "song_output_port": {
+          "$ref": "#/definitions/OutputPort"
+        },
+        "unused2": {
+          "$ref": "#/definitions/Bits_size_1"
+        },
+        "rhythm_set": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "rhythm_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "rhythm_pattern": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "rhythm_midi_out_channel": {
+          "$ref": "#/definitions/OptionalMidiChannel"
+        },
+        "rhythm_output_port": {
+          "$ref": "#/definitions/OutputPort"
+        },
+        "unused3": {
+          "$ref": "#/definitions/Bits_size_2"
+        }
+      }
+    },
+    "Bits_size_1": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{1}$"
+    },
+    "OutputPort": {
+      "type": "string",
+      "enum": [
+        "All",
+        "Int",
+        "Out1",
+        "Out2",
+        "Out3",
+        "Usb"
+      ]
+    },
+    "OptionalMidiChannel": {
+      "type": "string",
+      "enum": [
+        "Off",
+        "Channel1",
+        "Channel2",
+        "Channel3",
+        "Channel4",
+        "Channel5",
+        "Channel6",
+        "Channel7",
+        "Channel8",
+        "Channel9",
+        "Channel10",
+        "Channel11",
+        "Channel12",
+        "Channel13",
+        "Channel14",
+        "Channel15",
+        "Channel16"
+      ]
+    },
+    "Bits_size_2": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{2}$"
+    },
+    "Chorus": {
+      "type": "object",
+      "required": [
+        "chorus_type",
+        "depth",
+        "output_select",
+        "parameters"
+      ],
+      "properties": {
+        "chorus_type": {
+          "$ref": "#/definitions/ChorusType"
+        },
+        "depth": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "unused1": {
+          "$ref": "#/definitions/Bits_size_2"
+        },
+        "output_select": {
+          "$ref": "#/definitions/OutputSelect"
+        },
+        "parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 20,
+          "minItems": 0
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_1"
+        }
+      }
+    },
+    "ChorusType": {
+      "type": "string",
+      "enum": [
+        "Off",
+        "Chorus",
+        "Delay",
+        "Gm2Chorus"
+      ]
+    },
+    "OutputSelect": {
+      "type": "string",
+      "enum": [
+        "Main",
+        "Rev",
+        "Both"
+      ]
+    },
+    "Parameter": {
+      "type": "integer",
+      "format": "int16"
+    },
+    "Reverb": {
+      "type": "object",
+      "required": [
+        "depth",
+        "parameters",
+        "reverb_type"
+      ],
+      "properties": {
+        "reverb_type": {
+          "$ref": "#/definitions/ReverbType"
+        },
+        "depth": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "unused1": {
+          "$ref": "#/definitions/Bits_size_2"
+        },
+        "parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 20,
+          "minItems": 0
+        },
+        "unused2": {
+          "$ref": "#/definitions/Bits_size_3"
+        }
+      }
+    },
+    "ReverbType": {
+      "type": "string",
+      "enum": [
+        "Off",
+        "Reverb",
+        "Room",
+        "Hall",
+        "Plate",
+        "Gm2Reverb",
+        "Cathedral"
+      ]
+    },
+    "Bits_size_3": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{3}$"
+    },
+    "Mfx": {
+      "type": "object",
+      "required": [
+        "enable",
+        "mfx_type",
+        "parameters"
+      ],
+      "properties": {
+        "enable": {
+          "type": "boolean"
+        },
+        "unused1": {
+          "$ref": "#/definitions/Bits_size_8"
+        },
+        "mfx_type": {
+          "$ref": "#/definitions/MfxType"
+        },
+        "padding1": {
+          "$ref": "#/definitions/Bits_size_8"
+        },
+        "padding2": {
+          "$ref": "#/definitions/Bits_size_14"
+        },
+        "padding3": {
+          "$ref": "#/definitions/Bits_size_14"
+        },
+        "padding4": {
+          "$ref": "#/definitions/Bits_size_14"
+        },
+        "unused2": {
+          "$ref": "#/definitions/Bits_size_26"
+        },
+        "parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 32,
+          "minItems": 0
+        },
+        "unused3": {
+          "$ref": "#/definitions/Bits_size_3"
+        }
+      }
+    },
+    "Bits_size_8": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{8}$"
+    },
+    "MfxType": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Thru",
+            "Equalizer",
+            "Spectrum",
+            "Isolator",
+            "LowBoost",
+            "SuperFilter",
+            "StepFilter",
+            "Enhancer",
+            "AutoWah",
+            "Humanizer",
+            "SpeakerSimulator",
+            "Phaser",
+            "StepPhaser",
+            "MultiStagePhaser",
+            "InfinitePhaser",
+            "RingModulator",
+            "StepRingModulator",
+            "Tremolo",
+            "AutoPan",
+            "StepPan",
+            "Slicer",
+            "Rotary",
+            "VkRotary",
+            "Chorus",
+            "Flanger",
+            "StepFlanger",
+            "HexaChorus",
+            "TremoloChorus",
+            "SpaceD",
+            "Chorus3D",
+            "Flanger3D",
+            "StepFlanger3D",
+            "TwoBandChorus",
+            "TwoBandFlanger",
+            "TwoBandStepFlanger",
+            "Overdrive",
+            "Distortion",
+            "VsOverdrive",
+            "VsDistortion",
+            "GuitarAmpSimulator",
+            "Compressor",
+            "Limiter",
+            "Gate",
+            "Delay",
+            "LongDelay",
+            "SerialDelay",
+            "ModulationDelay",
+            "ThreeTapPanDelay",
+            "FourTapPanDelay",
+            "MultiTapDelay",
+            "ReverseDelay",
+            "ShuffleDelay",
+            "Delay3D",
+            "TimeCtrlDelay",
+            "LongTimeCtrlDelay",
+            "TapeEcho",
+            "LofiNoise",
+            "LofiCompress",
+            "LofiRadio",
+            "Telephone",
+            "Photograph",
+            "PitchShifter",
+            "TwoVoicePitchShifter",
+            "StepPitchShifter",
+            "Reverb",
+            "GatedReverb",
+            "ChorusOverdrive",
+            "OverdriveFlanger",
+            "OverdriveDelay",
+            "DistortionChorus",
+            "DistortionFlanger",
+            "DistortionDelay",
+            "EnhancerChorus",
+            "EnhancerFlanger",
+            "EnhancerDelay",
+            "ChorusDelay",
+            "FlangerDelay",
+            "ChorusFlanger",
+            "UnusedVrChorus",
+            "UnusedVrTremolo",
+            "UnusedVrAutoWah",
+            "UnusedVrPhaser",
+            "UnusedOrganMulti",
+            "UnusedLinedrive",
+            "UnusedSmallPhaser",
+            "SympatheticResonance"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Other"
+          ],
+          "properties": {
+            "Other": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Bits_size_14": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){1}[01]{6}$"
+    },
+    "Bits_size_26": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){3}[01]{2}$"
+    },
+    "Resonance": {
+      "$ref": "#/definitions/Bits_size_608"
+    },
+    "Bits_size_608": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){75}[01]{8}$"
+    },
+    "LogicalLayer": {
+      "type": "object",
+      "required": [
+        "external",
+        "internal",
+        "piano",
+        "tone",
+        "unused_e_piano",
+        "unused_tone_wheel"
+      ],
+      "properties": {
+        "internal": {
+          "$ref": "#/definitions/InternalLayer"
+        },
+        "external": {
+          "$ref": "#/definitions/ExternalLayer"
+        },
+        "tone": {
+          "$ref": "#/definitions/ToneLayer"
+        },
+        "piano": {
+          "$ref": "#/definitions/PianoLayer"
+        },
+        "unused_e_piano": {
+          "$ref": "#/definitions/EPianoLayer"
+        },
+        "unused_tone_wheel": {
+          "$ref": "#/definitions/ToneWheelLayer"
+        }
+      }
+    },
+    "InternalLayer": {
+      "type": "object",
+      "required": [
+        "bender",
+        "chorus",
+        "control_slider",
+        "damper",
+        "enable",
+        "fc1",
+        "fc2",
+        "modulation",
+        "pan",
+        "range_lower",
+        "range_upper",
+        "receive_bank_select",
+        "receive_bender",
+        "receive_expression",
+        "receive_hold_1",
+        "receive_modulation",
+        "receive_pan",
+        "receive_program_change",
+        "receive_volume",
+        "reverb",
+        "s1",
+        "s2",
+        "transpose",
+        "velocity_max",
+        "velocity_range_lower",
+        "velocity_range_upper",
+        "velocity_sensitivity",
+        "volume"
+      ],
+      "properties": {
+        "volume": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "pan": {
+          "$ref": "#/definitions/Pan"
+        },
+        "chorus": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "reverb": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "range_lower": {
+          "$ref": "#/definitions/PianoKey"
+        },
+        "range_upper": {
+          "$ref": "#/definitions/PianoKey"
+        },
+        "velocity_range_lower": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "velocity_range_upper": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "velocity_sensitivity": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "velocity_max": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "transpose": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "damper": {
+          "type": "boolean"
+        },
+        "fc1": {
+          "type": "boolean"
+        },
+        "fc2": {
+          "type": "boolean"
+        },
+        "modulation": {
+          "type": "boolean"
+        },
+        "bender": {
+          "type": "boolean"
+        },
+        "control_slider": {
+          "$ref": "#/definitions/Required_map_of_Layer_to_Boolean"
+        },
+        "s1": {
+          "type": "boolean"
+        },
+        "s2": {
+          "type": "boolean"
+        },
+        "receive_bank_select": {
+          "type": "boolean"
+        },
+        "receive_program_change": {
+          "type": "boolean"
+        },
+        "receive_bender": {
+          "type": "boolean"
+        },
+        "receive_modulation": {
+          "type": "boolean"
+        },
+        "receive_volume": {
+          "type": "boolean"
+        },
+        "receive_pan": {
+          "type": "boolean"
+        },
+        "receive_hold_1": {
+          "type": "boolean"
+        },
+        "receive_expression": {
+          "type": "boolean"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_15"
+        }
+      }
+    },
+    "Pan": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "Centre"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Left"
+          ],
+          "properties": {
+            "Left": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Right"
+          ],
+          "properties": {
+            "Right": {
+              "type": "integer",
+              "format": "uint8",
+              "minimum": 0.0
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "PianoKey": {
+      "type": "string",
+      "enum": [
+        "A0",
+        "Bb0",
+        "B0",
+        "C1",
+        "Db1",
+        "D1",
+        "Eb1",
+        "E1",
+        "F1",
+        "Gb1",
+        "G1",
+        "Ab1",
+        "A1",
+        "Bb1",
+        "B1",
+        "C2",
+        "Db2",
+        "D2",
+        "Eb2",
+        "E2",
+        "F2",
+        "Gb2",
+        "G2",
+        "Ab2",
+        "A2",
+        "Bb2",
+        "B2",
+        "C3",
+        "Db3",
+        "D3",
+        "Eb3",
+        "E3",
+        "F3",
+        "Gb3",
+        "G3",
+        "Ab3",
+        "A3",
+        "Bb3",
+        "B3",
+        "C4",
+        "Db4",
+        "D4",
+        "Eb4",
+        "E4",
+        "F4",
+        "Gb4",
+        "G4",
+        "Ab4",
+        "A4",
+        "Bb4",
+        "B4",
+        "C5",
+        "Db5",
+        "D5",
+        "Eb5",
+        "E5",
+        "F5",
+        "Gb5",
+        "G5",
+        "Ab5",
+        "A5",
+        "Bb5",
+        "B5",
+        "C6",
+        "Db6",
+        "D6",
+        "Eb6",
+        "E6",
+        "F6",
+        "Gb6",
+        "G6",
+        "Ab6",
+        "A6",
+        "Bb6",
+        "B6",
+        "C7",
+        "Db7",
+        "D7",
+        "Eb7",
+        "E7",
+        "F7",
+        "Gb7",
+        "G7",
+        "Ab7",
+        "A7",
+        "Bb7",
+        "B7",
+        "C8"
+      ]
+    },
+    "Required_map_of_Layer_to_Boolean": {
+      "type": "object",
+      "required": [
+        "Lower1",
+        "UnusedLower2",
+        "Upper1",
+        "Upper2"
+      ],
+      "properties": {
+        "Upper1": {
+          "type": "boolean"
+        },
+        "Upper2": {
+          "type": "boolean"
+        },
+        "Lower1": {
+          "type": "boolean"
+        },
+        "UnusedLower2": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Bits_size_15": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){1}[01]{7}$"
+    },
+    "ExternalLayer": {
+      "type": "object",
+      "required": [
+        "bender",
+        "control_mfx_switch",
+        "control_slider",
+        "damper",
+        "enable",
+        "fc1",
+        "fc2",
+        "modulation",
+        "range_lower",
+        "range_upper",
+        "s1",
+        "s2",
+        "transmit_midi_messages",
+        "transpose",
+        "velocity_max",
+        "velocity_range_lower",
+        "velocity_range_upper",
+        "velocity_sensitivity"
+      ],
+      "properties": {
+        "range_lower": {
+          "$ref": "#/definitions/PianoKey"
+        },
+        "range_upper": {
+          "$ref": "#/definitions/PianoKey"
+        },
+        "velocity_range_lower": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "velocity_range_upper": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "velocity_sensitivity": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "velocity_max": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "transpose": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "damper": {
+          "type": "boolean"
+        },
+        "fc1": {
+          "type": "boolean"
+        },
+        "fc2": {
+          "type": "boolean"
+        },
+        "modulation": {
+          "type": "boolean"
+        },
+        "bender": {
+          "type": "boolean"
+        },
+        "control_mfx_switch": {
+          "type": "boolean"
+        },
+        "control_slider": {
+          "$ref": "#/definitions/Required_map_of_Layer_to_Boolean"
+        },
+        "transmit_midi_messages": {
+          "$ref": "#/definitions/Bits_size_177"
+        },
+        "s1": {
+          "type": "boolean"
+        },
+        "s2": {
+          "type": "boolean"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_1"
+        }
+      }
+    },
+    "Bits_size_177": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){22}[01]{1}$"
+    },
+    "ToneLayer": {
+      "type": "object",
+      "required": [
+        "attack_time",
+        "course_tune_semitones",
+        "cutoff",
+        "decay_time",
+        "fine_tune_percent",
+        "mono_poly",
+        "pitch_bend_range_semitones",
+        "portamento_switch",
+        "portamento_time",
+        "release_time",
+        "resonance",
+        "tone_number"
+      ],
+      "properties": {
+        "tone_number": {
+          "$ref": "#/definitions/ToneNumber"
+        },
+        "course_tune_semitones": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "fine_tune_percent": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "mono_poly": {
+          "$ref": "#/definitions/MonoPoly"
+        },
+        "pitch_bend_range_semitones": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "portamento_switch": {
+          "type": "boolean"
+        },
+        "portamento_time": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "cutoff": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "resonance": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "attack_time": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "decay_time": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "release_time": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_10"
+        }
+      }
+    },
+    "ToneNumber": {
+      "type": "integer",
+      "format": "uint16",
+      "minimum": 0.0
+    },
+    "MonoPoly": {
+      "type": "string",
+      "enum": [
+        "Mono",
+        "Poly",
+        "MonoLegato"
+      ]
+    },
+    "Bits_size_10": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){1}[01]{2}$"
+    },
+    "PianoLayer": {
+      "type": "object",
+      "required": [
+        "damper_noise_level",
+        "duplex_scale_level",
+        "hammer_noise_level",
+        "key_off_resonance_level",
+        "micro_tune_percent",
+        "nuance",
+        "sound_lift",
+        "stereo_width",
+        "stretch_tune_type",
+        "string_resonance_level",
+        "tone_character",
+        "tone_number"
+      ],
+      "properties": {
+        "tone_number": {
+          "$ref": "#/definitions/OneIndexedU8"
+        },
+        "stereo_width": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "nuance": {
+          "$ref": "#/definitions/NuanceType"
+        },
+        "duplex_scale_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "hammer_noise_level": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "damper_noise_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "string_resonance_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "key_off_resonance_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "sound_lift": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "tone_character": {
+          "$ref": "#/definitions/OffsetU8"
+        },
+        "stretch_tune_type": {
+          "$ref": "#/definitions/StretchTuneType"
+        },
+        "micro_tune_percent": {
+          "$ref": "#/definitions/Optional_map_of_MidiNote_to_Offset1Dp"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_5"
+        }
+      }
+    },
+    "OneIndexedU8": {
+      "type": "integer",
+      "format": "uint8",
+      "minimum": 0.0
+    },
+    "NuanceType": {
+      "type": "string",
+      "enum": [
+        "Type1",
+        "Type2",
+        "Type3"
+      ]
+    },
+    "StretchTuneType": {
+      "type": "string",
+      "enum": [
+        "Off",
+        "Preset",
+        "User"
+      ]
+    },
+    "Optional_map_of_MidiNote_to_Offset1Dp": {
+      "type": "object",
+      "properties": {
+        "CMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "DbMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "DMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "EbMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "EMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "FMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "GbMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "GMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "AbMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "AMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "BbMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "BMinus1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B0": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B1": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B2": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B3": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B4": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B5": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B6": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B7": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Ab8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "A8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Bb8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "B8": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "C9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Db9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "D9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Eb9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "E9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "F9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "Gb9": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "G9": {
+          "$ref": "#/definitions/Offset1Dp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Offset1Dp": {
+      "type": "number",
+      "format": "double"
+    },
+    "Bits_size_5": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{5}$"
+    },
+    "EPianoLayer": {
+      "$ref": "#/definitions/Bits_size_48"
+    },
+    "Bits_size_48": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){5}[01]{8}$"
+    },
+    "ToneWheelLayer": {
+      "$ref": "#/definitions/Bits_size_48"
+    },
+    "System": {
+      "type": "object",
+      "required": [
+        "common",
+        "compressor",
+        "favorites",
+        "hardware_version",
+        "switch_assign",
+        "unsure2",
+        "unsure3",
+        "unsure4",
+        "unsure5",
+        "unsure6",
+        "v_link"
+      ],
+      "properties": {
+        "padding1": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "common": {
+          "$ref": "#/definitions/SystemCommon"
+        },
+        "unsure2": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "padding2": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "compressor": {
+          "$ref": "#/definitions/Compressor"
+        },
+        "unsure3": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "padding3": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "v_link": {
+          "$ref": "#/definitions/VLink"
+        },
+        "unsure4": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "padding4": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "favorites": {
+          "$ref": "#/definitions/Favorites"
+        },
+        "unsure5": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "padding5": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "switch_assign": {
+          "$ref": "#/definitions/SwitchAssign"
+        },
+        "unsure6": {
+          "$ref": "#/definitions/Bits_size_16"
+        },
+        "hardware_version": {
+          "type": "string",
+          "maxLength": 16,
+          "minLength": 16
+        }
+      }
+    },
+    "Bits_size_16": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){1}[01]{8}$"
+    },
+    "SystemCommon": {
+      "type": "object",
+      "required": [
+        "damper_polarity",
+        "eq_mode",
+        "fc1_assign",
+        "fc1_polarity",
+        "fc2_assign",
+        "fc2_polarity",
+        "live_set_control_channel",
+        "master_level",
+        "master_tune_percent",
+        "part_mode",
+        "pedal_mode",
+        "receive_gm_gm2_system_on",
+        "receive_gs_reset",
+        "s1_assign",
+        "s1_s2_mode",
+        "s2_assign",
+        "temperament",
+        "temperament_key",
+        "tone_remain",
+        "unsure"
+      ],
+      "properties": {
+        "master_tune_percent": {
+          "$ref": "#/definitions/Offset1Dp"
+        },
+        "master_level": {
+          "type": "integer",
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "live_set_control_channel": {
+          "$ref": "#/definitions/OptionalMidiChannel"
+        },
+        "damper_polarity": {
+          "$ref": "#/definitions/Polarity"
+        },
+        "fc1_polarity": {
+          "$ref": "#/definitions/Polarity"
+        },
+        "fc2_polarity": {
+          "$ref": "#/definitions/Polarity"
+        },
+        "eq_mode": {
+          "$ref": "#/definitions/SettingMode"
+        },
+        "pedal_mode": {
+          "$ref": "#/definitions/SettingMode"
+        },
+        "s1_s2_mode": {
+          "$ref": "#/definitions/SettingMode"
+        },
+        "fc1_assign": {
+          "$ref": "#/definitions/PedalFunction"
+        },
+        "fc2_assign": {
+          "$ref": "#/definitions/PedalFunction"
+        },
+        "s1_assign": {
+          "$ref": "#/definitions/ButtonFunction"
+        },
+        "s2_assign": {
+          "$ref": "#/definitions/ButtonFunction"
+        },
+        "tone_remain": {
+          "type": "boolean"
+        },
+        "receive_gm_gm2_system_on": {
+          "type": "boolean"
+        },
+        "receive_gs_reset": {
+          "type": "boolean"
+        },
+        "part_mode": {
+          "$ref": "#/definitions/PartMode"
+        },
+        "unsure": {
+          "$ref": "#/definitions/Bits_size_2"
+        },
+        "temperament": {
+          "$ref": "#/definitions/Temperament"
+        },
+        "temperament_key": {
+          "$ref": "#/definitions/KeyNote"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_7"
+        }
+      }
+    },
+    "Polarity": {
+      "type": "string",
+      "enum": [
+        "Standard",
+        "Reverse"
+      ]
+    },
+    "SettingMode": {
+      "type": "string",
+      "enum": [
+        "LiveSet",
+        "System"
+      ]
+    },
+    "PartMode": {
+      "type": "string",
+      "enum": [
+        "Parts16",
+        "Parts16PlusPerformance"
+      ]
+    },
+    "Temperament": {
+      "type": "string",
+      "enum": [
+        "Equal",
+        "JustMajor",
+        "JustMinor",
+        "Pythagorean",
+        "Kirnberger",
+        "MeanTone",
+        "Werckmeister",
+        "Arabic"
+      ]
+    },
+    "KeyNote": {
+      "type": "string",
+      "enum": [
+        "C",
+        "Db",
+        "D",
+        "Eb",
+        "E",
+        "F",
+        "Gb",
+        "G",
+        "Ab",
+        "A",
+        "Bb",
+        "B"
+      ]
+    },
+    "Compressor": {
+      "$ref": "#/definitions/Bits_size_112"
+    },
+    "Bits_size_112": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){13}[01]{8}$"
+    },
+    "VLink": {
+      "$ref": "#/definitions/Bits_size_32"
+    },
+    "Bits_size_32": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){3}[01]{8}$"
+    },
+    "Favorites": {
+      "type": "object",
+      "required": [
+        "bank_a",
+        "bank_b",
+        "bank_c",
+        "bank_d",
+        "one_touch_e_piano_current_number",
+        "one_touch_piano_current_number",
+        "unused_one_touch_e_piano_current_number",
+        "unused_one_touch_piano_current_number"
+      ],
+      "properties": {
+        "one_touch_piano_current_number": {
+          "$ref": "#/definitions/OneIndexedU8"
+        },
+        "unused_one_touch_piano_current_number": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OneIndexedU8"
+          },
+          "maxItems": 2,
+          "minItems": 2
+        },
+        "one_touch_e_piano_current_number": {
+          "$ref": "#/definitions/OneIndexedU8"
+        },
+        "unused_one_touch_e_piano_current_number": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OneIndexedU8"
+          },
+          "maxItems": 2,
+          "minItems": 2
+        },
+        "bank_a": {
+          "$ref": "#/definitions/Bank"
+        },
+        "bank_b": {
+          "$ref": "#/definitions/Bank"
+        },
+        "bank_c": {
+          "$ref": "#/definitions/Bank"
+        },
+        "bank_d": {
+          "$ref": "#/definitions/Bank"
+        },
+        "unused": {
+          "$ref": "#/definitions/Bits_size_6"
+        }
+      }
+    },
+    "Bank": {
+      "type": "object",
+      "required": [
+        "favorites",
+        "unused_favorites"
+      ],
+      "properties": {
+        "favorites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Favorite"
+          },
+          "maxItems": 6,
+          "minItems": 6
+        },
+        "unused_favorites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Favorite"
+          },
+          "maxItems": 4,
+          "minItems": 4
+        }
+      }
+    },
+    "Favorite": {
+      "type": "object",
+      "required": [
+        "category",
+        "live_set_number"
+      ],
+      "properties": {
+        "category": {
+          "$ref": "#/definitions/PatchCategory"
+        },
+        "live_set_number": {
+          "$ref": "#/definitions/OneIndexedU16"
+        }
+      }
+    },
+    "PatchCategory": {
+      "type": "string",
+      "enum": [
+        "OneTouchPiano",
+        "OneTouchEPiano",
+        "Preset",
+        "User"
+      ]
+    },
+    "OneIndexedU16": {
+      "type": "integer",
+      "format": "uint16",
+      "minimum": 0.0
+    },
+    "Bits_size_6": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){0}[01]{6}$"
+    },
+    "SwitchAssign": {
+      "$ref": "#/definitions/Bits_size_160"
+    },
+    "Bits_size_160": {
+      "type": "string",
+      "pattern": "^(?:[01]{8} ){19}[01]{8}$"
+    }
+  }
+}

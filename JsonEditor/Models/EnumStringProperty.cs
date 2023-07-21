@@ -9,29 +9,13 @@ using System.Threading.Tasks;
 
 namespace JsonEditor.Models
 {
-    internal class EnumStringProperty : Property
+    internal class EnumStringProperty : StringProperty
     {
-        private string? _value;
-        public string? Value
-        {
-            get => _value;
-            set
-            {
-                if (value != _value)
-                {
-                    _value = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
         public string[] ValidStrings { get; init; } = Array.Empty<string>();
 
         public EnumStringProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
 
-        public override JToken? ValueAsJToken() => Value;
-
-        public override IView GenerateEditView()
+        public override VisualElement GenerateEditView()
         {
             var picker = new Picker
             {

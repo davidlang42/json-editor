@@ -10,15 +10,18 @@ namespace JsonEditor.Models
 {
     internal class UnsupportedProperty : Property
     {
-        public JToken? Value { get; init; }
+        public JToken Value { get; init; }
 
-        public UnsupportedProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
-
-        public override JToken? ValueAsJToken() => Value;
-
-        public override IView GenerateEditView()
+        public UnsupportedProperty(JObject parent, string key, bool required) : base(parent, key, required)
         {
-            return new Label { Text = Value?.ToString() ?? "This type is not supported." };
+            Value = parent[key] ?? JValue.CreateNull();
+        }
+
+        public override JToken ValueAsJToken() => Value;
+
+        public override VisualElement GenerateEditView()
+        {
+            return new Label { Text = Value.ToString() ?? "This type is not supported." };
         }
     }
 }

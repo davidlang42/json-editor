@@ -19,72 +19,27 @@ namespace JsonEditor.Models
             {
                 if (value != _value)
                 {
-                    var was_null = _value is null;
                     _value = value;
                     NotifyPropertyChanged();
-                    var is_null = _value is null;
-                    if (was_null != is_null)
-                        NotifyPropertyChanged(nameof(ValueIsNotNull));
                 }
             }
         }
 
-        public bool ValueIsNotNull
+        public StringProperty(JObject parent, string key, bool required) : base(parent, key, required)
         {
-            get => Value != null;
-            set
-            {
-                if (value)
-                    Value ??= "";
-                else
-                    Value = null;
-            }
+            Value = parent.Value<string>(key);
         }
 
-        public StringProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
+        public override JToken ValueAsJToken() => Value;
 
-        public override JToken? ValueAsJToken() => Value;
-
-        public override IView GenerateEditView()
+        public override VisualElement GenerateEditView()
         {
             var entry = new Entry
             {
                 BindingContext = this
             };
             entry.SetBinding(Entry.TextProperty, nameof(Value));
-            if (Required)
-            {
-                ValueIsNotNull = true;
-                return entry;
-            }
-            else
-            {
-                entry.SetBinding(VisualElement.IsVisibleProperty, nameof(ValueIsNotNull));
-                var null_switch = new Switch {
-                    BindingContext = this
-                };
-                null_switch.SetBinding(Switch.IsToggledProperty, nameof(ValueIsNotNull));
-                var label = new Label {
-                    BindingContext = this,
-                    Text = "(null)",
-                    FontAttributes = FontAttributes.Italic
-                };
-                label.SetBinding(VisualElement.IsVisibleProperty, nameof(ValueIsNotNull), converter: new InvertBoolean());
-                var grid = new Grid
-                {
-                    ColumnDefinitions =
-                    {
-                        new ColumnDefinition(GridLength.Auto),
-                        new ColumnDefinition(GridLength.Star)
-                    }
-                };
-                grid.Add(null_switch);
-                grid.Add(entry);
-                grid.SetColumn(entry, 1);
-                grid.Add(label);
-                grid.SetColumn(label, 1);
-                return grid;
-            }
+            return entry;
         }
     }
 }

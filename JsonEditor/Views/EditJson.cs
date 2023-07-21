@@ -1,4 +1,6 @@
+using JsonEditor.Converters;
 using JsonEditor.Models;
+using Newtonsoft.Json;
 
 namespace JsonEditor.Views;
 
@@ -43,6 +45,7 @@ public class EditJson : ContentPage
             ColumnDefinitions =
             {
                 new ColumnDefinition(new GridLength(200, GridUnitType.Absolute)),
+                new ColumnDefinition(new GridLength(50, GridUnitType.Absolute)),
                 new ColumnDefinition(GridLength.Star)
             }
         };
@@ -52,11 +55,33 @@ public class EditJson : ContentPage
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
             var title = property.GenerateHeaderView();
             var content = property.GenerateEditView();
-            grid.Children.Add(title);
+            grid.Add(title);
             grid.SetRow(title, i);
-            grid.Children.Add(content);
+            if (!property.Required)
+            {
+                var null_switch = new Switch
+                {
+                    BindingContext = property
+                };
+                null_switch.SetBinding(Switch.IsToggledProperty, nameof(Property.Include));
+                grid.Add(null_switch);
+                grid.SetRow(null_switch, i);
+                grid.SetColumn(null_switch, 1);
+                content.SetBinding(VisualElement.IsVisibleProperty, nameof(Property.Include));
+                var null_label = new Label
+                {
+                    BindingContext = property,
+                    Text = "(key not set)",
+                    FontAttributes = FontAttributes.Italic
+                };
+                null_label.SetBinding(VisualElement.IsVisibleProperty, nameof(Property.Include), converter: new InvertBoolean());
+                grid.Add(null_label);
+                grid.SetRow(null_label, i);
+                grid.SetColumn(null_label, 2);
+            }
+            grid.Add(content);
             grid.SetRow(content, i);
-            grid.SetColumn(content, 1);
+            grid.SetColumn(content, 2);
         }
         return grid;
     }

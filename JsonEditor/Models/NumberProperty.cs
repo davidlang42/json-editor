@@ -10,8 +10,8 @@ namespace JsonEditor.Models
 {
     internal class NumberProperty : Property
     {
-        private long? _value;
-        public long? Value
+        private long _value;
+        public long Value
         {
             get => _value;
             set
@@ -27,14 +27,18 @@ namespace JsonEditor.Models
         public double? Minimum { get; init; }
         public double? Maximum { get; init; }
 
-        public NumberProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
+        public NumberProperty(JObject parent, string key, bool required) : base(parent, key, required)
+        {
+            Value = parent.Value<long>(key);
+        }
 
-        public override JToken? ValueAsJToken() => Required ? (Value ?? 0) : Value;
+        public override JToken ValueAsJToken() => Value;
 
-        public override IView GenerateEditView()
+        public override VisualElement GenerateEditView()
         {
             var grid = new Grid
             {
+                ColumnSpacing = 5,
                 ColumnDefinitions =
                 {
                     new ColumnDefinition(new GridLength(50, GridUnitType.Absolute)),
@@ -46,7 +50,6 @@ namespace JsonEditor.Models
             {
                 BindingContext = this,
                 Keyboard = Keyboard.Numeric,
-                Placeholder = Required ? "0" : "(null)"
             };
             //TODO implement validation on text entry: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/behaviors/numeric-validation-behavior
             entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));

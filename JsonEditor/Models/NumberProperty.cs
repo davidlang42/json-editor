@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,10 +13,7 @@ namespace JsonEditor.Models
         private long? _value;
         public long? Value
         {
-            get
-            {
-                return _value;
-            }
+            get => _value;
             set
             {
                 if (value != _value)
@@ -29,11 +27,11 @@ namespace JsonEditor.Models
         public double? Minimum { get; init; }
         public double? Maximum { get; init; }
 
-        public NumberProperty(string key, bool required) : base(key, required) { }
+        public NumberProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
 
-        public override string? ToJsonAssignment() => Value == null ? null : $"\"{Key}\": {Value}";
+        public override JToken? ValueAsJToken() => Required ? (Value ?? 0) : Value;
 
-        public override IView GenerateView()
+        public override IView GenerateEditView()
         {
             var grid = new Grid
             {
@@ -47,7 +45,8 @@ namespace JsonEditor.Models
             var entry = new Entry
             {
                 BindingContext = this,
-                Keyboard = Keyboard.Numeric
+                Keyboard = Keyboard.Numeric,
+                Placeholder = Required ? "0" : "(null)"
             };
             entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
             grid.Add(entry);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JsonEditor.Models
 {
-    internal class JsonFile
+    public class JsonFile
     {
         public string Filename { get; set; }
         public JObject Root { get; }
@@ -19,6 +19,11 @@ namespace JsonEditor.Models
             Filename = filename;
             Root = root;
             Schema = schema;
+        }
+
+        public void Save()
+        {
+            File.WriteAllText(Filename, Root.ToString());
         }
 
         public static JsonFile Load(string schemaFile, string jsonFile)

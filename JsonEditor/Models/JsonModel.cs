@@ -10,11 +10,13 @@ namespace JsonEditor.Models
 {
     public class JsonModel
     {
+        public JsonFile File { get; }
         public List<Property> Properties { get; }
 
-        public JsonModel(JObject obj, JSchema schema)
+        public JsonModel(JsonFile file, JObject obj, JSchema schema)
         {
-            Properties = schema.Properties.Select(i => Property.For(i.Key, i.Value, obj[i.Key])).ToList();
+            File = file;
+            Properties = schema.Properties.Select(i => Property.For(obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
         }
     }
 }

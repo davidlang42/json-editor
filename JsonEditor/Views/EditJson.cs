@@ -4,15 +4,18 @@ namespace JsonEditor.Views;
 
 public class EditJson : ContentPage
 {
+    readonly JsonModel model;
+
     public EditJson(JsonModel model)
     {
+        this.model = model;
         Content = new VerticalStackLayout
         {
             PropertyGrid(model.Properties),
             new HorizontalStackLayout
             {
                 MakeButton("Undo", Colors.Red, Cancel_Clicked),
-                MakeButton("Accept", Colors.Green, Ok_Clicked)
+                MakeButton("Save", Colors.Green, Ok_Clicked)
             }
         };
     }
@@ -46,8 +49,8 @@ public class EditJson : ContentPage
         {
             var property = properties[i];
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            var title = new Label { Text = property.Key };
-            var content = property.GenerateView();
+            var title = property.GenerateHeaderView();
+            var content = property.GenerateEditView();
             grid.Children.Add(title);
             grid.SetRow(title, i);
             grid.Children.Add(content);
@@ -59,14 +62,17 @@ public class EditJson : ContentPage
     #endregion
 
     #region Action handlers
-    private void Cancel_Clicked(object? sender, EventArgs e)
+    private async void Cancel_Clicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        await Navigation.PopModalAsync();
     }
 
-    private void Ok_Clicked(object? sender, EventArgs e)
+    private async void Ok_Clicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        foreach (var property in model.Properties)
+            property.Commit();
+        model.File.Save();
+        await Navigation.PopModalAsync();
     }
     #endregion
 }

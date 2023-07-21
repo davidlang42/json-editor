@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -9,18 +10,15 @@ namespace JsonEditor.Models
 {
     internal class UnsupportedProperty : Property
     {
-        readonly string? rawJson;
+        public JToken? Value { get; init; }
 
-        public UnsupportedProperty(string key, bool required, string? raw_json) : base(key, required)
+        public UnsupportedProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
+
+        public override JToken? ValueAsJToken() => Value;
+
+        public override IView GenerateEditView()
         {
-            rawJson = raw_json;
-        }
-
-        public override string? ToJsonAssignment() => rawJson == null ? null : $"\"{Key}\": {rawJson}";
-
-        public override IView GenerateView()
-        {
-            return new Label { Text = rawJson ?? "This type is not supported." };
+            return new Label { Text = Value?.ToString() ?? "This type is not supported." };
         }
     }
 }

@@ -15,8 +15,11 @@ namespace JsonEditor.Models
         public string Key { get; }
         public bool Required { get; }
 
-        public Property(string key, bool required)
+        readonly JObject parent;
+
+        public Property(JObject parent, string key, bool required)
         {
+            this.parent = parent;
             Key = key;
             Required = required;
         }
@@ -28,30 +31,48 @@ namespace JsonEditor.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>Convert this property's current value to a Json assignment, or null if the value is not set.</summary>
-        public abstract string? ToJsonAssignment();
+        public abstract JToken? ValueAsJToken();
 
-        public abstract IView GenerateView();
-
-        public static Property For(string key, JSchema schema, JToken? current)
+        public void Commit()
         {
-            var value = (current as JValue)?.Value;
-            var required = schema.Required.Contains(key);
+            var value = ValueAsJToken();
+            if (value == null)
+                parent.Remove(Key);
+            else
+                parent[Key] = value;
+        }
+
+        public abstract IView GenerateEditView();
+
+        public IView GenerateHeaderView()
+        {
+            return new Label
+            {
+                Text = Key,
+                FontAttributes = Required ? FontAttributes.Bold : FontAttributes.None
+            };
+        }
+
+        public static Property For(JObject parent, string key, JSchema schema, bool required)
+        {
+            var token = parent[key];
+            var value = (token as JValue)?.Value;
             Property property = schema.Type switch
             {
-                JSchemaType.String => new StringProperty(key, required) {
-                    Value = value as string ?? ""
+                JSchemaType.String => new StringProperty(parent, key, required) {
+                    Value = value as string
                 },
-                JSchemaType.Integer => new NumberProperty(key, required) {
-                    Value = value as long? ?? 0,
-                    Minimum = ToNullableInt64(schema.Minimum),
-                    Maximum = ToNullableInt64(schema.Maximum)
+                JSchemaType.Integer => new NumberProperty(parent, key, required) {
+                    Value = value as long?,
+                    Minimum = schema.Minimum,
+                    Maximum = schema.Maximum
                 },
-                _ => new UnsupportedProperty(key, required, current?.ToString())
+                _ => new UnsupportedProperty(parent, key, required)
+                {
+                    Value = token
+                }
             };
             return property;
         }
-
-        static long? ToNullableInt64(double? number_to_round) => number_to_round == null ? null : Convert.ToInt64(number_to_round);
     }
 }

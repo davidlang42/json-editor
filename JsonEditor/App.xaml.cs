@@ -11,7 +11,7 @@ public partial class App : Application
 
         var path = $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\..\\..\\..\\..\\examples";
         var file = JsonFile.Load($"{path}\\song_rhythm-schema.json", $"{path}\\song_rhythm.json");
-        var model = new JsonModel(file.Root, file.Schema);
+        var model = new JsonModel(file, file.Root, file.Schema);
 
         MainPage = new NavigationPage(new EditJson(model));
     }

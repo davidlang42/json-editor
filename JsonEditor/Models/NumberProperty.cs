@@ -9,8 +9,8 @@ namespace JsonEditor.Models
     internal class NumberProperty : Property
     {
         public long? Value { get; set; }
-        public long? Minimum { get; set; }
-        public long? Maximum { get; set; }
+        public double? Minimum { get; set; }
+        public double? Maximum { get; set; }
 
         public NumberProperty(string key) : base(key) { }
 
@@ -18,13 +18,46 @@ namespace JsonEditor.Models
 
         public override IView GenerateView()
         {
-            var control = new Entry
+            var grid = new Grid
+            {
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition(new GridLength(50, GridUnitType.Absolute)),
+                    new ColumnDefinition(GridLength.Auto),
+                    new ColumnDefinition(GridLength.Star)
+                }
+            };
+            var entry = new Entry
             {
                 BindingContext = this,
                 Keyboard = Keyboard.Numeric
             };
-            control.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
-            return control;
+            entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
+            grid.Add(entry);
+            var stepper = new Stepper
+            {
+                BindingContext = this,
+                Increment = 1
+            };
+            if (Minimum.HasValue)
+                stepper.Minimum = Minimum.Value;
+            if (Maximum.HasValue)
+                stepper.Maximum = Maximum.Value;
+            stepper.SetBinding(Stepper.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
+            grid.Add(stepper);
+            grid.SetColumn(stepper, 1);
+            if (Minimum.HasValue && Maximum.HasValue)
+            {
+                var slider = new Slider
+                {
+                    Minimum = Minimum.Value,
+                    Maximum = Maximum.Value
+                };
+                slider.SetBinding(Slider.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
+                grid.Add(slider);
+                grid.SetColumn(slider, 2);
+            }
+            return grid;
         }
     }
 }

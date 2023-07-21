@@ -9,6 +9,7 @@ public class EditJson : ContentPage
     public EditJson(JsonModel model)
     {
         this.model = model;
+        //TODO show the full path (RD300NX.user_set[7].common) at the top
         Content = new VerticalStackLayout
         {
             PropertyGrid(model.Properties),

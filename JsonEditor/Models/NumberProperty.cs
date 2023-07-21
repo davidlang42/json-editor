@@ -48,6 +48,7 @@ namespace JsonEditor.Models
                 Keyboard = Keyboard.Numeric,
                 Placeholder = Required ? "0" : "(null)"
             };
+            //TODO implement validation on text entry: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/behaviors/numeric-validation-behavior
             entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
             grid.Add(entry);
             var stepper = new Stepper

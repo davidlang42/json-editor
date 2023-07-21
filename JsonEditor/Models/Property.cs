@@ -46,6 +46,7 @@ namespace JsonEditor.Models
 
         public IView GenerateHeaderView()
         {
+            //TODO right click property header > copy, paste (json as text)
             return new Label
             {
                 Text = Key,
@@ -59,8 +60,11 @@ namespace JsonEditor.Models
             var value = (token as JValue)?.Value;
             Property property = schema.Type switch
             {
+                //TODO implement string enums as picker
                 JSchemaType.String => new StringProperty(parent, key, required) {
                     Value = value as string
+                    //TODO implement min/max length
+                    //TODO implement pattern validation
                 },
                 JSchemaType.Integer => new NumberProperty(parent, key, required) {
                     Value = value as long?,
@@ -71,6 +75,9 @@ namespace JsonEditor.Models
                 {
                     Value = value as bool?
                 },
+                //TODO implement object as button to edit (labelled as Object Type Name) with text json preview*
+                //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview*)
+                //*preview should be comma separated values, ignoring key names, traversing objects deeply
                 _ => new UnsupportedProperty(parent, key, required)
                 {
                     Value = token

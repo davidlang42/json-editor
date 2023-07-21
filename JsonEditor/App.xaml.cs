@@ -9,6 +9,7 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
+        //TODO implement file picker window: https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-picker?tabs=windows
         var path = $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\..\\..\\..\\..\\examples";
         var file = JsonFile.Load($"{path}\\song_rhythm-schema.json", $"{path}\\song_rhythm.json");
         var model = new JsonModel(file, file.Root, file.Schema);

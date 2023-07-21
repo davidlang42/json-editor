@@ -9,11 +9,11 @@ namespace JsonEditor.Models
 {
     internal class StringProperty : Property
     {
-        public string Value { get; set; } = "";
+        public string? Value { get; set; }
 
         public StringProperty(string key) : base(key) { }
 
-        public override string ToJson() => $"\"{JsonConvert.ToString(Value)}\"";
+        public override string? ToJsonAssignment() => Value == null ? null : $"\"{Key}\": \"{JsonConvert.ToString(Value)}\"";
 
         public override IView GenerateView()
         {

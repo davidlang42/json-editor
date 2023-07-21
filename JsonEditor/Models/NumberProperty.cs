@@ -8,11 +8,13 @@ namespace JsonEditor.Models
 {
     internal class NumberProperty : Property
     {
-        public long Value { get; set; }
+        public long? Value { get; set; }
+        public long? Minimum { get; set; }
+        public long? Maximum { get; set; }
 
         public NumberProperty(string key) : base(key) { }
 
-        public override string ToJson() => Value.ToString();
+        public override string? ToJsonAssignment() => Value == null ? null : $"\"{Key}\": {Value}";
 
         public override IView GenerateView()
         {

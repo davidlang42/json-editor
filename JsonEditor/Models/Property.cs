@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,10 @@ namespace JsonEditor.Models
             var value = (token as JValue)?.Value;
             Property property = schema.Type switch
             {
-                //TODO implement string enums as picker
+                JSchemaType.String when schema.Enum.Count > 0 => new EnumStringProperty(parent, key, required) {
+                    Value = value as string,
+                    ValidStrings = schema.Enum.Select(j => ((JValue)j).Value as string ?? throw new ApplicationException($"Invalid enum: {j}")).ToArray()
+                },
                 JSchemaType.String => new StringProperty(parent, key, required) {
                     Value = value as string
                     //TODO implement min/max length

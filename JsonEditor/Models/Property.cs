@@ -89,6 +89,7 @@ namespace JsonEditor.Models
                 //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview*)
                 //*preview should be comma separated values, ignoring key names, traversing objects deeply
                 _ => new UnsupportedProperty(parent, key, required)
+                //TODO implement "oneOf" types
             };
             property.Include = required || parent.ContainsKey(key);
             return property;

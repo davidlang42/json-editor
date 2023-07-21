@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "SongRhythm",
+    "type": "object",
+    "required": [
+      "audio_level",
+      "rhythm_level",
+      "rhythm_midi_out_channel",
+      "rhythm_output_port",
+      "rhythm_pattern",
+      "rhythm_set",
+      "song_level",
+      "song_output_port"
+    ],
+    "properties": {
+      "audio_level": {
+        "type": "integer",
+        "format": "uint8",
+        "minimum": 0.0
+      },
+      "rhythm_level": {
+        "type": "integer",
+        "format": "uint8",
+        "minimum": 0.0
+      },
+      "rhythm_midi_out_channel": {
+        "$ref": "#/definitions/OptionalMidiChannel"
+      },
+      "rhythm_output_port": {
+        "$ref": "#/definitions/OutputPort"
+      },
+      "rhythm_pattern": {
+        "type": "integer",
+        "format": "uint8",
+        "minimum": 0.0
+      },
+      "rhythm_set": {
+        "type": "integer",
+        "format": "uint8",
+        "minimum": 0.0
+      },
+      "song_level": {
+        "type": "integer",
+        "format": "uint8",
+        "minimum": 0.0
+      },
+      "song_output_port": {
+        "$ref": "#/definitions/OutputPort"
+      },
+      "unused1": {
+        "$ref": "#/definitions/Bits_size_1"
+      },
+      "unused2": {
+        "$ref": "#/definitions/Bits_size_1"
+      },
+      "unused3": {
+        "$ref": "#/definitions/Bits_size_2"
+      }
+    },
+    "definitions": {
+        "OptionalMidiChannel": {
+            "type": "string",
+            "enum": [
+              "Off",
+              "Channel1",
+              "Channel2",
+              "Channel3",
+              "Channel4",
+              "Channel5",
+              "Channel6",
+              "Channel7",
+              "Channel8",
+              "Channel9",
+              "Channel10",
+              "Channel11",
+              "Channel12",
+              "Channel13",
+              "Channel14",
+              "Channel15",
+              "Channel16"
+            ]
+        },
+        "OutputPort": {
+            "type": "string",
+            "enum": [
+                "All",
+                "Int",
+                "Out1",
+                "Out2",
+                "Out3",
+                "Usb"
+            ]
+        },
+        "Bits_size_1": {
+            "type": "string"
+        },
+        "Bits_size_2": {
+            "type": "string"
+        }
+    }
+}

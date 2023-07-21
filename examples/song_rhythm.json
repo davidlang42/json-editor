@@ -1,0 +1,10 @@
+{
+  "audio_level": 64,
+  "song_level": 127,
+  "song_output_port": "All",
+  "rhythm_set": 2,
+  "rhythm_level": 70,
+  "rhythm_pattern": 57,
+  "rhythm_midi_out_channel": "Channel10",
+  "rhythm_output_port": "All"
+}

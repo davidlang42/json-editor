@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Behaviors;
+using JsonEditor.Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonEditor.Models
+namespace JsonEditor.Values
 {
-    internal class NumberProperty : Property
+    internal class NumberValue : Value
     {
         private long _value;
         public long Value
@@ -28,12 +29,7 @@ namespace JsonEditor.Models
         public double? Minimum { get; init; }
         public double? Maximum { get; init; }
 
-        public NumberProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
-        {
-            Value = parent.Value<long>(key);
-        }
-
-        public override JToken ValueAsJToken()
+        public override JToken AsJToken()
         {
             if (Minimum.HasValue && Value < Minimum.Value)
                 return Minimum.Value;
@@ -42,49 +38,52 @@ namespace JsonEditor.Models
             return Value;
         }
 
-        public override VisualElement GenerateEditView()
+        public override VisualElement EditView
         {
-            var grid = new Grid
+            get
             {
-                ColumnSpacing = 5,
-                ColumnDefinitions =
+                var grid = new Grid
+                {
+                    ColumnSpacing = 5,
+                    ColumnDefinitions =
                 {
                     new ColumnDefinition(new GridLength(50, GridUnitType.Absolute)),
                     new ColumnDefinition(GridLength.Auto),
                     new ColumnDefinition(GridLength.Star)
                 }
-            };
-            var entry = new Entry
-            {
-                BindingContext = this,
-                Keyboard = Keyboard.Numeric,
-            };
-            entry.Behaviors.Add(NumericValidation(Minimum, Maximum));
-            entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
-            grid.Add(entry);
-            var stepper = new Stepper
-            {
-                BindingContext = this,
-                Increment = 1,
-                Minimum = Minimum ?? long.MinValue,
-                Maximum = Maximum ?? long.MaxValue,
-            };
-            stepper.SetBinding(Stepper.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
-            grid.Add(stepper);
-            grid.SetColumn(stepper, 1);
-            if (Minimum.HasValue && Maximum.HasValue)
-            {
-                var slider = new Slider
+                };
+                var entry = new Entry
                 {
                     BindingContext = this,
-                    Minimum = Minimum.Value,
-                    Maximum = Maximum.Value
+                    Keyboard = Keyboard.Numeric,
                 };
-                slider.SetBinding(Slider.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
-                grid.Add(slider);
-                grid.SetColumn(slider, 2);
+                entry.Behaviors.Add(NumericValidation(Minimum, Maximum));
+                entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
+                grid.Add(entry);
+                var stepper = new Stepper
+                {
+                    BindingContext = this,
+                    Increment = 1,
+                    Minimum = Minimum ?? long.MinValue,
+                    Maximum = Maximum ?? long.MaxValue,
+                };
+                stepper.SetBinding(Stepper.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
+                grid.Add(stepper);
+                grid.SetColumn(stepper, 1);
+                if (Minimum.HasValue && Maximum.HasValue)
+                {
+                    var slider = new Slider
+                    {
+                        BindingContext = this,
+                        Minimum = Minimum.Value,
+                        Maximum = Maximum.Value
+                    };
+                    slider.SetBinding(Slider.ValueProperty, new Binding(nameof(Value), BindingMode.TwoWay));
+                    grid.Add(slider);
+                    grid.SetColumn(slider, 2);
+                }
+                return grid;
             }
-            return grid;
         }
 
         private static NumericValidationBehavior NumericValidation(double? minimum, double? maximum)

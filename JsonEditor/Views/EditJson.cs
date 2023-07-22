@@ -56,7 +56,7 @@ public class EditJson : ContentPage
             var property = properties[i];
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
             var title = property.GenerateHeaderView();
-            var content = property.GenerateEditView();
+            var content = property.Value.EditView;
             grid.Add(title);
             grid.SetRow(title, i);
             if (!property.Required)

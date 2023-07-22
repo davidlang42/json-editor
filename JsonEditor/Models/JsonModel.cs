@@ -17,7 +17,7 @@ namespace JsonEditor.Models
         public JsonModel(JsonFile file, JObject obj, JSchema schema)
         {
             File = file;
-            Properties = schema.Properties.Select(i => Property.For(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
+            Properties = schema.Properties.Select(i => new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
         }
 
         public void EditObject(JObject obj, JSchema schema)

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Behaviors;
 using JsonEditor.Converters;
 using JsonEditor.Extensions;
+using JsonEditor.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,11 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonEditor.Models
+namespace JsonEditor.Values
 {
-    internal class StringProperty : Property
+    internal class StringValue : Value
     {
-        private string _value;
+        private string _value = "";
         public string Value
         {
             get => _value;
@@ -32,12 +33,7 @@ namespace JsonEditor.Models
         public int? MinLength { get; init; }
         public int? MaxLength { get; init; }
 
-        public StringProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
-        {
-            _value = parent.Value<string>(key) ?? "";
-        }
-
-        public override JToken ValueAsJToken()
+        public override JToken AsJToken()
         {
             if (MinLength.HasValue && Value.Length < MinLength.Value)
                 return Value.PadRight(MinLength.Value);
@@ -46,16 +42,19 @@ namespace JsonEditor.Models
             return Value; // this allows saving a string which doesn't match the regex pattern, but we can't easily fix that
         }
 
-        public override VisualElement GenerateEditView()
+        public override VisualElement EditView
         {
-            var entry = new Entry
+            get
             {
-                BindingContext = this,
-                MaxLength = MaxLength ?? int.MaxValue
-            };
-            entry.Behaviors.Add(TextValidation(MinLength, MaxLength, Pattern));
-            entry.SetBinding(Entry.TextProperty, nameof(Value));
-            return entry;
+                var entry = new Entry
+                {
+                    BindingContext = this,
+                    MaxLength = MaxLength ?? int.MaxValue
+                };
+                entry.Behaviors.Add(TextValidation(MinLength, MaxLength, Pattern));
+                entry.SetBinding(Entry.TextProperty, nameof(Value));
+                return entry;
+            }
         }
 
         private static TextValidationBehavior TextValidation(int? minLength, int? maxLength, string? pattern)

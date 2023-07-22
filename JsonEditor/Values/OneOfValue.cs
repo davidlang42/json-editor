@@ -36,8 +36,14 @@ namespace JsonEditor.Values
         {
             if (possible_schemas.Length == 0)
                 throw new ApplicationException("At least one JSchema must be provided.");
-            PossibleValues = possible_schemas.Select(s => For(edit_object_action, value, s)).ToArray();
-            selectedValue = PossibleValues.FirstOrDefault(v => v.AsJToken().Type != JTokenType.Null) ?? PossibleValues.First(); //TODO this isn't working to select the current value
+            PossibleValues = new Value[possible_schemas.Length];
+            for (var i = 0; i < possible_schemas.Length; i++)
+            {
+                PossibleValues[i] = For(edit_object_action, value, possible_schemas[i]);
+                if (selectedValue == null && value?.IsValid(possible_schemas[i]) == true)
+                    selectedValue = PossibleValues[i];
+            }
+            selectedValue ??= PossibleValues.First();
         }
 
         public override JToken AsJToken() => SelectedValue.AsJToken(); //TODO clicking save on one option of a oneOf type doesn't save it or update it back on the previous page

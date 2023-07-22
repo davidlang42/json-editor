@@ -77,11 +77,8 @@ namespace JsonEditor.Values
                 {
                     Value = (value as JValue)?.Value as bool? ?? false
                 },
-                JSchemaType.Array when schema.Items.SingleOrDefaultSafe() is JSchema one_type_of_item => new ArrayValue(edit_object_action, value as JArray ?? new JArray(), one_type_of_item)
-                {
-                    MinItems = schema.MinimumItems,
-                    MaxItems = schema.MaximumItems
-                },
+                JSchemaType.Array when schema.Items.SingleOrDefaultSafe() is JSchema one_type_of_item
+                    => new ArrayValue(edit_object_action, value as JArray ?? new JArray(), one_type_of_item, schema.MinimumItems, schema.MaximumItems),
                 JSchemaType.Object => new ObjectValue(edit_object_action)
                 {
                     Value = value as JObject ?? new JObject(),

@@ -18,17 +18,36 @@ namespace JsonEditor.Values
     {
         public ObservableCollection<Value> Items { get; }
 
-        //TODO implement min/max array items
-        public long? MinItems { get; init; }
-        public long? MaxItems { get; init; }
+        public long? MinItems { get; }
+        public long? MaxItems { get; }
 
-        public ArrayValue(JsonModel.EditAction edit_object_action, JArray array, JSchema item_schema)
+        public bool IsFixedSize() => MinItems.HasValue && MaxItems.HasValue && MinItems.Value == MaxItems.Value;
+
+        private JsonModel.EditAction editObjectAction;
+        private JSchema itemSchema;
+
+        public ArrayValue(JsonModel.EditAction edit_object_action, JArray array, JSchema item_schema, long? min_items, long? max_items)
         {
+            editObjectAction = edit_object_action;
+            itemSchema = item_schema;
+            MinItems = min_items;
+            MaxItems = max_items;
             Items = new ObservableCollection<Value>();
             for (var i = 0; i < array.Count; i++)
             {
-                var i_copy = i;
+                if (MaxItems.HasValue && i == MaxItems.Value)
+                    break;
+                var i_copy = i;//TODO this hack wont work now that items can be moved around
                 Items.Add(For((p, o, s, r) => edit_object_action($"[{i_copy}]{p}", o, s, r), array[i], item_schema));
+            }
+            if (MinItems.HasValue)
+            {
+                var template = array.Last ?? throw new ApplicationException("Array must contain at least one element when MinItems > 0");
+                while (Items.Count < MinItems.Value)
+                {
+                    var i_copy = Items.Count;//TODO this hack wont work now that items can be moved around
+                    Items.Add(For((p, o, s, r) => edit_object_action($"[{i_copy}]{p}", o, s, r), template.DeepClone(), item_schema));
+                }
             }
         }
 
@@ -58,21 +77,84 @@ namespace JsonEditor.Values
         {
             get
             {
-                //TODO adds buttons to move array items up/down, add/delete/duplicate
-                var collection = new CollectionView
+                return new Frame
                 {
-                    ItemsSource = Items,//TODO does this need binding to get change events?
-                    ItemTemplate = new DataTemplate(GenerateDataTemplate),
+                    BorderColor = Colors.Black,
+                    Content = new CollectionView
+                    {
+                        ItemsSource = Items,
+                        ItemTemplate = new DataTemplate(GenerateDataTemplate),
+                    }
                 };
-                return collection;
             }
         }
         
         private object GenerateDataTemplate()
         {
-            var view = new ContentView(); // BindingContext will be set to a Value
+            // BindingContext will be set to a Value
+            var layout = new HorizontalStackLayout
+            {
+                ArrayButton("↑", MoveUp_Clicked),//TODO disable at top
+                ArrayButton("↓", MoveDown_Clicked)//TODO disable at bottom
+            };
+            if (!IsFixedSize())
+            {
+                layout.Add(ArrayButton("✗", Remove_Clicked)); //TODO disable if going to break min/max bounds
+                layout.Add(ArrayButton("+", Duplicate_Clicked)); //TODO disable if going to break min/max bounds
+            };
+            var label = new Label { Text = "[?]" }; //TODO make label show array index
+            layout.Add(label);
+            var view = new ContentView();
             view.SetBinding(ContentView.ContentProperty, nameof(Value.EditView));
-            return view; //TODO add label to show array index
+            layout.Add(view);
+            return layout;
+        }
+
+        static Button ArrayButton(string text, EventHandler handler)
+        {
+            var button = new Button
+            {
+                Text = text,
+                BackgroundColor = Colors.Orange
+            };
+            button.Clicked += handler;
+            return button;
+        }
+
+        private void MoveUp_Clicked(object? sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is Value value)
+            {
+                var index = Items.IndexOf(value);
+                if (index > 0)
+                    Items.Move(index, index - 1);
+            }
+        }
+
+        private void MoveDown_Clicked(object? sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is Value value)
+            {
+                var index = Items.IndexOf(value);
+                if (index < Items.Count - 1)
+                    Items.Move(index, index + 1);
+            }
+        }
+
+        private void Remove_Clicked(object? sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is Value value && (!MinItems.HasValue || Items.Count > MinItems.Value))
+                Items.Remove(value);
+        }
+
+        private void Duplicate_Clicked(object? sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is Value value && (!MaxItems.HasValue || Items.Count < MaxItems.Value))
+            {
+                var index = Items.IndexOf(value);
+                var new_item = For((p, o, s, r) => editObjectAction($"[{index}]{p}", o, s, r), value.AsJToken().DeepClone(), itemSchema);//TODO this hack wont work now that items can be moved around
+                Items.Insert(index + 1, new_item);
+            }
         }
     }
 }

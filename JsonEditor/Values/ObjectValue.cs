@@ -46,12 +46,25 @@ namespace JsonEditor.Values
         {
             get
             {
+                var copy = new Button
+                {
+                    Text = "🗐",
+                    TextColor = Colors.Black,
+                    BackgroundColor = Colors.LightGray
+                };
+                copy.Clicked += Copy_Clicked;
+                var paste = new Button
+                {
+                    Text = "📋",
+                    TextColor = Colors.Black,
+                    BackgroundColor = Colors.LightGray
+                };
+                paste.Clicked += Paste_Clicked;
                 var button = new Button
                 {
-                    BindingContext = this,
                     Text = this.ToString()
                 };
-                button.Clicked += Button_Clicked;
+                button.Clicked += Edit_Clicked;
                 var label = new Label
                 {
                     BindingContext = this,
@@ -64,19 +77,33 @@ namespace JsonEditor.Values
                     ColumnDefinitions =
                     {
                         new ColumnDefinition(GridLength.Auto),
+                        new ColumnDefinition(GridLength.Auto),
+                        new ColumnDefinition(GridLength.Auto),
                         new ColumnDefinition(GridLength.Star)
                     }
                 };
                 grid.Add(button);
-                grid.Add(label);
-                grid.SetColumn(label, 1);
+                grid.Add(copy, 1);
+                grid.Add(paste, 2);
+                grid.Add(label, 3);
                 return grid;
             }
         }
 
-        private void Button_Clicked(object? sender, EventArgs e)
+        private void Edit_Clicked(object? sender, EventArgs e)
         {
             editAction("", Value, ObjectSchema.OrThrow(), () => NotifyPropertyChanged(nameof(Value)));
+        }
+
+        private async void Copy_Clicked(object? sender, EventArgs e)
+        {
+            await Clipboard.Default.SetTextAsync(Value.ToString(Formatting.Indented));
+        }
+
+        private async void Paste_Clicked(object? sender, EventArgs e)
+        {
+            if (await Clipboard.Default.GetTextAsync() is string json && JObject.Parse(json) is JObject parsed)
+                Value = parsed;
         }
     }
 }

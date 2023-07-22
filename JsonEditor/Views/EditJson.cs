@@ -91,7 +91,6 @@ public class EditJson : ContentPage
         {
             var property = properties[i];
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            //TODO right click property header > copy, paste (json as text)
             var title = new Label
             {
                 Text = property.Key,

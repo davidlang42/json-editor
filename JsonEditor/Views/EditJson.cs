@@ -14,15 +14,29 @@ public class EditJson : ContentPage
         this.model = model;
         model.NavigateAction = NavigateAction;
         //TODO show the full path (RD300NX.user_set[7].common) at the top
-        Content = new VerticalStackLayout
+        var main = new ScrollView
         {
-            PropertyGrid(model.Properties), //TODO make property grid scrollable, might need to wrap in a ContentView
-            new HorizontalStackLayout
+            Content = PropertyGrid(model.Properties),
+        };
+        var footer = new HorizontalStackLayout
+        {
+            MakeButton("Undo", Colors.Red, Cancel_Clicked),
+            MakeButton("Save", Colors.Green, Ok_Clicked)
+        };
+        var grid = new Grid
+        {
+            Margin = 5,
+            RowSpacing = 5,
+            RowDefinitions =
             {
-                MakeButton("Undo", Colors.Red, Cancel_Clicked),
-                MakeButton("Save", Colors.Green, Ok_Clicked)
+                new RowDefinition(GridLength.Star),
+                new RowDefinition(GridLength.Auto)
             }
         };
+        grid.Add(main);
+        grid.Add(footer);
+        grid.SetRow(footer, 1);
+        Content = grid;
     }
 
     #region View generation

@@ -20,7 +20,7 @@ public class EditJson : ContentPage
         };
         var footer = new HorizontalStackLayout
         {
-            MakeButton("Undo", Colors.Red, Cancel_Clicked),
+            MakeButton("Back", Colors.Red, Cancel_Clicked),
             MakeButton("Save", Colors.Green, Ok_Clicked)
         };
         var grid = new Grid
@@ -69,7 +69,12 @@ public class EditJson : ContentPage
         {
             var property = properties[i];
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            var title = property.GenerateHeaderView();
+            //TODO right click property header > copy, paste (json as text)
+            var title = new Label
+            {
+                Text = property.Label,
+                FontAttributes = property.Required ? FontAttributes.Bold : FontAttributes.None
+            };
             var content = new ContentView { Content = property.Value.EditView };
             grid.Add(title);
             grid.SetRow(title, i);

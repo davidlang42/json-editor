@@ -23,7 +23,7 @@ namespace JsonEditor.Values
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public abstract View EditView { get; } //TODO make sure this getter is only called once, otherwise cache it
+        public abstract View EditView { get; }
 
         public abstract JToken AsJToken();
 
@@ -53,7 +53,6 @@ namespace JsonEditor.Values
         {
             return schema.Type switch
             {
-                //TODO implement "oneOf" types
                 JSchemaType.String when schema.Enum.Count > 0 => new EnumStringValue
                 {
                     Value = (value as JValue)?.Value as string ?? "",
@@ -86,6 +85,7 @@ namespace JsonEditor.Values
                     Value = value as JObject ?? new JObject(),
                     ObjectSchema = schema,
                 },
+                //TODO implement "oneOf" types
                 _ => new RawValue
                 {
                     Value = value?.ToString() ?? ""

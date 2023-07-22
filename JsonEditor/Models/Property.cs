@@ -62,15 +62,5 @@ namespace JsonEditor.Models
             else
                 parent.Remove(Label);
         }
-
-        public IView GenerateHeaderView() //TODO this doesn't really belong here
-        {
-            //TODO right click property header > copy, paste (json as text)
-            return new Label
-            {
-                Text = Label,
-                FontAttributes = Required ? FontAttributes.Bold : FontAttributes.None
-            };
-        }
     }
 }

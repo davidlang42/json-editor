@@ -1,7 +1,10 @@
-﻿using JsonEditor.Extensions;
+﻿using CommunityToolkit.Maui.Behaviors;
+using JsonEditor.Behaviors;
+using JsonEditor.Extensions;
 using JsonEditor.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +30,12 @@ namespace JsonEditor.Values
             }
         }
 
-        public RawValue(JToken? value)
+        readonly JSchema schema;
+
+        public RawValue(JToken? value, JSchema schema)
         {
             _value = value?.ToString(Formatting.Indented) ?? "";
+            this.schema = schema;
         }
 
         public override JToken AsJToken() => JToken.Parse(Value);
@@ -41,12 +47,25 @@ namespace JsonEditor.Values
                 var editor = new Editor
                 {
                     BindingContext = this,
-                    Placeholder = "Raw json"
+                    Placeholder = "Raw JSON"
                 };
-                //TODO validation for json
+                editor.Behaviors.Add(JsonValidation(schema));
                 editor.SetBinding(Editor.TextProperty, nameof(Value));
                 return editor;
             }
-        } 
+        }
+
+        private static JsonValidationBehavior JsonValidation(JSchema schema)
+        {
+            var behavior = new JsonValidationBehavior
+            {
+                InvalidStyle = InvalidStyle(),
+                ValidStyle = ValidStyle(),
+                Flags = ValidationFlags.ValidateOnValueChanged,
+                Schema = schema
+            };
+
+            return behavior;
+        }
     }
 }

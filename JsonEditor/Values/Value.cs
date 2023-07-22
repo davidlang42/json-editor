@@ -86,7 +86,7 @@ namespace JsonEditor.Values
                     ObjectSchema = schema,
                 },
                 //TODO implement "oneOf" types
-                _ => new RawValue(value)
+                _ => new RawValue(value, schema)
             };
         }
     }

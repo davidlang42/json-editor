@@ -27,6 +27,8 @@ namespace JsonEditor.Values
 
         public abstract JToken AsJToken();
 
+        //TODO implement public override abstract string ToString(); so that OneOf types make sense
+
         protected static Style ValidStyle()
         {
             var valid = new Style(typeof(VisualElement));
@@ -85,7 +87,7 @@ namespace JsonEditor.Values
                     Value = value as JObject ?? new JObject(),
                     ObjectSchema = schema,
                 },
-                //TODO implement "oneOf" types
+                null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, value, schema.OneOf.ToArray()),
                 _ => new RawValue(value, schema)
             };
         }

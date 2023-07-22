@@ -27,7 +27,7 @@ namespace JsonEditor.Models
             }
         }
 
-        public string ObjectType { get; init; } = "(object)"; //TODO set object type name
+        public string? ObjectType { get; init; }
         public JSchema? ObjectSchema { get; init; }
 
         public ObjectProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
@@ -42,7 +42,7 @@ namespace JsonEditor.Models
             var button = new Button
             {
                 BindingContext = this,
-                Text = ObjectType
+                Text = ObjectType ?? "Object"
             };
             button.Clicked += Button_Clicked;
             var label = new Label

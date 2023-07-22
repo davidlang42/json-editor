@@ -25,6 +25,7 @@ public class EditJson : ContentPage
         {
             loaded = true;
             Thread.Sleep(1); // allows Loading view to be shown
+            Window.Title = $"JSON Editor: {model.File.Filename}";
             var view = await Task.Run(GenerateMainView);
             Content = view;
         }

@@ -34,10 +34,19 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => JToken.Parse(Value);
 
-        public override View EditView => new Label
+        public override View EditView
         {
-            Text = $"Unsupported type: {Value.Replace(Environment.NewLine, "").Truncate(400)}", //TODO make this editable as text, but be aware it will be ultra slow for large sections
-            LineBreakMode = LineBreakMode.NoWrap
-        };
+            get
+            {
+                var editor = new Editor
+                {
+                    BindingContext = this,
+                    Placeholder = "Raw json"
+                };
+                //TODO validation for json
+                editor.SetBinding(Editor.TextProperty, nameof(Value));
+                return editor;
+            }
+        } 
     }
 }

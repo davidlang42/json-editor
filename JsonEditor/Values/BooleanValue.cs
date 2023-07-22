@@ -28,7 +28,7 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => Value;
 
-        public override VisualElement EditView
+        public override View EditView
         {
             get
             {

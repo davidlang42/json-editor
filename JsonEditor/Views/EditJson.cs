@@ -56,7 +56,7 @@ public class EditJson : ContentPage
             var property = properties[i];
             grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
             var title = property.GenerateHeaderView();
-            var content = property.Value.EditView;
+            var content = new ContentView { Content = property.Value.EditView };
             grid.Add(title);
             grid.SetRow(title, i);
             if (!property.Required)
@@ -69,14 +69,15 @@ public class EditJson : ContentPage
                 grid.Add(null_switch);
                 grid.SetRow(null_switch, i);
                 grid.SetColumn(null_switch, 1);
-                content.SetBindingRecursively(VisualElement.IsVisibleProperty, nameof(Property.Include));
+                content.BindingContext = property;
+                content.SetBinding(ContentView.IsVisibleProperty, nameof(Property.Include));
                 var null_label = new Label
                 {
                     BindingContext = property,
                     Text = "(key not set)",
                     FontAttributes = FontAttributes.Italic
                 };
-                null_label.SetBinding(VisualElement.IsVisibleProperty, nameof(Property.Include), converter: new InvertBoolean());
+                null_label.SetBinding(Label.IsVisibleProperty, nameof(Property.Include), converter: new InvertBoolean());
                 grid.Add(null_label);
                 grid.SetRow(null_label, i);
                 grid.SetColumn(null_label, 2);

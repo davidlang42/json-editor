@@ -28,7 +28,7 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => JToken.Parse(Value);
 
-        public override VisualElement EditView => new Label
+        public override View EditView => new Label
         {
             Text = $"Unsupported type: {Value.Replace(Environment.NewLine, "").Truncate(400)}", //TODO make this editable as text
             LineBreakMode = LineBreakMode.NoWrap

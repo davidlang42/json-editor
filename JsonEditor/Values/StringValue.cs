@@ -42,7 +42,7 @@ namespace JsonEditor.Values
             return Value; // this allows saving a string which doesn't match the regex pattern, but we can't easily fix that
         }
 
-        public override VisualElement EditView
+        public override View EditView
         {
             get
             {

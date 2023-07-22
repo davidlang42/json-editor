@@ -15,7 +15,7 @@ namespace JsonEditor.Values
     {
         public string[]? ValidStrings { get; init; }
 
-        public override VisualElement EditView
+        public override View EditView
         {
             get
             {

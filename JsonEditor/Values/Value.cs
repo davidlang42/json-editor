@@ -22,7 +22,7 @@ namespace JsonEditor.Values
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public abstract VisualElement EditView { get; } //TODO make sure this getter is only called once, otherwise cache it
+        public abstract View EditView { get; } //TODO make sure this getter is only called once, otherwise cache it
 
         public abstract JToken AsJToken();
 

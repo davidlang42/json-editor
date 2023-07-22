@@ -38,7 +38,7 @@ namespace JsonEditor.Values
             return Value;
         }
 
-        public override VisualElement EditView
+        public override View EditView
         {
             get
             {

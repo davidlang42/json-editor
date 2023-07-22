@@ -1,4 +1,5 @@
 ﻿using JsonEditor.Converters;
+using JsonEditor.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +12,7 @@ namespace JsonEditor.Models
 {
     internal class EnumStringProperty : StringProperty
     {
-        public string[] ValidStrings { get; init; } = Array.Empty<string>();
+        public string[]? ValidStrings { get; init; }
 
         public EnumStringProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required) { }
 
@@ -20,7 +21,7 @@ namespace JsonEditor.Models
             var picker = new Picker
             {
                 BindingContext = this,
-                ItemsSource = ValidStrings
+                ItemsSource = ValidStrings.OrThrow()
             };
             picker.SetBinding(Picker.SelectedItemProperty, nameof(Value));
             return picker;

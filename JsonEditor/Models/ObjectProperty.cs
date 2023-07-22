@@ -67,7 +67,7 @@ namespace JsonEditor.Models
 
         private void Button_Clicked(object? sender, EventArgs e)
         {
-            Model.EditObject(Value, ObjectSchema ?? throw new ApplicationException("Schema not set."));
+            Model.EditObject(Value, ObjectSchema.OrThrow());
         }
     }
 }

@@ -16,7 +16,7 @@ public class EditJson : ContentPage
         //TODO show the full path (RD300NX.user_set[7].common) at the top
         Content = new VerticalStackLayout
         {
-            PropertyGrid(model.Properties), //TODO make property grid scrollable
+            PropertyGrid(model.Properties), //TODO make property grid scrollable, might need to wrap in a ContentView
             new HorizontalStackLayout
             {
                 MakeButton("Undo", Colors.Red, Cancel_Clicked),

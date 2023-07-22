@@ -1,5 +1,6 @@
 ﻿using JsonEditor.Extensions;
 using JsonEditor.Models;
+using Microsoft.Maui.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -75,7 +76,11 @@ namespace JsonEditor.Values
                 {
                     Value = (value as JValue)?.Value as bool? ?? false
                 },
-                //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview)
+                JSchemaType.Array when schema.Items.SingleOrDefaultSafe() is JSchema one_type_of_item => new ArrayValue(edit_object_action, value as JArray ?? new JArray(), one_type_of_item)
+                {
+                    MinItems = schema.MinimumItems,
+                    MaxItems = schema.MaximumItems
+                },
                 JSchemaType.Object => new ObjectValue(edit_object_action)
                 {
                     Value = value as JObject ?? new JObject(),

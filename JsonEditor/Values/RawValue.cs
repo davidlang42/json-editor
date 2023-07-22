@@ -30,7 +30,7 @@ namespace JsonEditor.Values
 
         public override View EditView => new Label
         {
-            Text = $"Unsupported type: {Value.Replace(Environment.NewLine, "").Truncate(400)}", //TODO make this editable as text
+            Text = $"Unsupported type: {Value.Replace(Environment.NewLine, "").Truncate(400)}", //TODO make this editable as text, but be aware it will be ultra slow for large sections
             LineBreakMode = LineBreakMode.NoWrap
         };
     }

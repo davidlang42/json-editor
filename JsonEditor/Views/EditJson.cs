@@ -72,7 +72,7 @@ public class EditJson : ContentPage
             //TODO right click property header > copy, paste (json as text)
             var title = new Label
             {
-                Text = property.Label,
+                Text = property.Key,
                 FontAttributes = property.Required ? FontAttributes.Bold : FontAttributes.None
             };
             var content = new ContentView { Content = property.Value.EditView };

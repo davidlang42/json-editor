@@ -18,7 +18,7 @@ namespace JsonEditor.Models
     public class Property : INotifyPropertyChanged
     {
         public JsonModel Model { get; }
-        public string Label { get; }
+        public string Key { get; }
         public bool Required { get; }
         public Value Value { get; }
 
@@ -49,7 +49,7 @@ namespace JsonEditor.Models
         {
             Model = model;
             this.parent = parent;
-            Label = key;
+            Key = key;
             Required = required;
             Value = Value.For(Model.EditObject, parent[key], schema);
             Include = required || parent.ContainsKey(key);
@@ -58,9 +58,9 @@ namespace JsonEditor.Models
         public void Commit()
         {
             if (Include)
-                parent[Label] = Value.AsJToken();
+                parent[Key] = Value.AsJToken();
             else
-                parent.Remove(Label);
+                parent.Remove(Key);
         }
     }
 }

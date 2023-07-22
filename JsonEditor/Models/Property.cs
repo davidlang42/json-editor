@@ -14,6 +14,7 @@ namespace JsonEditor.Models
 {
     public abstract class Property : INotifyPropertyChanged
     {
+        public JsonModel Model { get; }
         public string Key { get; }
         public bool Required { get; }
 
@@ -33,8 +34,9 @@ namespace JsonEditor.Models
 
         readonly JObject parent;
 
-        public Property(JObject parent, string key, bool required)
+        public Property(JsonModel model, JObject parent, string key, bool required)
         {
+            Model = model;
             this.parent = parent;
             Key = key;
             Required = required;
@@ -69,26 +71,36 @@ namespace JsonEditor.Models
             };
         }
 
-        public static Property For(JObject parent, string key, JSchema schema, bool required)
+        protected string? PreviewJson(JToken? value)
+        {
+            return "(object preview)";
+            //TODO return value.ToString(Formatting.None).Replace("\n", "").Truncate(100);
+        }
+
+        public static Property For(JsonModel model, JObject parent, string key, JSchema schema, bool required)
         {
             Property property = schema.Type switch
             {
-                JSchemaType.String when schema.Enum.Count > 0 => new EnumStringProperty(parent, key, required) {
+                JSchemaType.String when schema.Enum.Count > 0 => new EnumStringProperty(model, parent, key, required) {
                     ValidStrings = schema.Enum.Select(j => ((JValue)j).Value as string ?? throw new ApplicationException($"Invalid enum: {j}")).ToArray()
                 },
-                JSchemaType.String => new StringProperty(parent, key, required) {
+                JSchemaType.String => new StringProperty(model, parent, key, required) {
                     //TODO implement min/max length
                     //TODO implement pattern validation
                 },
-                JSchemaType.Integer => new NumberProperty(parent, key, required) {
+                JSchemaType.Integer => new NumberProperty(model, parent, key, required) {
                     Minimum = schema.Minimum,
                     Maximum = schema.Maximum
                 },
-                JSchemaType.Boolean => new BooleanProperty(parent, key, required),
+                JSchemaType.Boolean => new BooleanProperty(model, parent, key, required),
+                JSchemaType.Object => new ObjectProperty(model, parent, key, required)
+                {
+                    ObjectSchema = schema,
+                },
                 //TODO implement object as button to edit (labelled as Object Type Name) with text json preview*
                 //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview*)
                 //*preview should be comma separated values, ignoring key names, traversing objects deeply
-                _ => new UnsupportedProperty(parent, key, required)
+                _ => new UnsupportedProperty(model, parent, key, required)
                 //TODO implement "oneOf" types
             };
             property.Include = required || parent.ContainsKey(key);

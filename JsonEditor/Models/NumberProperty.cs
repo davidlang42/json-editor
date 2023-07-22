@@ -27,7 +27,7 @@ namespace JsonEditor.Models
         public double? Minimum { get; init; }
         public double? Maximum { get; init; }
 
-        public NumberProperty(JObject parent, string key, bool required) : base(parent, key, required)
+        public NumberProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
         {
             Value = parent.Value<long>(key);
         }

@@ -12,6 +12,7 @@ public class EditJson : ContentPage
     public EditJson(JsonModel model)
     {
         this.model = model;
+        model.NavigateAction = NavigateAction;
         //TODO show the full path (RD300NX.user_set[7].common) at the top
         Content = new VerticalStackLayout
         {
@@ -100,6 +101,11 @@ public class EditJson : ContentPage
             property.Commit();
         model.File.Save();
         await Navigation.PopModalAsync();
+    }
+
+    private void NavigateAction(JsonModel new_model)
+    {
+        Navigation.PushModalAsync(new EditJson(new_model));
     }
     #endregion
 }

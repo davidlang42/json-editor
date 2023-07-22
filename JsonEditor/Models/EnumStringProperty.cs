@@ -13,7 +13,7 @@ namespace JsonEditor.Models
     {
         public string[] ValidStrings { get; init; } = Array.Empty<string>();
 
-        public EnumStringProperty(JObject parent, string key, bool required) : base(parent, key, required) { }
+        public EnumStringProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required) { }
 
         public override VisualElement GenerateEditView()
         {

@@ -25,7 +25,7 @@ namespace JsonEditor.Models
             }
         }
 
-        public StringProperty(JObject parent, string key, bool required) : base(parent, key, required)
+        public StringProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
         {
             Value = parent.Value<string>(key);
         }

@@ -25,7 +25,7 @@ namespace JsonEditor.Models
             }
         }
 
-        public BooleanProperty(JObject parent, string key, bool required) : base(parent, key, required)
+        public BooleanProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
         {
             Value = parent.Value<bool>(key);
         }

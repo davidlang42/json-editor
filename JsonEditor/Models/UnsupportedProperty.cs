@@ -12,7 +12,7 @@ namespace JsonEditor.Models
     {
         public JToken Value { get; init; }
 
-        public UnsupportedProperty(JObject parent, string key, bool required) : base(parent, key, required)
+        public UnsupportedProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
         {
             Value = parent[key] ?? JValue.CreateNull();
         }
@@ -21,7 +21,7 @@ namespace JsonEditor.Models
 
         public override VisualElement GenerateEditView()
         {
-            return new Label { Text = Value.ToString() ?? "This type is not supported." };
+            return new Label { Text = PreviewJson(Value) ?? "This type is not supported." };
         }
     }
 }

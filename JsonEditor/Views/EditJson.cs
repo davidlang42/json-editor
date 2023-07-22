@@ -14,6 +14,20 @@ public class EditJson : ContentPage
         this.model = model;
         model.NavigateAction = NavigateAction;
         //TODO show the full path (RD300NX.user_set[7].common) at the top
+        Content = new ActivityIndicator { IsRunning = true };
+        NavigatedTo += Page_NavigatedTo;
+    }
+
+    private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
+    {
+        NavigatedTo -= Page_NavigatedTo; // only run once
+        Thread.Sleep(1); // allows Loading view to be shown
+        Content = await Task.Run(GenerateMainView);
+    }
+
+    #region View generation
+    private View GenerateMainView()
+    {
         var main = new ScrollView
         {
             Content = PropertyGrid(model.Properties),
@@ -36,10 +50,9 @@ public class EditJson : ContentPage
         grid.Add(main);
         grid.Add(footer);
         grid.SetRow(footer, 1);
-        Content = grid;
+        return grid;
     }
 
-    #region View generation
     static Button MakeButton(string text, Color color, EventHandler clicked)
     {
         var button = new Button
@@ -123,9 +136,9 @@ public class EditJson : ContentPage
         await Navigation.PopModalAsync();
     }
 
-    private void NavigateAction(JsonModel new_model)
+    private async void NavigateAction(JsonModel new_model)
     {
-        Navigation.PushModalAsync(new EditJson(new_model));
+        await Navigation.PushModalAsync(new EditJson(new_model));
     }
     #endregion
 }

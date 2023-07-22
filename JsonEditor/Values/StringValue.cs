@@ -42,6 +42,8 @@ namespace JsonEditor.Values
             return Value; // this allows saving a string which doesn't match the regex pattern, but we can't easily fix that
         }
 
+        public override string ToString() => "String";
+
         public override View EditView
         {
             get

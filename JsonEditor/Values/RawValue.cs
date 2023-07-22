@@ -40,6 +40,8 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => JToken.Parse(Value);
 
+        public override string ToString() => "Raw JSON";
+
         public override View EditView
         {
             get

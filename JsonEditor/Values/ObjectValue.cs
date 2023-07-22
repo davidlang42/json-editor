@@ -40,6 +40,8 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => Value;
 
+        public override string ToString() => ObjectType ?? "Object";
+
         public override View EditView
         {
             get
@@ -47,7 +49,7 @@ namespace JsonEditor.Values
                 var button = new Button
                 {
                     BindingContext = this,
-                    Text = ObjectType ?? "Object"
+                    Text = this.ToString()
                 };
                 button.Clicked += Button_Clicked;
                 var label = new Label

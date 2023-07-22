@@ -15,6 +15,8 @@ namespace JsonEditor.Values
     {
         public string[]? ValidStrings { get; init; }
 
+        public override string ToString() => $"Enum with {ValidStrings?.Length} options";
+
         public override View EditView
         {
             get

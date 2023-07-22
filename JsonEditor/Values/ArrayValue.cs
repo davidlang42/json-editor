@@ -35,6 +35,20 @@ namespace JsonEditor.Values
             return array;
         }
 
+        public override string ToString()
+        {
+            var item_name = Items.FirstOrDefault()?.ToString() ?? "items";
+            var range_name = (MinItems, MaxItems) switch
+            {
+                (long min, long max) when min == max => $"{min} ",
+                (long min, long max) => $"{min}-{max} ",
+                (null, long max) => $"up to {max} ",
+                (long min, null) => $"at least {min} ",
+                (null, null) => ""
+            };
+            return $"Array of {range_name}{item_name}";
+        }
+
         public override View EditView
         {
             get

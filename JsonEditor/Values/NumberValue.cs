@@ -38,6 +38,18 @@ namespace JsonEditor.Values
             return Value;
         }
 
+        public override string ToString()
+        {
+            var range_name = (Minimum, Maximum) switch
+            {
+                (double min, double max) => $" from {min} to {max}",
+                (null, double max) => $" up to {max}",
+                (double min, null) => $" from {min}",
+                (null, null) => ""
+            };
+            return $"Number{range_name}";
+        }
+
         public override View EditView
         {
             get

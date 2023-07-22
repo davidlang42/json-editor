@@ -48,6 +48,8 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => SelectedValue.AsJToken(); //TODO clicking save on one option of a oneOf type doesn't save it or update it back on the previous page
 
+        public override string ToString() => $"One of {PossibleValues.Length} types";
+
         public override View EditView
         {
             get

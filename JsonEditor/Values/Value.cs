@@ -27,7 +27,7 @@ namespace JsonEditor.Values
 
         public abstract JToken AsJToken();
 
-        //TODO implement public override abstract string ToString(); so that OneOf types make sense
+        public override abstract string ToString();
 
         protected static Style ValidStyle()
         {

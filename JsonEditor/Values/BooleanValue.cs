@@ -28,6 +28,8 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => Value;
 
+        public override string ToString() => "Boolean";
+
         public override View EditView
         {
             get

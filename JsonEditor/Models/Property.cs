@@ -51,7 +51,7 @@ namespace JsonEditor.Models
             this.parent = parent;
             Key = key;
             Required = required;
-            Value = Value.For(Model.EditObject, parent[key], schema);
+            Value = Value.For((p, o, s, r) => Model.EditObject(key + p, o, s, r), parent[key], schema);
             Include = required || parent.ContainsKey(key);
         }
 

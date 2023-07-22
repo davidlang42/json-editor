@@ -24,7 +24,12 @@ namespace JsonEditor.Values
 
         public ArrayValue(JsonModel.EditAction edit_object_action, JArray array, JSchema item_schema)
         {
-            Items = array.Select(t => For(edit_object_action, t, item_schema)).ToObservableCollection();
+            Items = new ObservableCollection<Value>();
+            for (var i = 0; i < array.Count; i++)
+            {
+                var i_copy = i;
+                Items.Add(For((p, o, s, r) => edit_object_action($"[{i_copy}]{p}", o, s, r), array[i], item_schema));
+            }
         }
 
         public override JToken AsJToken()

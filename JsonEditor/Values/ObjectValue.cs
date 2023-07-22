@@ -76,7 +76,7 @@ namespace JsonEditor.Values
 
         private void Button_Clicked(object? sender, EventArgs e)
         {
-            editAction(Value, ObjectSchema.OrThrow(), () => NotifyPropertyChanged(nameof(Value)));
+            editAction("", Value, ObjectSchema.OrThrow(), () => NotifyPropertyChanged(nameof(Value)));
         }
     }
 }

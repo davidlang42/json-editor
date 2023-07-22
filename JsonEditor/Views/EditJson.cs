@@ -14,7 +14,7 @@ public class EditJson : ContentPage
     {
         this.model = model;
         model.NavigateAction = NavigateAction;
-        //TODO show the full path (RD300NX.user_set[7].common) at the top
+        Title = model.Title;
         Content = new ActivityIndicator { IsRunning = true };
         NavigatedTo += Page_NavigatedTo;
     }

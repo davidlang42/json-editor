@@ -134,7 +134,7 @@ public class EditJson : ContentPage
     #region Action handlers
     private async void Cancel_Clicked(object? sender, EventArgs e)
     {
-        await Navigation.PopModalAsync();
+        await Navigation.PopAsync();
     }
 
     private async void Ok_Clicked(object? sender, EventArgs e)
@@ -142,12 +142,12 @@ public class EditJson : ContentPage
         foreach (var property in model.Properties)
             property.Commit();
         model.File.Save();
-        await Navigation.PopModalAsync();
+        await Navigation.PopAsync();
     }
 
     private async void NavigateAction(JsonModel new_model)
     {
-        await Navigation.PushModalAsync(new EditJson(new_model));
+        await Navigation.PushAsync(new EditJson(new_model));
     }
     #endregion
 }

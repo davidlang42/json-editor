@@ -98,9 +98,7 @@ namespace JsonEditor.Models
                 {
                     ObjectSchema = schema,
                 },
-                //TODO implement object as button to edit (labelled as Object Type Name) with text json preview*
                 //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview*)
-                //*preview should be comma separated values, ignoring key names, traversing objects deeply
                 _ => new UnsupportedProperty(model, parent, key, required)
                 //TODO implement "oneOf" types
             };

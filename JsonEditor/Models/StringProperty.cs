@@ -1,4 +1,6 @@
-﻿using JsonEditor.Converters;
+﻿using CommunityToolkit.Maui.Behaviors;
+using JsonEditor.Converters;
+using JsonEditor.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,8 +13,8 @@ namespace JsonEditor.Models
 {
     internal class StringProperty : Property
     {
-        private string? _value;
-        public string? Value
+        private string _value;
+        public string Value
         {
             get => _value;
             set
@@ -25,21 +27,54 @@ namespace JsonEditor.Models
             }
         }
 
+        /// <summary>NOTE: The regex pattern is for visual validation only, it will allow saving an invalid string.</summary>
+        public string? Pattern { get; init; }
+        public int? MinLength { get; init; }
+        public int? MaxLength { get; init; }
+
         public StringProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
         {
-            Value = parent.Value<string>(key);
+            _value = parent.Value<string>(key) ?? "";
         }
 
-        public override JToken ValueAsJToken() => Value;
+        public override JToken ValueAsJToken()
+        {
+            if (MinLength.HasValue && Value.Length < MinLength.Value)
+                return Value.PadRight(MinLength.Value);
+            if (MaxLength.HasValue && Value.Length > MaxLength.Value)
+                return Value.Truncate(MaxLength.Value);
+            return Value; // this allows saving a string which doesn't match the regex pattern, but we can't easily fix that
+        }
 
         public override VisualElement GenerateEditView()
         {
             var entry = new Entry
             {
-                BindingContext = this
+                BindingContext = this,
+                MaxLength = MaxLength ?? int.MaxValue
             };
+            entry.Behaviors.Add(TextValidation(MinLength, MaxLength, Pattern));
             entry.SetBinding(Entry.TextProperty, nameof(Value));
             return entry;
+        }
+
+        private static TextValidationBehavior TextValidation(int? minLength, int? maxLength, string? pattern)
+        {
+            var behavior = new TextValidationBehavior
+            {
+                InvalidStyle = InvalidStyle(),
+                ValidStyle = ValidStyle(),
+                Flags = ValidationFlags.ValidateOnValueChanged,
+            };
+
+            if (minLength.HasValue)
+                behavior.MinimumLength = minLength.Value;
+            if (maxLength.HasValue)
+                behavior.MaximumLength = maxLength.Value;
+            if (pattern != null)
+                behavior.RegexPattern = pattern;
+
+            return behavior;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CommunityToolkit.Maui.Behaviors;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +33,14 @@ namespace JsonEditor.Models
             Value = parent.Value<long>(key);
         }
 
-        public override JToken ValueAsJToken() => Value;
+        public override JToken ValueAsJToken()
+        {
+            if (Minimum.HasValue && Value < Minimum.Value)
+                return Minimum.Value;
+            if (Maximum.HasValue && Value > Maximum.Value)
+                return Maximum.Value;
+            return Value;
+        }
 
         public override VisualElement GenerateEditView()
         {
@@ -51,7 +59,7 @@ namespace JsonEditor.Models
                 BindingContext = this,
                 Keyboard = Keyboard.Numeric,
             };
-            //TODO implement validation on text entry: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/maui/behaviors/numeric-validation-behavior
+            entry.Behaviors.Add(NumericValidation(Minimum, Maximum));
             entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
             grid.Add(entry);
             var stepper = new Stepper
@@ -77,6 +85,24 @@ namespace JsonEditor.Models
                 grid.SetColumn(slider, 2);
             }
             return grid;
+        }
+
+        private static NumericValidationBehavior NumericValidation(double? minimum, double? maximum)
+        {
+            var behavior = new NumericValidationBehavior
+            {
+                InvalidStyle = InvalidStyle(),
+                ValidStyle = ValidStyle(),
+                Flags = ValidationFlags.ValidateOnValueChanged,
+                MaximumDecimalPlaces = 0
+            };
+
+            if (minimum.HasValue)
+                behavior.MinimumValue = minimum.Value;
+            if (maximum.HasValue)
+                behavior.MaximumValue = maximum.Value;
+
+            return behavior;
         }
     }
 }

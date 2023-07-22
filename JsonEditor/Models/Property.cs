@@ -73,9 +73,28 @@ namespace JsonEditor.Models
             };
         }
 
-        protected static string PreviewJson(JToken value)
+        protected static string PreviewJson(JToken value) => value.ToString(Formatting.None).Truncate(400);
+
+        protected static Style ValidStyle()
         {
-            return value.ToString(Formatting.None).Truncate(400);
+            var valid = new Style(typeof(VisualElement));
+            valid.Setters.Add(new Setter
+            {
+                Property = VisualElement.BackgroundColorProperty,
+                Value = Colors.Transparent
+            });
+            return valid;
+        }
+
+        protected static Style InvalidStyle()
+        {
+            var invalid = new Style(typeof(VisualElement));
+            invalid.Setters.Add(new Setter
+            {
+                Property = VisualElement.BackgroundColorProperty,
+                Value = Colors.LightCoral
+            });
+            return invalid;
         }
 
         public static Property For(JsonModel model, JObject parent, string key, JSchema schema, bool required)
@@ -86,8 +105,9 @@ namespace JsonEditor.Models
                     ValidStrings = schema.Enum.Select(j => ((JValue)j).Value as string ?? throw new ApplicationException($"Invalid enum: {j}")).ToArray()
                 },
                 JSchemaType.String => new StringProperty(model, parent, key, required) {
-                    //TODO implement min/max length
-                    //TODO implement pattern validation
+                    MinLength = (int?)schema.MinimumLength,
+                    MaxLength = (int?)schema.MaximumLength,
+                    Pattern = schema.Pattern
                 },
                 JSchemaType.Integer => new NumberProperty(model, parent, key, required) {
                     Minimum = schema.Minimum,
@@ -98,7 +118,7 @@ namespace JsonEditor.Models
                 {
                     ObjectSchema = schema,
                 },
-                //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview*)
+                //TODO implement array as list with buttons to edit/move up/down/new/delete/duplicate (labelled as value or Object Type Name with preview)
                 _ => new UnsupportedProperty(model, parent, key, required)
                 //TODO implement "oneOf" types
             };

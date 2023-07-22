@@ -28,7 +28,7 @@ namespace JsonEditor.Models
         }
 
         public string ObjectType { get; init; } = "(object)"; //TODO set object type name
-        public JSchema ObjectSchema { get; init; }
+        public JSchema? ObjectSchema { get; init; }
 
         public ObjectProperty(JsonModel model, JObject parent, string key, bool required) : base(model, parent, key, required)
         {
@@ -47,7 +47,8 @@ namespace JsonEditor.Models
             button.Clicked += Button_Clicked;
             var label = new Label
             {
-                Text = PreviewJson(Value)
+                Text = PreviewJson(Value),
+                LineBreakMode = LineBreakMode.NoWrap
             };
             var grid = new Grid
             {
@@ -66,7 +67,7 @@ namespace JsonEditor.Models
 
         private void Button_Clicked(object? sender, EventArgs e)
         {
-            Model.EditObject(Value, ObjectSchema);
+            Model.EditObject(Value, ObjectSchema ?? throw new ApplicationException("Schema not set."));
         }
     }
 }

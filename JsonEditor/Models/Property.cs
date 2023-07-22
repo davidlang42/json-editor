@@ -1,5 +1,7 @@
 ﻿using JsonEditor.Converters;
+using JsonEditor.Extensions;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
@@ -71,10 +73,9 @@ namespace JsonEditor.Models
             };
         }
 
-        protected string? PreviewJson(JToken? value)
+        protected static string PreviewJson(JToken value)
         {
-            return "(object preview)";
-            //TODO return value.ToString(Formatting.None).Replace("\n", "").Truncate(100);
+            return value.ToString(Formatting.None).Truncate(400);
         }
 
         public static Property For(JsonModel model, JObject parent, string key, JSchema schema, bool required)

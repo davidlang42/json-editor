@@ -21,7 +21,10 @@ namespace JsonEditor.Models
 
         public override VisualElement GenerateEditView()
         {
-            return new Label { Text = PreviewJson(Value) ?? "This type is not supported." };
+            return new Label {
+                Text = $"Unsupported type: {PreviewJson(Value)}",
+                LineBreakMode = LineBreakMode.NoWrap
+            };
         }
     }
 }

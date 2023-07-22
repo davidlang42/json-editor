@@ -31,9 +31,9 @@ namespace JsonEditor.Values
         public string? ObjectType { get; init; }
         public JSchema? ObjectSchema { get; init; }
 
-        readonly Action<JObject, JSchema> editAction;
+        readonly JsonModel.EditAction editAction;
 
-        public ObjectValue(Action<JObject, JSchema> edit_action)
+        public ObjectValue(JsonModel.EditAction edit_action)
         {
             editAction = edit_action;
         }
@@ -54,17 +54,18 @@ namespace JsonEditor.Values
                 button.Clicked += Button_Clicked;
                 var label = new Label
                 {
-                    Text = Value.ToString(Formatting.None).Truncate(400),
+                    BindingContext = this,
                     LineBreakMode = LineBreakMode.NoWrap
                 };
+                label.SetBinding(Label.TextProperty, nameof(Value), converter: new JsonPreview());
                 var grid = new Grid
                 {
                     ColumnSpacing = 5,
                     ColumnDefinitions =
-                {
-                    new ColumnDefinition(GridLength.Auto),
-                    new ColumnDefinition(GridLength.Star)
-                }
+                    {
+                        new ColumnDefinition(GridLength.Auto),
+                        new ColumnDefinition(GridLength.Star)
+                    }
                 };
                 grid.Add(button);
                 grid.Add(label);
@@ -75,7 +76,7 @@ namespace JsonEditor.Values
 
         private void Button_Clicked(object? sender, EventArgs e)
         {
-            editAction(Value, ObjectSchema.OrThrow());
+            editAction(Value, ObjectSchema.OrThrow(), () => NotifyPropertyChanged(nameof(Value)));
         }
     }
 }

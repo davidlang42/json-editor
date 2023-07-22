@@ -32,7 +32,7 @@ namespace JsonEditor.Values
             }
         }
 
-        public OneOfValue(Action<JObject, JSchema> edit_object_action, JToken? value, JSchema[] possible_schemas)
+        public OneOfValue(JsonModel.EditAction edit_object_action, JToken? value, JSchema[] possible_schemas)
         {
             if (possible_schemas.Length == 0)
                 throw new ApplicationException("At least one JSchema must be provided.");
@@ -46,7 +46,7 @@ namespace JsonEditor.Values
             selectedValue ??= PossibleValues.First();
         }
 
-        public override JToken AsJToken() => SelectedValue.AsJToken(); //TODO clicking save on one option of a oneOf type doesn't save it or update it back on the previous page
+        public override JToken AsJToken() => SelectedValue.AsJToken();
 
         public override string ToString() => $"One of {PossibleValues.Length} types";
 

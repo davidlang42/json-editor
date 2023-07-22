@@ -8,6 +8,7 @@ namespace JsonEditor.Views;
 public class EditJson : ContentPage
 {
     readonly JsonModel model;
+    bool loaded = false;
 
     public EditJson(JsonModel model)
     {
@@ -20,9 +21,17 @@ public class EditJson : ContentPage
 
     private async void Page_NavigatedTo(object? sender, NavigatedToEventArgs e)
     {
-        NavigatedTo -= Page_NavigatedTo; // only run once
-        Thread.Sleep(1); // allows Loading view to be shown
-        Content = await Task.Run(GenerateMainView);
+        if (!loaded)
+        {
+            loaded = true;
+            Thread.Sleep(1); // allows Loading view to be shown
+            var view = await Task.Run(GenerateMainView);
+            Content = view;
+        }
+        else
+        {
+            model.Refresh();
+        }
     }
 
     #region View generation

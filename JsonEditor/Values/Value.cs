@@ -51,7 +51,7 @@ namespace JsonEditor.Values
             return invalid;
         }
 
-        public static Value For(Action<JObject, JSchema> edit_object_action, JToken? value, JSchema schema)
+        public static Value For(JsonModel.EditAction edit_object_action, JToken? value, JSchema schema)
         {
             return schema.Type switch
             {

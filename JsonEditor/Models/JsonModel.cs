@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using JsonEditor.Values;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,13 @@ namespace JsonEditor.Models
 {
     public class JsonModel
     {
+        public delegate void EditAction(JObject obj, JSchema schema, Action refresh);
+
         public JsonFile File { get; }
         public List<Property> Properties { get; }
         public Action<JsonModel>? NavigateAction { get; set; }
+
+        Action? nextRefresh = null;
 
         public JsonModel(JsonFile file, JObject obj, JSchema schema)
         {
@@ -20,10 +25,22 @@ namespace JsonEditor.Models
             Properties = schema.Properties.Select(i => new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
         }
 
-        public void EditObject(JObject obj, JSchema schema)
+        public void EditObject(JObject obj, JSchema schema, Action refresh)
         {
+            if (nextRefresh != null)
+                throw new ApplicationException("Pending refresh not run.");
+            nextRefresh = refresh;
             var model = new JsonModel(File, obj, schema);
             NavigateAction?.Invoke(model);
+        }
+
+        public void Refresh()
+        {
+            if (nextRefresh != null)
+            {
+                nextRefresh();
+                nextRefresh = null;
+            }
         }
     }
 }

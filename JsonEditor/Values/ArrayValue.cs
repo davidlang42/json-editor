@@ -22,7 +22,7 @@ namespace JsonEditor.Values
         public long? MinItems { get; init; }
         public long? MaxItems { get; init; }
 
-        public ArrayValue(Action<JObject, JSchema> edit_object_action, JArray array, JSchema item_schema)
+        public ArrayValue(JsonModel.EditAction edit_object_action, JArray array, JSchema item_schema)
         {
             Items = array.Select(t => For(edit_object_action, t, item_schema)).ToObservableCollection();
         }

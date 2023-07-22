@@ -1,5 +1,6 @@
 ﻿using JsonEditor.Extensions;
 using JsonEditor.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace JsonEditor.Values
 {
     internal class RawValue : Value
     {
-        private string _value = "";
+        private string _value;
         public string Value
         {
             get => _value;
@@ -24,6 +25,11 @@ namespace JsonEditor.Values
                     NotifyPropertyChanged();
                 }
             }
+        }
+
+        public RawValue(JToken? value)
+        {
+            _value = value?.ToString(Formatting.Indented) ?? "";
         }
 
         public override JToken AsJToken() => JToken.Parse(Value);

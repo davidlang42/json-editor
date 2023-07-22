@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace JsonEditor.Models
 
         public void Save()
         {
-            File.WriteAllText(Filename, Root.ToString());
+            File.WriteAllText(Filename, Root.ToString(Formatting.Indented));
         }
 
         public static JsonFile Load(string schemaFile, string jsonFile)

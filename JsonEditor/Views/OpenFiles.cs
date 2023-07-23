@@ -7,9 +7,9 @@ public class OpenFiles : ContentPage
 {
     readonly FilePaths files;
 
-    public OpenFiles(FilePaths files)
+    public OpenFiles(FilePaths? prepopulated_files)
 	{
-        this.files = files;
+        files = prepopulated_files ?? FilePaths.LoadFromUserPreferences();
         Title = "Choose a JSON schema and file";
         NavigatedTo += Page_NavigatedTo;
 		Content = new VerticalStackLayout
@@ -81,6 +81,7 @@ public class OpenFiles : ContentPage
             await DisplayAlert("Error", $"The JSON file does not exist: {files.JsonFile}", "Ok");
             return;
         }
+        files.SaveToUserPreferences();
         var json_file = JsonFile.Load(files.SchemaFile, files.JsonFile);
         var json_model = new JsonModel(json_file, json_file.Schema.Title ?? "Root", json_file.Root, json_file.Schema);
         await Navigation.PushAsync(new EditJson(json_model));

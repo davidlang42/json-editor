@@ -44,5 +44,26 @@ namespace JsonEditor.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        const string SCHEMA_FILE_KEY = "LastSchemaFile";
+        const string JSON_FILE_KEY = "LastJsonFile";
+
+        public void SaveToUserPreferences()
+        {
+            Preferences.Default.Set(SCHEMA_FILE_KEY, SchemaFile);
+            Preferences.Default.Set(JSON_FILE_KEY, JsonFile);
+        }
+
+        public static FilePaths LoadFromUserPreferences() => new FilePaths
+        {
+            SchemaFile = Preferences.Default.Get(SCHEMA_FILE_KEY, ""),
+            JsonFile = Preferences.Default.Get(JSON_FILE_KEY, ""),
+        };
+
+        public static void ClearUserPreferences()
+        {
+            Preferences.Default.Remove(SCHEMA_FILE_KEY);
+            Preferences.Default.Remove(JSON_FILE_KEY);
+        }
     }
 }

@@ -9,17 +9,12 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-        var files = GetDefaultFilePaths();
-
-        //TODO remove test defaults
-        var path = $"{AppDomain.CurrentDomain.BaseDirectory}\\..\\..\\..\\..\\..\\..\\examples";
-        files.JsonFile = $"{path}\\rd300nx.json";
-        files.SchemaFile = $"{path}\\rd300nx-schema.json";
+        var files = GetFilePathsFromCLI();
 
         MainPage = new NavigationPage(new OpenFiles(files));
     }
 
-	static FilePaths GetDefaultFilePaths()
+	static FilePaths? GetFilePathsFromCLI()
 	{
         string[] args;
         try
@@ -28,12 +23,12 @@ public partial class App : Application
         }
         catch (NotSupportedException)
         {
-            args = Array.Empty<string>();
+            return null;
         }
         if (args.Length > 2)
             return new FilePaths { SchemaFile = args[1], JsonFile = args[2] };
         if (args.Length > 1)
             return new FilePaths { SchemaFile = args[1] };
-        return new FilePaths();
+        return null;
     }
 }

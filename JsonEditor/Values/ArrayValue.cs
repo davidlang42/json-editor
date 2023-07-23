@@ -46,7 +46,7 @@ namespace JsonEditor.Values
             }
             if (MinItems.HasValue)
             {
-                var template = array.Last ?? throw new ApplicationException("Array must contain at least one element when MinItems > 0");
+                var template = array.Last ?? new JArray();
                 while (Items.Count < MinItems.Value)
                     Items.Add(MakeNewItem(template.DeepClone()));
             }
@@ -91,36 +91,17 @@ namespace JsonEditor.Values
         {
             get
             {
-                var collection_view = new CollectionView
+                return new Border
                 {
-                    ItemsSource = Items,
-                    ItemTemplate = new DataTemplate(GenerateDataTemplate),
-                };
-                return new HorizontalStackLayout
-                {
-                    Spacing = 5,
-                    Children =
+                    Stroke = Brush.Black,
+                    Padding = 1,
+                    Content = new CollectionView
                     {
-                        VerticalLine(collection_view),
-                        collection_view
+                        ItemsSource = Items,
+                        ItemTemplate = new DataTemplate(GenerateDataTemplate),
                     }
                 };
             }
-        }
-
-        static Line VerticalLine(View match_height)
-        {
-            var line = new Line
-            {
-                Stroke = Brush.Black,
-                StrokeThickness = 2
-            };
-            line.SetBinding(Line.Y2Property, new Binding
-            {
-                Source = match_height,
-                Path = nameof(View.Height)
-            });
-            return line;
         }
         
         private object GenerateDataTemplate()

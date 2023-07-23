@@ -62,7 +62,7 @@ namespace JsonEditor.Values
                 paste.Clicked += Paste_Clicked;
                 var button = new Button
                 {
-                    Text = this.ToString()
+                    Text = $"Edit {this}"
                 };
                 button.Clicked += Edit_Clicked;
                 var label = new Label

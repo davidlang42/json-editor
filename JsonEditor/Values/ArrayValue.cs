@@ -23,6 +23,9 @@ namespace JsonEditor.Values
 
         public bool IsFixedSize() => MinItems.HasValue && MaxItems.HasValue && MinItems.Value == MaxItems.Value;
 
+        public bool CanAdd => !MaxItems.HasValue || Items.Count < MaxItems.Value;
+        public bool CanRemove => Items.Count > (MinItems ?? 0);
+
         private JsonModel.EditAction editObjectAction;
         private JSchema itemSchema;
 
@@ -33,6 +36,7 @@ namespace JsonEditor.Values
             MinItems = min_items;
             MaxItems = max_items;
             Items = new ObservableCollection<Value>();
+            Items.CollectionChanged += Items_CollectionChanged;
             for (var i = 0; i < array.Count; i++)
             {
                 if (MaxItems.HasValue && i == MaxItems.Value)
@@ -45,6 +49,12 @@ namespace JsonEditor.Values
                 while (Items.Count < MinItems.Value)
                     Items.Add(MakeNewItem(template.DeepClone()));
             }
+        }
+
+        private void Items_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged(nameof(CanAdd));
+            NotifyPropertyChanged(nameof(CanRemove));
         }
 
         private Value MakeNewItem(JToken token)
@@ -102,8 +112,8 @@ namespace JsonEditor.Values
             };
             if (!IsFixedSize())
             {
-                layout.Add(ArrayButton("✗", Remove_Clicked)); //TODO disable if going to break min/max bounds
-                layout.Add(ArrayButton("+", Duplicate_Clicked)); //TODO disable if going to break min/max bounds
+                layout.Add(ArrayButton("✗", Remove_Clicked, nameof(CanRemove)));
+                layout.Add(ArrayButton("+", Duplicate_Clicked, nameof(CanAdd)));
             };
             var label = new Label { Text = "[?]" }; //TODO make label show array index
             layout.Add(label);
@@ -113,7 +123,7 @@ namespace JsonEditor.Values
             return layout;
         }
 
-        static Button ArrayButton(string text, EventHandler handler)
+        Button ArrayButton(string text, EventHandler handler, string? enabled_binding_path = null)
         {
             var button = new Button
             {
@@ -121,6 +131,15 @@ namespace JsonEditor.Values
                 BackgroundColor = Colors.Orange
             };
             button.Clicked += handler;
+            if (enabled_binding_path != null)
+            {
+                var binding = new Binding
+                {
+                    Source = this,
+                    Path = enabled_binding_path
+                };
+                button.SetBinding(Button.IsEnabledProperty, binding);
+            }
             return button;
         }
 
@@ -129,6 +148,8 @@ namespace JsonEditor.Values
             if (sender is Button button && button.BindingContext is Value value)
             {
                 var index = Items.IndexOf(value);
+                if (index == -1)
+                    return;
                 if (index > 0)
                     Items.Move(index, index - 1);
             }
@@ -139,6 +160,8 @@ namespace JsonEditor.Values
             if (sender is Button button && button.BindingContext is Value value)
             {
                 var index = Items.IndexOf(value);
+                if (index == -1)
+                    return;
                 if (index < Items.Count - 1)
                     Items.Move(index, index + 1);
             }
@@ -155,6 +178,8 @@ namespace JsonEditor.Values
             if (sender is Button button && button.BindingContext is Value value && (!MaxItems.HasValue || Items.Count < MaxItems.Value))
             {
                 var index = Items.IndexOf(value);
+                if (index == -1)
+                    return;
                 var new_item = MakeNewItem(value.AsJToken().DeepClone());
                 Items.Insert(index, new_item);
             }

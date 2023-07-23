@@ -91,15 +91,31 @@ namespace JsonEditor.Values
         {
             get
             {
-                return new Border
+                var layout = new VerticalStackLayout
                 {
-                    Stroke = Brush.Black,
-                    Padding = 1,
-                    Content = new CollectionView
+                    new CollectionView
                     {
                         ItemsSource = Items,
                         ItemTemplate = new DataTemplate(GenerateDataTemplate),
                     }
+                };
+                if (!IsFixedSize())
+                {
+                    var add_button = ArrayButton("Add blank", Add_Clicked, nameof(CanAdd));
+                    var binding = new Binding
+                    {
+                        Source = Items,
+                        Path = nameof(ObservableCollection<Value>.Count),
+                        Converter = new IntIsZero()
+                    };
+                    add_button.SetBinding(Button.IsVisibleProperty, binding);
+                    layout.Add(new HorizontalStackLayout { add_button });
+                }
+                return new Border
+                {
+                    Stroke = Brush.Black,
+                    Padding = 1,
+                    Content = layout
                 };
             }
         }
@@ -112,8 +128,8 @@ namespace JsonEditor.Values
                 Spacing = 5,
                 Children =
                 {
-                    ArrayButton("↑", MoveUp_Clicked),//TODO disable at top
-                    ArrayButton("↓", MoveDown_Clicked)//TODO disable at bottom
+                    ArrayButton("↑", MoveUp_Clicked),
+                    ArrayButton("↓", MoveDown_Clicked)
                 }
             };
             if (!IsFixedSize())
@@ -187,6 +203,12 @@ namespace JsonEditor.Values
                 var new_item = MakeNewItem(value.AsJToken().DeepClone());
                 Items.Insert(index, new_item);
             }
+        }
+
+        private void Add_Clicked(object? sender, EventArgs e)
+        {
+            if (!MaxItems.HasValue || Items.Count < MaxItems.Value)
+                Items.Add(MakeNewItem(new JArray()));
         }
     }
 }

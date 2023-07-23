@@ -2,6 +2,7 @@
 using JsonEditor.Converters;
 using JsonEditor.Extensions;
 using JsonEditor.Models;
+using Microsoft.Maui.Controls.Shapes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -90,16 +91,36 @@ namespace JsonEditor.Values
         {
             get
             {
-                return new Frame
+                var collection_view = new CollectionView
                 {
-                    BorderColor = Colors.Black,
-                    Content = new CollectionView
+                    ItemsSource = Items,
+                    ItemTemplate = new DataTemplate(GenerateDataTemplate),
+                };
+                return new HorizontalStackLayout
+                {
+                    Spacing = 5,
+                    Children =
                     {
-                        ItemsSource = Items,
-                        ItemTemplate = new DataTemplate(GenerateDataTemplate),
+                        VerticalLine(collection_view),
+                        collection_view
                     }
                 };
             }
+        }
+
+        static Line VerticalLine(View match_height)
+        {
+            var line = new Line
+            {
+                Stroke = Brush.Black,
+                StrokeThickness = 2
+            };
+            line.SetBinding(Line.Y2Property, new Binding
+            {
+                Source = match_height,
+                Path = nameof(View.Height)
+            });
+            return line;
         }
         
         private object GenerateDataTemplate()

@@ -37,18 +37,21 @@ namespace JsonEditor.Values
             {
                 if (MaxItems.HasValue && i == MaxItems.Value)
                     break;
-                var i_copy = i;//TODO this hack wont work now that items can be moved around
-                Items.Add(For((p, o, s, r) => edit_object_action($"[{i_copy}]{p}", o, s, r), array[i], item_schema));
+                Items.Add(MakeNewItem(array[i]));
             }
             if (MinItems.HasValue)
             {
                 var template = array.Last ?? throw new ApplicationException("Array must contain at least one element when MinItems > 0");
                 while (Items.Count < MinItems.Value)
-                {
-                    var i_copy = Items.Count;//TODO this hack wont work now that items can be moved around
-                    Items.Add(For((p, o, s, r) => edit_object_action($"[{i_copy}]{p}", o, s, r), template.DeepClone(), item_schema));
-                }
+                    Items.Add(MakeNewItem(template.DeepClone()));
             }
+        }
+
+        private Value MakeNewItem(JToken token)
+        {
+            Value? v = null;
+            v = For((p, o, s, r) => editObjectAction($"[{Items.IndexOf(v!)}]{p}", o, s, r), token, itemSchema);
+            return v;
         }
 
         public override JToken AsJToken()
@@ -152,8 +155,8 @@ namespace JsonEditor.Values
             if (sender is Button button && button.BindingContext is Value value && (!MaxItems.HasValue || Items.Count < MaxItems.Value))
             {
                 var index = Items.IndexOf(value);
-                var new_item = For((p, o, s, r) => editObjectAction($"[{index}]{p}", o, s, r), value.AsJToken().DeepClone(), itemSchema);//TODO this hack wont work now that items can be moved around
-                Items.Insert(index + 1, new_item);
+                var new_item = MakeNewItem(value.AsJToken().DeepClone());
+                Items.Insert(index, new_item);
             }
         }
     }

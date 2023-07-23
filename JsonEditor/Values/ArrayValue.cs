@@ -107,16 +107,18 @@ namespace JsonEditor.Values
             // BindingContext will be set to a Value
             var layout = new HorizontalStackLayout
             {
-                ArrayButton("↑", MoveUp_Clicked),//TODO disable at top
-                ArrayButton("↓", MoveDown_Clicked)//TODO disable at bottom
+                Spacing = 5,
+                Children =
+                {
+                    ArrayButton("↑", MoveUp_Clicked),//TODO disable at top
+                    ArrayButton("↓", MoveDown_Clicked)//TODO disable at bottom
+                }
             };
             if (!IsFixedSize())
             {
                 layout.Add(ArrayButton("✗", Remove_Clicked, nameof(CanRemove)));
                 layout.Add(ArrayButton("+", Duplicate_Clicked, nameof(CanAdd)));
             };
-            var label = new Label { Text = "[?]" }; //TODO make label show array index
-            layout.Add(label);
             var view = new ContentView();
             view.SetBinding(ContentView.ContentProperty, nameof(Value.EditView));
             layout.Add(view);

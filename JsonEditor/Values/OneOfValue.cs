@@ -65,10 +65,14 @@ namespace JsonEditor.Values
                     BindingContext = this
                 };
                 view.SetBinding(ContentView.ContentProperty, $"{nameof(SelectedValue)}.{nameof(Value.EditView)}");
-                return new VerticalStackLayout
+                return new HorizontalStackLayout
                 {
-                    picker,
-                    view
+                    Spacing = 5,
+                    Children =
+                    {
+                        picker,
+                        view
+                    }
                 };
             }
         }

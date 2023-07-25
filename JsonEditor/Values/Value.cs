@@ -83,6 +83,7 @@ namespace JsonEditor.Values
                 {
                     Value = value as JObject ?? new JObject(),
                     ObjectSchema = schema,
+                    ObjectType = schema.Title
                 },
                 null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, value, schema.OneOf.ToArray()),
                 _ => new RawValue(value, schema)

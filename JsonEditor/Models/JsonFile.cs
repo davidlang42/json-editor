@@ -29,9 +29,26 @@ namespace JsonEditor.Models
 
         public static JsonFile Load(string schemaFile, string jsonFile)
         {
-            var schema = JSchema.Parse(File.ReadAllText(schemaFile));
+            var schema = JSchema.Parse(AddDefinitionTitlesToSchema(File.ReadAllText(schemaFile)));
             var root = JObject.Parse(File.ReadAllText(jsonFile));
             return new(jsonFile, root, schema);
+        }
+
+        static string AddDefinitionTitlesToSchema(string schema_json)
+        {
+            var obj = JObject.Parse(schema_json);
+            if (obj["definitions"] is JObject definitons)
+            {
+                foreach (var (key, value) in definitons)
+                    if (value is JObject sub_schema && !sub_schema.ContainsKey("title"))
+                        sub_schema["title"] = key; // if no title is set, use the definitions key as the title
+                return obj.ToString(Formatting.None);
+            }
+            else
+            {
+                // No titles to add from definitions
+                return schema_json;
+            }
         }
     }
 }

@@ -40,7 +40,16 @@ namespace JsonEditor.Values
 
         public override JToken AsJToken() => Value;
 
-        public override string ToString() => ObjectType ?? "Object";
+        public override string ToString()
+        {
+            if (ObjectType is string title)
+                return title;
+            if (ObjectSchema?.Required.SingleOrDefaultSafe() is string one_required_property)
+                return one_required_property;
+            if (ObjectSchema?.Properties.Keys.SingleOrDefaultSafe() is string one_defined_property)
+                return one_defined_property;
+            return "Object";
+        }
 
         public override View EditView
         {

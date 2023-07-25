@@ -143,6 +143,7 @@ public class EditJson : ContentPage
             property.Commit();
         model.File.Save();
         await Navigation.PopAsync();
+        //TODO check for other objects of the same type, and offer to update them (bold those that were the same as the previous value of this object, and select them by default)
     }
 
     private async void NavigateAction(JsonModel new_model)

@@ -17,7 +17,7 @@ namespace JsonEditor.Models
         public JObject Root { get; }
         public JSchema Schema { get; }
         public Regex? HideProperties { get; set; }
-        public Dictionary<string, List<JsonPath>> ObjectsByType { get; }
+        public Dictionary<string, JsonPath[]> ObjectsByType { get; }
 
         public JsonFile(string filename, JObject root, JSchema schema, Regex? hide_properties = null)
         {
@@ -26,12 +26,21 @@ namespace JsonEditor.Models
             Schema = schema;
             HideProperties = hide_properties;
             ObjectsByType = EnumerateObjectsByType(schema, new(schema.Title ?? "root"))
-                .GroupBy(p => p.ObjectType).ToDictionary(g => g.Key, g => g.Select(p => p.Path).ToList());
+                .GroupBy(p => p.ObjectType).ToDictionary(g => g.Key, g => g.Select(p => p.Path).ToArray());
         }
 
         public void Save()
         {
             File.WriteAllText(Filename, Root.ToString(Formatting.Indented));
+        }
+
+        public IEnumerable<JsonReference> FindObjectPaths(string object_type, JsonPath excluding)
+        {
+            if (!ObjectsByType.TryGetValue(object_type, out var schema_paths))
+                yield break;
+            foreach (var schema_path in schema_paths)
+                foreach (var result in schema_path.Follow(Root, excluding))
+                    yield return result;
         }
 
         public static JsonFile Load(string schemaFile, string jsonFile)

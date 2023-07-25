@@ -2,6 +2,7 @@ using JsonEditor.Converters;
 using JsonEditor.Extensions;
 using JsonEditor.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JsonEditor.Views;
 
@@ -139,15 +140,25 @@ public class EditJson : ContentPage
 
     private async void Ok_Clicked(object? sender, EventArgs e)
     {
-        var json = model.Commit();
-        if (!json.Changed)
+        if (!model.Commit(out var new_json))
         {
-            await DisplayAlert("No changes made", $"No changes have been made to the original value:\n{json.OldJson.Truncate(400)}", "Ok");
+            await DisplayAlert("No changes made", $"No changes have been made to the original value of this object:\n{model.OriginalJson}", "Cancel");
             return;
         }
         model.File.Save();
+        var matches = model.FindMatchingObjects();
+        if (matches.Length > 0)
+        {
+            var list_of_paths = string.Join("\n", matches.Select(r => r.Path.ToString()));
+            var msg = $"The following objects were IDENTICAL to this one before the changes you made. Would you like to update them to this new value as well?\n\n{list_of_paths}\n\nOriginal JSON:\n{model.OriginalJson}\n\nNew JSON:\n{new_json}";
+            if (await DisplayAlert($"Update {matches.Length} matching objects?", msg, "Yes", "No"))
+            {
+                foreach (var match in matches)
+                    match.Set(model.CloneObject()); //TODO this doesn't cause the parent view to update, so the parent view looks wrong until edited
+                model.File.Save();
+            }
+        }
         await Navigation.PopAsync();
-        //TODO check for other objects of the same type, and offer to update them (bold those that were the same as the previous value of this object, and select them by default)
     }
 
     private async void NavigateAction(JsonModel new_model)

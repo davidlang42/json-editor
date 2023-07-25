@@ -61,7 +61,7 @@ namespace JsonEditor.Values
         private Value MakeNewItem(JToken token)
         {
             Value? v = null;
-            v = For((p, o, s, r) => editObjectAction($"[{Items.IndexOf(v!)}]{p}", o, s, r), token, itemSchema);
+            v = For((p, o, s, r) => editObjectAction(p.Array(Items.IndexOf(v!)), o, s, r), token, itemSchema);
             return v;
         }
 

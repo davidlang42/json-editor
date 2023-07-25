@@ -77,7 +77,7 @@ namespace JsonEditor.Models
 
                 case null when schema.OneOf.Count > 0:
                     foreach (var one_of in schema.OneOf)
-                        foreach (var result in EnumerateObjectsByType(one_of, path.OneOf()))
+                        foreach (var result in EnumerateObjectsByType(one_of, path))
                             yield return result; // this case has not been tested
                     break;
             }

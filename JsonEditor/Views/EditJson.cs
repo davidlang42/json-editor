@@ -14,7 +14,7 @@ public class EditJson : ContentPage
     {
         this.model = model;
         model.NavigateAction = NavigateAction;
-        Title = model.Title;
+        Title = model.Path.ToString();
         Content = new ActivityIndicator { IsRunning = true };
         NavigatedTo += Page_NavigatedTo;
     }

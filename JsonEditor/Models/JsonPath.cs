@@ -9,32 +9,45 @@ namespace JsonEditor.Models
 {
     public class JsonPath
     {
-        const string ARRAY = "[]";
-        const string ONE_OF = "|";
+        const char SEPARATOR = '.';
+        const char ARRAY_START = '[';
+        const char ARRAY_END = ']';
 
         public string[] Paths { get; }
 
-        public JsonPath(string first_path) : this(new[] { first_path })
+        public JsonPath() : this(new string[0])
         { }
+
+        public JsonPath(string first_path) : this(new[] { first_path })
+        {
+            CheckValid(first_path);
+        }
 
         private JsonPath(string[] paths)
         {
             Paths = paths;
         }
 
-        public override string ToString() => string.Join(".", Paths);
+        public override string ToString() => string.Join(SEPARATOR, Paths);
+
+        public JsonPath AppendReversed(JsonPath reverse) => new(Paths.Concat(reverse.Paths.Reverse()).ToArray());
 
         public JsonPath Append(string path)
         {
-            if (path == ARRAY)
-                throw new ApplicationException($"{nameof(path)} cannot be the reserved array value: {ARRAY}");
-            if (path == ONE_OF)
-                throw new ApplicationException($"{nameof(path)} cannot be the reserved oneOf value: {ONE_OF}");
+            CheckValid(path);
             return new(Paths.Concat(path.Yield()).ToArray());
         }
 
-        public JsonPath Array() => new(Paths.Concat(ARRAY.Yield()).ToArray());
+        private static void CheckValid(string path)
+        {
+            if (path.Contains(SEPARATOR))
+                throw new ApplicationException($"New paths cannot contain the reserved separator character: {SEPARATOR}");
+            if (path.Contains(ARRAY_START))
+                throw new ApplicationException($"New paths cannot contain the reserved array character: {ARRAY_START}");
+            if (path.Contains(ARRAY_END))
+                throw new ApplicationException($"New paths cannot contain the reserved array character: {ARRAY_END}");
+        }
 
-        public JsonPath OneOf() => new(Paths.Concat(ONE_OF.Yield()).ToArray());
+        public JsonPath Array(int? index = null) => new(Paths.Concat($"{ARRAY_START}{index}{ARRAY_END}".Yield()).ToArray());
     }
 }

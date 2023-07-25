@@ -108,7 +108,7 @@ public class OpenFiles : ContentPage
         files.SaveToUserPreferences();
         var json_file = JsonFile.Load(files.SchemaFile, files.JsonFile);
         json_file.HideProperties = regex;
-        var json_model = new JsonModel(json_file, json_file.Schema.Title ?? "Root", json_file.Root, json_file.Schema);
+        var json_model = new JsonModel(json_file, new(json_file.Schema.Title ?? "Root"), json_file.Root, json_file.Schema);
         await Navigation.PushAsync(new EditJson(json_model));
     }
 

@@ -25,7 +25,7 @@ namespace JsonEditor.Models
             Root = root;
             Schema = schema;
             HideProperties = hide_properties;
-            ObjectsByType = EnumerateObjectsByType(schema, new(new[] { schema.Title ?? "root" }))
+            ObjectsByType = EnumerateObjectsByType(schema, new(schema.Title ?? "root"))
                 .GroupBy(p => p.ObjectType).ToDictionary(g => g.Key, g => g.Select(p => p.Path).ToList());
         }
 
@@ -71,13 +71,13 @@ namespace JsonEditor.Models
                     break;
 
                 case JSchemaType.Array when schema.Items.SingleOrDefaultSafe() is JSchema one_type_of_item:
-                    foreach (var result in EnumerateObjectsByType(one_type_of_item, path.Append(JsonPath.ARRAY)))
+                    foreach (var result in EnumerateObjectsByType(one_type_of_item, path.Array()))
                         yield return result;
                     break;
 
                 case null when schema.OneOf.Count > 0:
                     foreach (var one_of in schema.OneOf)
-                        foreach (var result in EnumerateObjectsByType(one_of, path.Append(JsonPath.ONE_OF)))
+                        foreach (var result in EnumerateObjectsByType(one_of, path.OneOf()))
                             yield return result; // this case has not been tested
                     break;
             }

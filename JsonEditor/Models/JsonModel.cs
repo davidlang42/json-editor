@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Models
@@ -24,7 +25,10 @@ namespace JsonEditor.Models
         {
             Title = title;
             File = file;
-            Properties = schema.Properties.Select(i => new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
+            IEnumerable<KeyValuePair<string, JSchema>> properties_to_show = schema.Properties;
+            if (File.HideProperties is Regex regex)
+                properties_to_show = properties_to_show.Where(i => !regex.IsMatch(i.Key));
+            Properties = properties_to_show.Select(i => new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
         }
 
         public void EditObject(string path, JObject obj, JSchema schema, Action refresh)

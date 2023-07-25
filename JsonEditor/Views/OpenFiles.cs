@@ -1,5 +1,6 @@
 using JsonEditor.Models;
 using Microsoft.Maui;
+using System.Text.RegularExpressions;
 
 namespace JsonEditor.Views;
 
@@ -12,17 +13,20 @@ public class OpenFiles : ContentPage
         files = prepopulated_files ?? FilePaths.LoadFromUserPreferences();
         Title = "Choose a JSON schema and file";
         NavigatedTo += Page_NavigatedTo;
-		Content = new VerticalStackLayout
-		{
-			Spacing = 5,
-			Margin = 5,
-			Children  =
-			{
+        BindingContext = files;
+        Content = new VerticalStackLayout
+        {
+            Spacing = 5,
+            Margin = 5,
+            Children =
+            {
                 new Label { Text = "JSON schema definition:" },
-				EntryAndBrowse(files, nameof(FilePaths.SchemaFile), Schema_Clicked),
+                EntryAndBrowse(nameof(FilePaths.SchemaFile), Schema_Clicked),
                 new Label { Text = "JSON file to edit:" },
-                EntryAndBrowse(files, nameof(FilePaths.JsonFile), File_Clicked),
-				OpenButton(Open_Clicked)
+                EntryAndBrowse(nameof(FilePaths.JsonFile), File_Clicked),
+                new Label { Text = "Properties to hide while editing:" },
+                RegexEntry(nameof(FilePaths.HidePropertiesRegex)),
+                OpenButton(Open_Clicked)
             }
         };
 	}
@@ -32,12 +36,9 @@ public class OpenFiles : ContentPage
         Window.Title = "JSON Editor";
     }
 
-    static View EntryAndBrowse(object binding_context, string path, EventHandler handler)
+    static View EntryAndBrowse(string path, EventHandler handler)
 	{
-        var entry = new Entry
-        {
-            BindingContext = binding_context
-        };
+        var entry = new Entry();
         entry.SetBinding(Entry.TextProperty, path);
         var browse = new Button
         {
@@ -69,6 +70,16 @@ public class OpenFiles : ContentPage
         return button;
     }
 
+    static View RegexEntry(string path)
+    {
+        var entry = new Entry
+        {
+            Placeholder = "Enter a Regular Expression (RegEx)"
+        };
+        entry.SetBinding(Entry.TextProperty, path);
+        return entry;
+    }
+
     private async void Open_Clicked(object? sender, EventArgs e)
     {
         if (!File.Exists(files.SchemaFile))
@@ -81,8 +92,22 @@ public class OpenFiles : ContentPage
             await DisplayAlert("Error", $"The JSON file does not exist: {files.JsonFile}", "Ok");
             return;
         }
+        Regex? regex = null;
+        if (!string.IsNullOrEmpty(files.HidePropertiesRegex))
+        {
+            try
+            {
+                regex = new Regex(files.HidePropertiesRegex, RegexOptions.Compiled);
+            }
+            catch (ArgumentException)
+            {
+                await DisplayAlert("Error", $"The pattern for hiding properties is not a valid Regular Expression: {files.HidePropertiesRegex}\nLeave this blank to show all properties.", "Ok");
+                return;
+            }
+        }
         files.SaveToUserPreferences();
         var json_file = JsonFile.Load(files.SchemaFile, files.JsonFile);
+        json_file.HideProperties = regex;
         var json_model = new JsonModel(json_file, json_file.Schema.Title ?? "Root", json_file.Root, json_file.Schema);
         await Navigation.PushAsync(new EditJson(json_model));
     }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Models
@@ -14,12 +15,14 @@ namespace JsonEditor.Models
         public string Filename { get; set; }
         public JObject Root { get; }
         public JSchema Schema { get; }
+        public Regex? HideProperties { get; set; }
 
-        public JsonFile(string filename, JObject root, JSchema schema)
+        public JsonFile(string filename, JObject root, JSchema schema, Regex? hide_properties = null)
         {
             Filename = filename;
             Root = root;
             Schema = schema;
+            HideProperties = hide_properties;
         }
 
         public void Save()

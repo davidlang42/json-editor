@@ -38,6 +38,20 @@ namespace JsonEditor.Models
             }
         }
 
+        private string hidePropertiesRegex = "";
+        public string HidePropertiesRegex
+        {
+            get => hidePropertiesRegex;
+            set
+            {
+                if (value != hidePropertiesRegex)
+                {
+                    hidePropertiesRegex = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
@@ -47,23 +61,27 @@ namespace JsonEditor.Models
 
         const string SCHEMA_FILE_KEY = "LastSchemaFile";
         const string JSON_FILE_KEY = "LastJsonFile";
+        const string HIDE_PROPERTIES_KEY = "LastHidePropertiesRegex";
 
         public void SaveToUserPreferences()
         {
             Preferences.Default.Set(SCHEMA_FILE_KEY, SchemaFile);
             Preferences.Default.Set(JSON_FILE_KEY, JsonFile);
+            Preferences.Default.Set(HIDE_PROPERTIES_KEY, HidePropertiesRegex);
         }
 
         public static FilePaths LoadFromUserPreferences() => new FilePaths
         {
             SchemaFile = Preferences.Default.Get(SCHEMA_FILE_KEY, ""),
             JsonFile = Preferences.Default.Get(JSON_FILE_KEY, ""),
+            HidePropertiesRegex = Preferences.Default.Get(HIDE_PROPERTIES_KEY, "")
         };
 
         public static void ClearUserPreferences()
         {
             Preferences.Default.Remove(SCHEMA_FILE_KEY);
             Preferences.Default.Remove(JSON_FILE_KEY);
+            Preferences.Default.Remove(HIDE_PROPERTIES_KEY);
         }
     }
 }

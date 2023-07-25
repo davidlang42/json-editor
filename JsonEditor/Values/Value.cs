@@ -67,11 +67,18 @@ namespace JsonEditor.Values
                     MaxLength = (int?)schema.MaximumLength,
                     Pattern = schema.Pattern
                 },
-                JSchemaType.Integer => new NumberValue
+                JSchemaType.Integer => new IntegerValue
                 {
                     Value = (value as JValue)?.Value as long? ?? 0,
                     Minimum = schema.Minimum,
                     Maximum = schema.Maximum
+                },
+                JSchemaType.Number => new DoubleValue
+                {
+                    Value = (value as JValue)?.Value as double? ?? 0,
+                    Minimum = schema.Minimum,
+                    Maximum = schema.Maximum,
+                    MultipleOf = schema.MultipleOf
                 },
                 JSchemaType.Boolean => new BooleanValue
                 {

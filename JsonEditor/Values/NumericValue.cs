@@ -5,38 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Values
 {
-    internal class NumberValue : Value
+    internal abstract class NumericValue<T> : Value where T : INumber<T>
     {
-        private long _value;
-        public long Value
-        {
-            get => _value;
-            set
-            {
-                if (value != _value)
-                {
-                    _value = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
+        public abstract T Value { get; set; }
 
         public double? Minimum { get; init; }
         public double? Maximum { get; init; }
 
-        public override JToken AsJToken()
-        {
-            if (Minimum.HasValue && Value < Minimum.Value)
-                return Minimum.Value;
-            if (Maximum.HasValue && Value > Maximum.Value)
-                return Maximum.Value;
-            return Value;
-        }
+        protected abstract int? maxDecimalPlaces { get; }
 
         public override string ToString()
         {
@@ -69,13 +51,13 @@ namespace JsonEditor.Values
                     BindingContext = this,
                     Keyboard = Keyboard.Numeric,
                 };
-                entry.Behaviors.Add(NumericValidation(Minimum, Maximum));
+                entry.Behaviors.Add(NumericValidation(Minimum, Maximum, maxDecimalPlaces));
                 entry.SetBinding(Entry.TextProperty, new Binding(nameof(Value), BindingMode.TwoWay));
                 grid.Add(entry);
                 var stepper = new Stepper
                 {
                     BindingContext = this,
-                    Increment = 1,
+                    Increment = maxDecimalPlaces.HasValue ? Math.Pow(10, -maxDecimalPlaces.Value) : 1,
                     Minimum = Minimum ?? long.MinValue,
                     Maximum = Maximum ?? long.MaxValue,
                 };
@@ -98,20 +80,21 @@ namespace JsonEditor.Values
             }
         }
 
-        private static NumericValidationBehavior NumericValidation(double? minimum, double? maximum)
+        private static NumericValidationBehavior NumericValidation(double? minimum, double? maximum, int? max_decimal_places)
         {
             var behavior = new NumericValidationBehavior
             {
                 InvalidStyle = InvalidStyle(),
                 ValidStyle = ValidStyle(),
-                Flags = ValidationFlags.ValidateOnValueChanged,
-                MaximumDecimalPlaces = 0
+                Flags = ValidationFlags.ValidateOnValueChanged
             };
 
             if (minimum.HasValue)
                 behavior.MinimumValue = minimum.Value;
             if (maximum.HasValue)
                 behavior.MaximumValue = maximum.Value;
+            if (max_decimal_places.HasValue)
+                behavior.MaximumDecimalPlaces = max_decimal_places.Value;
 
             return behavior;
         }

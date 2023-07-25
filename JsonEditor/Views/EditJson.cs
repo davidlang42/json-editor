@@ -138,11 +138,13 @@ public class EditJson : ContentPage
         await Navigation.PopAsync();
     }
 
+    const int MAX_JSON_LENGTH_IN_MESSAGE = 16384;
+
     private async void Ok_Clicked(object? sender, EventArgs e)
     {
         if (!model.Commit(out var new_json))
         {
-            await DisplayAlert("No changes made", $"No changes have been made to the original value of this object:\n{model.OriginalJson}", "Cancel");
+            await DisplayAlert("No changes made", $"No changes have been made to the original value of this object:\n{model.OriginalJson.Truncate(MAX_JSON_LENGTH_IN_MESSAGE)}", "Cancel");
             return;
         }
         model.File.Save();
@@ -150,7 +152,9 @@ public class EditJson : ContentPage
         if (matches.Length > 0)
         {
             var list_of_paths = string.Join("\n", matches.Select(r => r.Path.ToString()));
-            var msg = $"The following objects were IDENTICAL to this one before the changes you made. Would you like to update them to this new value as well?\n\n{list_of_paths}\n\nOriginal JSON:\n{model.OriginalJson}\n\nNew JSON:\n{new_json}";
+            var original_json = model.OriginalJson.Truncate(MAX_JSON_LENGTH_IN_MESSAGE);
+            new_json = new_json.Truncate(MAX_JSON_LENGTH_IN_MESSAGE);
+            var msg = $"The following objects were IDENTICAL to this one before the changes you made. Would you like to update them to this new value as well?\n\n{list_of_paths}\n\nOriginal JSON:\n{original_json}\n\nNew JSON:\n{new_json}";
             if (await DisplayAlert($"Update {matches.Length} matching objects?", msg, "Yes", "No"))
             {
                 foreach (var match in matches)

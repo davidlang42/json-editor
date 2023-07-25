@@ -139,8 +139,12 @@ public class EditJson : ContentPage
 
     private async void Ok_Clicked(object? sender, EventArgs e)
     {
-        foreach (var property in model.Properties)
-            property.Commit();
+        var json = model.Commit();
+        if (!json.Changed)
+        {
+            await DisplayAlert("No changes made", $"No changes have been made to the original value:\n{json.OldJson.Truncate(400)}", "Ok");
+            return;
+        }
         model.File.Save();
         await Navigation.PopAsync();
         //TODO check for other objects of the same type, and offer to update them (bold those that were the same as the previous value of this object, and select them by default)

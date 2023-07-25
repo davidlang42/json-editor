@@ -12,7 +12,7 @@ namespace JsonEditor.Models
 {
     public class JsonModel
     {
-        public delegate void EditAction(JsonPath path, JObject obj, JSchema schema, Action refresh);
+        public delegate void EditAction(JsonPath path, JObject obj, JSchema schema);
 
         public JsonFile File { get; }
         public JsonPath Path { get; }
@@ -23,8 +23,6 @@ namespace JsonEditor.Models
         readonly JObject obj;
         readonly string? objectType;
         
-        Action? nextRefresh = null;
-
         public JsonModel(JsonFile file, JsonPath path, JObject obj, JSchema schema)
         {
             File = file;
@@ -38,11 +36,8 @@ namespace JsonEditor.Models
             Properties = properties_to_show.Select(i => new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
         }
 
-        public void EditObject(JsonPath path, JObject obj, JSchema schema, Action refresh)
+        public void EditObject(JsonPath path, JObject obj, JSchema schema)
         {
-            if (nextRefresh != null)
-                throw new ApplicationException("Pending refresh not run.");
-            nextRefresh = refresh;
             var model = new JsonModel(File, Path.AppendReversed(path), obj, schema);
             NavigateAction?.Invoke(model);
         }
@@ -69,11 +64,9 @@ namespace JsonEditor.Models
 
         public void Refresh()
         {
-            if (nextRefresh != null)
-            {
-                nextRefresh();
-                nextRefresh = null;
-            }
+            foreach (var property in Properties)
+                foreach (var value in property.Value.Recurse().OfType<ObjectValue>())
+                    value.Refresh(); // all objects could have changed due to "update matching objects"
         }
 
         /// <summary>Find objects of the same type as this one, which were the same at the time this model was created</summary>

@@ -63,7 +63,7 @@ namespace JsonEditor.Models
 
         public IEnumerable<JsonReference> Follow(JObject root, JsonPath? exclude = null)
         {
-            if (Paths.Length == 0 || (exclude != null && StartsWith(exclude)))
+            if (Paths.Length == 0 || (exclude != null && StartsWith(exclude))) // its super important that this condition is StartsWith() and not Equal() because if you updated an object of the same type inside itself, very bad things would happen
                 return Enumerable.Empty<JsonReference>();
             return Follow(1, root, exclude); // start at 1 because the root name doesn't count
         }

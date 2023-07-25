@@ -154,7 +154,7 @@ public class EditJson : ContentPage
             if (await DisplayAlert($"Update {matches.Length} matching objects?", msg, "Yes", "No"))
             {
                 foreach (var match in matches)
-                    match.Set(model.CloneObject()); //TODO this doesn't cause the parent view to update, so the parent view looks wrong until edited
+                    match.Set(model.CloneObject());
                 model.File.Save();
             }
         }

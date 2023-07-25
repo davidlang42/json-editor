@@ -51,6 +51,9 @@ namespace JsonEditor.Values
             return invalid;
         }
 
+        /// <summary>Recursively list all Values nested under (and including) this one.</summary>
+        public virtual IEnumerable<Value> Recurse() => this.Yield();
+
         public static Value For(JsonModel.EditAction edit_object_action, JToken? value, JSchema schema)
         {
             return schema.Type switch

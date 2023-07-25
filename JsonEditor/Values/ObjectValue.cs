@@ -101,7 +101,12 @@ namespace JsonEditor.Values
 
         private void Edit_Clicked(object? sender, EventArgs e)
         {
-            editAction(new(), Value, ObjectSchema.OrThrow(), () => NotifyPropertyChanged(nameof(Value)));
+            editAction(new(), Value, ObjectSchema.OrThrow());
+        }
+
+        public void Refresh()
+        {
+            NotifyPropertyChanged(nameof(Value));
         }
 
         private async void Copy_Clicked(object? sender, EventArgs e)

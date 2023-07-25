@@ -50,6 +50,8 @@ namespace JsonEditor.Values
 
         public override string ToString() => $"One of {PossibleValues.Length} types";
 
+        public override IEnumerable<Value> Recurse() => this.Yield().Concat(PossibleValues.SelectMany(v => v.Recurse()));
+
         public override View EditView
         {
             get

@@ -61,7 +61,7 @@ namespace JsonEditor.Values
         private Value MakeNewItem(JToken token)
         {
             Value? v = null;
-            v = For((p, o, s, r) => editObjectAction(p.Array(Items.IndexOf(v!)), o, s, r), token, itemSchema);
+            v = For((p, o, s) => editObjectAction(p.Array(Items.IndexOf(v!)), o, s), token, itemSchema);
             return v;
         }
 
@@ -86,6 +86,8 @@ namespace JsonEditor.Values
             };
             return $"Array of {range_name}{item_name}";
         }
+
+        public override IEnumerable<Value> Recurse() => this.Yield().Concat(Items.SelectMany(v => v.Recurse()));
 
         public override View EditView
         {

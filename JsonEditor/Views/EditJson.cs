@@ -102,7 +102,9 @@ public class EditJson : ContentPage
                 Text = property.Key,
                 FontAttributes = property.Required ? FontAttributes.Bold : FontAttributes.None
             };
-            var content = new ContentView { Content = property.Value.EditView };
+            var content = new ContentView {
+                Content = property.Value.EditView
+            };
             grid.Add(title);
             grid.SetRow(title, i);
             if (property.Required)

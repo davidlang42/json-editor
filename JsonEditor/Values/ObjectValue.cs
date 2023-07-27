@@ -80,22 +80,15 @@ namespace JsonEditor.Values
                     LineBreakMode = LineBreakMode.NoWrap
                 };
                 label.SetBinding(Label.TextProperty, nameof(Value), converter: new JsonPreview());
-                var grid = new Grid
+                var layout = new HorizontalStackLayout
                 {
-                    ColumnSpacing = 5,
-                    ColumnDefinitions =
-                    {
-                        new ColumnDefinition(GridLength.Auto),
-                        new ColumnDefinition(GridLength.Auto),
-                        new ColumnDefinition(GridLength.Auto),
-                        new ColumnDefinition(GridLength.Star)
-                    }
+                    Spacing = 5
                 };
-                grid.Add(button);
-                grid.Add(copy, 1);
-                grid.Add(paste, 2);
-                grid.Add(label, 3);
-                return grid;
+                layout.Add(button);
+                layout.Add(copy);
+                layout.Add(paste);
+                layout.Add(label);
+                return layout;
             }
         }
 

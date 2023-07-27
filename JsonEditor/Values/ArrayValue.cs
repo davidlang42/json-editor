@@ -125,29 +125,29 @@ namespace JsonEditor.Values
         private object GenerateDataTemplate()
         {
             // BindingContext will be set to a Value
-            var layout = new FlexLayout
+            var grid = new Grid
             {
-                AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Start,
-                Direction = Microsoft.Maui.Layouts.FlexDirection.Row,
-                Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
                 Background = Colors.Gold,//TODO remove
-                Children =
+                ColumnDefinitions =
                 {
-                    ArrayButton("↑", MoveUp_Clicked),
-                    ArrayButton("↓", MoveDown_Clicked)
+                    new ColumnDefinition(GridLength.Auto),
+                    new ColumnDefinition(GridLength.Auto),
                 }
             };
+            grid.Add(ArrayButton("↑", MoveUp_Clicked));
+            grid.Add(ArrayButton("↓", MoveDown_Clicked), 1);
             if (!IsFixedSize())
             {
-                layout.Add(ArrayButton("✗", Remove_Clicked, nameof(CanRemove)));
-                layout.Add(ArrayButton("+", Duplicate_Clicked, nameof(CanAdd)));
+                grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+                grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+                grid.Add(ArrayButton("✗", Remove_Clicked, nameof(CanRemove)), 2);
+                grid.Add(ArrayButton("+", Duplicate_Clicked, nameof(CanAdd)), 3);
             };
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
             var view = new ContentView();
             view.SetBinding(ContentView.ContentProperty, nameof(Value.EditView));
-            layout.Add(view);
-            //TODO this will only work if I change the object references to relative to the FlexLayout itself (ie. use Children[0].Width rather than Width)
-            //layout.UnfuckFlexLayout();
-            return layout;
+            grid.Add(view, grid.ColumnDefinitions.Count - 1);
+            return grid;
         }
 
         Button ArrayButton(string text, EventHandler handler, string? enabled_binding_path = null)

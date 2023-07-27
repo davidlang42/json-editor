@@ -43,24 +43,28 @@ public class EditJson : ContentPage
         {
             Content = PropertyGrid(model.Properties),
         };
-        var footer = new HorizontalStackLayout
-        {
-            MakeButton("Back", Colors.Red, Cancel_Clicked),
-            MakeButton("Save", Colors.Green, Ok_Clicked)
-        };
+        var back = MakeButton("Back", Colors.Red, Cancel_Clicked);
+        var save = MakeButton("Save", Colors.Green, Ok_Clicked);
         var grid = new Grid
         {
             Margin = 5,
             RowSpacing = 5,
+            ColumnSpacing = 5,
             RowDefinitions =
             {
                 new RowDefinition(GridLength.Star),
                 new RowDefinition(GridLength.Auto)
+            },
+            ColumnDefinitions =
+            {
+                new ColumnDefinition(GridLength.Star),
+                new ColumnDefinition(GridLength.Star)
             }
         };
         grid.Add(main);
-        grid.Add(footer);
-        grid.SetRow(footer, 1);
+        Grid.SetColumnSpan(main, 2);
+        grid.Add(back, 0, 1);
+        grid.Add(save, 1, 1);
         return grid;
     }
 
@@ -69,7 +73,7 @@ public class EditJson : ContentPage
         var button = new Button
         {
             Text = text,
-            BackgroundColor = color
+            BackgroundColor = color,
         };
         button.Clicked += clicked;
         return button;

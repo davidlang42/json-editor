@@ -129,7 +129,8 @@
         "name": {
           "type": "string",
           "maxLength": 16,
-          "minLength": 16
+          "minLength": 16,
+          "pattern": "[ -~]*"
         },
         "voice_reserve": {
           "$ref": "#/definitions/Optional_map_of_MidiChannel_to_VoiceReserve"
@@ -137,7 +138,8 @@
         "live_set_tempo": {
           "type": "integer",
           "format": "uint16",
-          "minimum": 0.0
+          "maximum": 500.0,
+          "minimum": 10.0
         },
         "fc1_assign": {
           "$ref": "#/definitions/PedalFunction"
@@ -154,6 +156,7 @@
         "sound_focus_value": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "s1_assign": {
@@ -178,13 +181,13 @@
           "$ref": "#/definitions/KeyTouchCurveType"
         },
         "key_touch_curve_offset": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<10, 0, 19>"
         },
         "key_touch_velocity_delay_sense": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 1, 127>"
         },
         "key_touch_velocity_key_follow": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 1, 127>"
         },
         "key_off_position": {
           "$ref": "#/definitions/KeyOffPosition"
@@ -423,9 +426,17 @@
         "SuperHeavy"
       ]
     },
-    "OffsetU8": {
+    "OffsetU8<10, 0, 19>": {
       "type": "integer",
-      "format": "int8"
+      "format": "int8",
+      "maximum": 9.0,
+      "minimum": -10.0
+    },
+    "OffsetU8<64, 1, 127>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 63.0,
+      "minimum": -63.0
     },
     "KeyOffPosition": {
       "type": "string",
@@ -579,11 +590,13 @@
         "audio_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "song_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "song_output_port": {
@@ -595,16 +608,19 @@
         "rhythm_set": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 13.0,
           "minimum": 0.0
         },
         "rhythm_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "rhythm_pattern": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 200.0,
           "minimum": 0.0
         },
         "rhythm_midi_out_channel": {
@@ -674,6 +690,7 @@
         "depth": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "unused1": {
@@ -716,7 +733,9 @@
     },
     "Parameter": {
       "type": "integer",
-      "format": "int16"
+      "format": "uint8",
+      "maximum": 20000.0,
+      "minimum": -20000.0
     },
     "Reverb": {
       "type": "object",
@@ -732,6 +751,7 @@
         "depth": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "unused1": {
@@ -1010,6 +1030,7 @@
         "volume": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "pan": {
@@ -1018,11 +1039,13 @@
         "chorus": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "reverb": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "range_lower": {
@@ -1034,23 +1057,26 @@
         "velocity_range_lower": {
           "type": "integer",
           "format": "uint8",
-          "minimum": 0.0
+          "maximum": 127.0,
+          "minimum": 1.0
         },
         "velocity_range_upper": {
           "type": "integer",
           "format": "uint8",
-          "minimum": 0.0
+          "maximum": 127.0,
+          "minimum": 1.0
         },
         "velocity_sensitivity": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 1, 127>"
         },
         "velocity_max": {
           "type": "integer",
           "format": "uint8",
-          "minimum": 0.0
+          "maximum": 127.0,
+          "minimum": 1.0
         },
         "transpose": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 16, 112>"
         },
         "enable": {
           "type": "boolean"
@@ -1239,6 +1265,12 @@
         "C8"
       ]
     },
+    "OffsetU8<64, 16, 112>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 48.0,
+      "minimum": -48.0
+    },
     "Required_map_of_Layer_to_Boolean": {
       "type": "object",
       "required": [
@@ -1270,19 +1302,64 @@
     "ExternalLayer": {
       "type": "object",
       "required": [
+        "attack_time",
+        "bank_select_lsb",
+        "bank_select_msb",
         "bender",
+        "chorus_level",
+        "control_change_1_number",
+        "control_change_1_value",
+        "control_change_2_number",
+        "control_change_2_value",
         "control_mfx_switch",
         "control_slider",
+        "course_tune_semitones",
+        "cutoff",
         "damper",
+        "decay_time",
         "enable",
         "fc1",
         "fc2",
+        "fine_tune_percent",
+        "level",
         "modulation",
+        "modulation_depth",
+        "mono_poly",
+        "pan",
+        "pitch_bend_range_semitones",
+        "portamento_switch",
+        "portamento_time",
+        "program_change",
         "range_lower",
         "range_upper",
+        "release_time",
+        "resonance",
+        "reverb_level",
         "s1",
         "s2",
-        "transmit_midi_messages",
+        "transmit_attack_time",
+        "transmit_bank_select_lsb",
+        "transmit_bank_select_msb",
+        "transmit_channel",
+        "transmit_chorus_level",
+        "transmit_control_change_1",
+        "transmit_control_change_2",
+        "transmit_course_tune",
+        "transmit_cutoff",
+        "transmit_decay_time",
+        "transmit_fine_tine",
+        "transmit_level",
+        "transmit_modulation_depth",
+        "transmit_mono_poly",
+        "transmit_pan",
+        "transmit_pitch_bend_range",
+        "transmit_port",
+        "transmit_portamento",
+        "transmit_portamento_time",
+        "transmit_program_change",
+        "transmit_release_time",
+        "transmit_resonance",
+        "transmit_reverb_level",
         "transpose",
         "velocity_max",
         "velocity_range_lower",
@@ -1299,23 +1376,26 @@
         "velocity_range_lower": {
           "type": "integer",
           "format": "uint8",
-          "minimum": 0.0
+          "maximum": 127.0,
+          "minimum": 1.0
         },
         "velocity_range_upper": {
           "type": "integer",
           "format": "uint8",
-          "minimum": 0.0
+          "maximum": 127.0,
+          "minimum": 1.0
         },
         "velocity_sensitivity": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 1, 127>"
         },
         "velocity_max": {
           "type": "integer",
           "format": "uint8",
-          "minimum": 0.0
+          "maximum": 127.0,
+          "minimum": 1.0
         },
         "transpose": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 16, 112>"
         },
         "enable": {
           "type": "boolean"
@@ -1341,8 +1421,182 @@
         "control_slider": {
           "$ref": "#/definitions/Required_map_of_Layer_to_Boolean"
         },
-        "transmit_midi_messages": {
-          "$ref": "#/definitions/Bits_size_177"
+        "transmit_port": {
+          "$ref": "#/definitions/TransmitPort"
+        },
+        "transmit_channel": {
+          "$ref": "#/definitions/MidiChannel"
+        },
+        "transmit_bank_select_msb": {
+          "type": "boolean"
+        },
+        "bank_select_msb": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_bank_select_lsb": {
+          "type": "boolean"
+        },
+        "bank_select_lsb": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_program_change": {
+          "type": "boolean"
+        },
+        "program_change": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_level": {
+          "type": "boolean"
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_pan": {
+          "type": "boolean"
+        },
+        "pan": {
+          "$ref": "#/definitions/Pan"
+        },
+        "transmit_course_tune": {
+          "type": "boolean"
+        },
+        "course_tune_semitones": {
+          "$ref": "#/definitions/OffsetU8<64, 16, 112>"
+        },
+        "transmit_fine_tine": {
+          "type": "boolean"
+        },
+        "fine_tune_percent": {
+          "$ref": "#/definitions/OffsetU8<64, 14, 114>"
+        },
+        "transmit_mono_poly": {
+          "type": "boolean"
+        },
+        "mono_poly": {
+          "$ref": "#/definitions/MonoPolyOnly"
+        },
+        "transmit_portamento": {
+          "type": "boolean"
+        },
+        "portamento_switch": {
+          "type": "boolean"
+        },
+        "transmit_portamento_time": {
+          "type": "boolean"
+        },
+        "portamento_time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_cutoff": {
+          "type": "boolean"
+        },
+        "cutoff": {
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
+        },
+        "transmit_resonance": {
+          "type": "boolean"
+        },
+        "resonance": {
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
+        },
+        "transmit_attack_time": {
+          "type": "boolean"
+        },
+        "attack_time": {
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
+        },
+        "transmit_decay_time": {
+          "type": "boolean"
+        },
+        "decay_time": {
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
+        },
+        "transmit_release_time": {
+          "type": "boolean"
+        },
+        "release_time": {
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
+        },
+        "transmit_pitch_bend_range": {
+          "type": "boolean"
+        },
+        "pitch_bend_range_semitones": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 48.0,
+          "minimum": 0.0
+        },
+        "transmit_modulation_depth": {
+          "type": "boolean"
+        },
+        "modulation_depth": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_chorus_level": {
+          "type": "boolean"
+        },
+        "chorus_level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_reverb_level": {
+          "type": "boolean"
+        },
+        "reverb_level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_control_change_1": {
+          "type": "boolean"
+        },
+        "control_change_1_number": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "control_change_1_value": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "transmit_control_change_2": {
+          "type": "boolean"
+        },
+        "control_change_2_number": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "control_change_2_value": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
         },
         "s1": {
           "type": "boolean"
@@ -1355,9 +1609,55 @@
         }
       }
     },
-    "Bits_size_177": {
+    "TransmitPort": {
       "type": "string",
-      "pattern": "^(?:[01]{8} ){22}[01]{1}$"
+      "enum": [
+        "All",
+        "Out1",
+        "Out2",
+        "Out3",
+        "Usb"
+      ]
+    },
+    "MidiChannel": {
+      "type": "string",
+      "enum": [
+        "Channel1",
+        "Channel2",
+        "Channel3",
+        "Channel4",
+        "Channel5",
+        "Channel6",
+        "Channel7",
+        "Channel8",
+        "Channel9",
+        "Channel10",
+        "Channel11",
+        "Channel12",
+        "Channel13",
+        "Channel14",
+        "Channel15",
+        "Channel16"
+      ]
+    },
+    "OffsetU8<64, 14, 114>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 50.0,
+      "minimum": -50.0
+    },
+    "MonoPolyOnly": {
+      "type": "string",
+      "enum": [
+        "Mono",
+        "Poly"
+      ]
+    },
+    "OffsetU8<64, 0, 127>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 63.0,
+      "minimum": -64.0
     },
     "ToneLayer": {
       "type": "object",
@@ -1380,10 +1680,10 @@
           "$ref": "#/definitions/ToneNumber"
         },
         "course_tune_semitones": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 16, 112>"
         },
         "fine_tune_percent": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 14, 114>"
         },
         "mono_poly": {
           "$ref": "#/definitions/MonoPoly"
@@ -1391,6 +1691,7 @@
         "pitch_bend_range_semitones": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 24.0,
           "minimum": 0.0
         },
         "portamento_switch": {
@@ -1399,22 +1700,23 @@
         "portamento_time": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "cutoff": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
         },
         "resonance": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
         },
         "attack_time": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
         },
         "decay_time": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
         },
         "release_time": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<64, 0, 127>"
         },
         "unused": {
           "$ref": "#/definitions/Bits_size_10"
@@ -1422,9 +1724,962 @@
       }
     },
     "ToneNumber": {
-      "type": "integer",
-      "format": "uint16",
-      "minimum": 0.0
+      "type": "null",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "1_ConcertGrand",
+            "2_Honky-tonk1",
+            "3_Concert Mono",
+            "4_St.Piano 1",
+            "5_St.Piano 2",
+            "6_St.Piano 3",
+            "7_St.Piano 4",
+            "8_St.Piano 5",
+            "9_Brite Piano",
+            "10_Stage Piano",
+            "11_Honky Tonk",
+            "12_Pop Piano 1",
+            "13_Pop Piano 2",
+            "14_Pop Piano 3",
+            "15_Piano 1",
+            "16_Piano 1 w",
+            "17_European Pf",
+            "18_Piano 2",
+            "19_Piano 2 w",
+            "20_Piano 3",
+            "21_Piano 3 w",
+            "22_Honky-tonk",
+            "23_Honky-tonk w",
+            "24_TINE EP",
+            "25_REED EP",
+            "26_Stage EP 1",
+            "27_Stage EP 2",
+            "28_Stage EP Trm",
+            "29_Tremolo EP 1",
+            "30_E.Piano 3",
+            "31_E.Piano 4",
+            "32_E.Piano 5",
+            "33_E.Piano 6",
+            "34_E.Piano 7",
+            "35_E.Piano 8",
+            "36_Dyno EP",
+            "37_Dyno EP Trm",
+            "38_Tremolo EP 2",
+            "39_Back2the60s",
+            "40_Tine EP",
+            "41_SA EP 1",
+            "42_SA EP 2",
+            "43_Psy EP",
+            "44_Hit EP",
+            "45_Wurly EP",
+            "46_Wurly EP Trm",
+            "47_Curly Wurly",
+            "48_Super Wurly",
+            "49_EP Legend 3",
+            "50_EP Belle",
+            "51_80's EP",
+            "52_FM EP 1",
+            "53_FM EP 2",
+            "54_Sinus EP",
+            "55_Spirit Tines",
+            "56_E.Piano 1",
+            "57_St.Soft EP",
+            "58_EP Legend 1",
+            "59_Wurly",
+            "60_E.Piano 2",
+            "61_Detuned EP",
+            "62_St.FM EP",
+            "63_EP Legend 2",
+            "64_EP Phase",
+            "65_E.Grand 1",
+            "66_E.Grand 2",
+            "67_E.Grand 3",
+            "68_Clav",
+            "69_Clav 2",
+            "70_Pulse Clav",
+            "71_Pulse Clav 2",
+            "72_Sweepin Clav",
+            "73_Analog Clav",
+            "74_Biting Clav",
+            "75_Pulse Clv St",
+            "76_Natural Hps.",
+            "77_Harpsichord",
+            "78_Harpsichord2",
+            "79_Coupled Hps",
+            "80_Harpsi w",
+            "81_Harpsi o",
+            "82_Vibraphone",
+            "83_Vibraphone 2",
+            "84_VibraphoneTr",
+            "85_Vibraphone w",
+            "86_Tremolo Vib",
+            "87_Jazz Vib",
+            "88_Marimba",
+            "89_Marimba 2",
+            "90_Marimba 3",
+            "91_Marimba w",
+            "92_BsMarimba 1",
+            "93_BsMarimba 2",
+            "94_Xylophone",
+            "95_Xylophone 2",
+            "96_Xylophone 3",
+            "97_Ethno Keys",
+            "98_Celesta",
+            "99_Glockenspiel",
+            "100_Music Box",
+            "101_Music Box 2",
+            "102_Kalimba",
+            "103_Kalimbells",
+            "104_Steel Drums",
+            "105_Steel Drums2",
+            "106_Soft StlDrm",
+            "107_FM Sparkles",
+            "108_FM Syn Bell",
+            "109_FM Heaven",
+            "110_D50 Fantasy",
+            "111_D50 Bell",
+            "112_Dreaming Bel",
+            "113_Analog Bell",
+            "114_Music Bells",
+            "115_Bell 1",
+            "116_Bell 2",
+            "117_Org Bell",
+            "118_Crystal",
+            "119_Tinkle Bell",
+            "120_Icy Keys",
+            "121_Toy Box",
+            "122_Dreambell",
+            "123_Sine Mallet",
+            "124_Syn Mallet",
+            "125_TubularBells",
+            "126_TubularBell2",
+            "127_Church Bell",
+            "128_Carillon",
+            "129_Carillon 2",
+            "130_Tower Bell",
+            "131_Bell Ring",
+            "132_GX Strings",
+            "133_Mood Strings",
+            "134_Slow Strings",
+            "135_DecayStrings",
+            "136_Strings",
+            "137_Strings 2",
+            "138_Strings 3",
+            "139_Strings 4",
+            "140_Strings 5",
+            "141_Strings 6",
+            "142_Stage Str 1",
+            "143_Stage Str 2",
+            "144_Pop Str",
+            "145_Hall Strings",
+            "146_Marc.Str",
+            "147_StringsStacc",
+            "148_Orchestra",
+            "149_Oct Strings",
+            "150_Orc.Unison 1",
+            "151_Orc.Unison 2",
+            "152_Full Orc",
+            "153_Tremolo Str",
+            "154_TapeStrings1",
+            "155_TapeStrings2",
+            "156_Hybrid Str",
+            "157_Violin",
+            "158_Violin 2",
+            "159_Slow Violin",
+            "160_Bright Vln",
+            "161_Viola",
+            "162_Cello",
+            "163_Bright Vc",
+            "164_Contrabass",
+            "165_PizzicatoStr",
+            "166_Pizz 1",
+            "167_Pizz 2",
+            "168_Harp",
+            "169_Yang Qin",
+            "170_Timpani",
+            "171_Fiddle",
+            "172_Cheezy Movie",
+            "173_CalmChoirPad",
+            "174_Soft Pad 1",
+            "175_Soft Pad 2",
+            "176_Soft Pad 3",
+            "177_Soft Pad 4",
+            "178_Soft Pad 5",
+            "179_Soft Pad 6",
+            "180_Soft Pad 7",
+            "181_Soft Pad 8",
+            "182_Soft Pad 9",
+            "183_Soft Pad 10",
+            "184_Dreamheaven",
+            "185_Air Key 1",
+            "186_Air Key 2",
+            "187_Sweet Keys",
+            "188_Soft Bell",
+            "189_Oct Heaven",
+            "190_Stacc Heaven",
+            "191_DigitalDream",
+            "192_Analog Dream",
+            "193_Harp Pad",
+            "194_Sitar Pad",
+            "195_VintageStr 1",
+            "196_VintageStr 2",
+            "197_VintageStr 3",
+            "198_VintageStr 4",
+            "199_VintageStr 5",
+            "200_VintageStr 6",
+            "201_VintageStr 7",
+            "202_JX Strings",
+            "203_JP Strings 1",
+            "204_JP Strings 2",
+            "205_106 Strings",
+            "206_PWM Str 1",
+            "207_PWM Str 2",
+            "208_PWM Str 3",
+            "209_Fading Str",
+            "210_ParadisePad",
+            "211_80s Strings",
+            "212_Stringship",
+            "213_Airy Pad",
+            "214_Neo RS-202",
+            "215_Sawtooth Str",
+            "216_Pulse Pad",
+            "217_Hollow Pad 1",
+            "218_WarmHeaven 1",
+            "219_WarmHeaven 2",
+            "220_Heaven Key",
+            "221_Heaven Pad 1",
+            "222_Heaven Pad 2",
+            "223_Heaven Pad 3",
+            "224_Heaven Pad 4",
+            "225_FineWinePad1",
+            "226_FineWinePad2",
+            "227_5th Pad 1",
+            "228_5th Pad 2",
+            "229_Nu Epic Pad",
+            "230_Angelis Pad",
+            "231_TrnsSweepPad",
+            "232_Giant Sweep",
+            "233_Voyager",
+            "234_Digital Pad",
+            "235_NuSoundtrack",
+            "236_Xadecimal",
+            "237_PanninFormnt",
+            "238_Fairy's Song",
+            "239_Atmospherics",
+            "240_Strobe Pad",
+            "241_StrobeBell 1",
+            "242_StrobeBell 2",
+            "243_Flying Pad 1",
+            "244_Flying Pad 2",
+            "245_Flying Pad 3",
+            "246_Flying Pad 4",
+            "247_Flying Pad 5",
+            "248_Shimmer Pad",
+            "249_BUBBLE 1",
+            "250_BUBBLE 2",
+            "251_BUBBLE 3",
+            "252_Soft PWM Pad",
+            "253_Org Pad",
+            "254_Hollow Pad 2",
+            "255_SavannaPad 1",
+            "256_SavannaPad 2",
+            "257_SavannaPad 3",
+            "258_PWM Pad 1",
+            "259_PWM Pad 2",
+            "260_Str Machine",
+            "261_Reso Pad",
+            "262_BPF Pad",
+            "263_Sweep Pad",
+            "264_Sweep Pad 2",
+            "265_Sweep Pad 3",
+            "266_Sweep Pad 4",
+            "267_Scoop Pad 1",
+            "268_Scoop Pad 2",
+            "269_Brite Wine",
+            "270_Wine Pad",
+            "271_Sine Magic",
+            "272_Syn.Strings1",
+            "273_Syn.Strings2",
+            "274_Syn.Strings3",
+            "275_Fantasia",
+            "276_Warm Pad",
+            "277_Sine Pad",
+            "278_Poly Synth",
+            "279_Bowed Glass",
+            "280_Metal Pad",
+            "281_Halo Pad",
+            "282_Ice Rain",
+            "283_Soundtrack",
+            "284_Atmosphere",
+            "285_Brightness",
+            "286_Rock Organ 1",
+            "287_Rock Organ 2",
+            "288_Rock Organ 3",
+            "289_Rock Organ 4",
+            "290_Rock Organ 5",
+            "291_RotaryOrgan1",
+            "292_RotaryOrgan2",
+            "293_Perc. Organ",
+            "294_Perc.Organ 2",
+            "295_Perc.Organ 3",
+            "296_Perc.Organ 4",
+            "297_E.Organ 1",
+            "298_E.Organ 2",
+            "299_E.Organ 3",
+            "300_E.Organ 4",
+            "301_E.Organ 5",
+            "302_E.Organ 6",
+            "303_E.Organ 7",
+            "304_Puff Organ",
+            "305_Nason Flute",
+            "306_Massive Pipe",
+            "307_Mid Pipe Org",
+            "308_Grand Pipes",
+            "309_Church Org 1",
+            "310_Church Org 2",
+            "311_Church Org 3",
+            "312_Theater Org",
+            "313_Accordion Fr",
+            "314_Accordion It",
+            "315_AccordionIt2",
+            "316_Musette",
+            "317_Vodkakordion",
+            "318_Bandoneon",
+            "319_Harmonica",
+            "320_Harmonica 2",
+            "321_70's E.Org 1",
+            "322_70's E.Org 2",
+            "323_Ana Organ 1",
+            "324_Ana Organ 2",
+            "325_Ana Organ 3",
+            "326_Ana Organ 4",
+            "327_Ana Organ 5",
+            "328_Organ 1",
+            "329_Trem. Organ",
+            "330_60's Organ",
+            "331_70's E.Organ",
+            "332_Organ 2",
+            "333_Chorus Organ",
+            "334_Organ 3",
+            "335_Reed Organ",
+            "336_Nylon Gtr 1",
+            "337_Nylon Gtr 2",
+            "338_Nylon Gtr 3",
+            "339_Nylon Gtr 4",
+            "340_Nylon Gtr 5",
+            "341_Nylon Gtr 6",
+            "342_Wet Nyln Gtr",
+            "343_Folk Gtr 1",
+            "344_Folk Gtr 2",
+            "345_Folk Gtr 3",
+            "346_Latin Gtr",
+            "347_Clean Gtr 1",
+            "348_Clean Gtr 2",
+            "349_Clean Gtr 3",
+            "350_Jazz Guitar",
+            "351_Jazz Guitar2",
+            "352_Pick E.Gtr",
+            "353_Funk Guitar",
+            "354_Funk Guitar2",
+            "355_Wet E.Gtr",
+            "356_Overdrive Gt",
+            "357_OverdriveGt2",
+            "358_Guitar Pinch",
+            "359_Dist Gtr 1",
+            "360_Dist Gtr 2",
+            "361_Dist Gtr 3",
+            "362_DistortionGt",
+            "363_Gt Feedback1",
+            "364_Dist Rtm Gtr",
+            "365_Ukulele",
+            "366_Ukulele 2",
+            "367_Nylon Gtr 1o",
+            "368_Steel-str.Gt",
+            "369_12-str. Gtr",
+            "370_Mandolin",
+            "371_Steel + Body",
+            "372_Pedal Steel",
+            "373_Pedal Steel2",
+            "374_Clean Guitar",
+            "375_Chorus Gtr",
+            "376_Mid Tone Gtr",
+            "377_Muted Guitar",
+            "378_Funk Pop",
+            "379_Jazz Man",
+            "380_Gt Harmonics",
+            "381_Gt Feedback2",
+            "382_Sitar 1",
+            "383_Sitar 2",
+            "384_Sitar 3",
+            "385_Banjo",
+            "386_Shamisen",
+            "387_Koto",
+            "388_Taisho Koto",
+            "389_Aerial Harp",
+            "390_LostParadise",
+            "391_Indian Frtls",
+            "392_Santur",
+            "393_Santur 2",
+            "394_Santur 3",
+            "395_Acoustic Bs",
+            "396_Acoustic Bs2",
+            "397_Acoustic Bs3",
+            "398_Fingered Bs",
+            "399_Fingered Bs2",
+            "400_Fingered Bs3",
+            "401_Fingered Bs4",
+            "402_Pick Bass",
+            "403_Picked Bass",
+            "404_Fretless Bs",
+            "405_FretlessBs 2",
+            "406_FretlessBs 3",
+            "407_Finger Slap",
+            "408_Finger Slap2",
+            "409_Slap Bass 1",
+            "410_Slap Bass 2",
+            "411_Return2Base!",
+            "412_MG Bass 1",
+            "413_MG Bass 2",
+            "414_MG Bass 3",
+            "415_Modular Bs 1",
+            "416_Modular Bs 2",
+            "417_PWM Bass 1",
+            "418_PWM Bass 2",
+            "419_Big Mini",
+            "420_Fat Analog",
+            "421_Spike Bass",
+            "422_SH Bass",
+            "423_Intrusive Bs",
+            "424_Synth Bass 1",
+            "425_Synth Bass 2",
+            "426_Synth Bass 3",
+            "427_Synth Bass 4",
+            "428_Synth Bass 5",
+            "429_Synth Bass 6",
+            "430_Synth Bass 7",
+            "431_Synth Bass 8",
+            "432_Synth Bass 9",
+            "433_Synth Bass10",
+            "434_Synth Bass11",
+            "435_Synth Bass12",
+            "436_Synth Bass13",
+            "437_Synth Bass14",
+            "438_Reso Bass 1",
+            "439_Reso Bass 2",
+            "440_Reso Bass 3",
+            "441_Reso Bass 4",
+            "442_Reso Bass 5",
+            "443_Reso Bass 6",
+            "444_Reso Bass 7",
+            "445_Reso Bass 8",
+            "446_Reso Bass 9",
+            "447_Reso Bass 10",
+            "448_Acid Bass",
+            "449_Acid Bass 2",
+            "450_Acid Bass 3",
+            "451_Acid Bass 4",
+            "452_Acid Bass 5",
+            "453_Acid Bass 6",
+            "454_Acid Bass 7",
+            "455_TB Bass 1",
+            "456_TB Bass 2",
+            "457_TB Bass 3",
+            "458_TB Bass 4",
+            "459_Alpha Bass 1",
+            "460_Alpha Bass 2",
+            "461_Alpha ResoBs",
+            "462_Nu Saw Bass",
+            "463_Nu RnB SawBs",
+            "464_Storm Bass",
+            "465_Detune Bass",
+            "466_Gashed Bass",
+            "467_Hi-Energy Bs",
+            "468_Pedal Bass 1",
+            "469_Pedal Bass 2",
+            "470_Monster Bass",
+            "471_JunoSqr Bs 1",
+            "472_JunoSqr Bs 2",
+            "473_101 Bass",
+            "474_106 Bass 1",
+            "475_106 Bass 2",
+            "476_Compu Bass 1",
+            "477_Compu Bass 2",
+            "478_Triangle Bs",
+            "479_Muffled Bass",
+            "480_Garage Bass",
+            "481_TransistorBs",
+            "482_Fazee Bass",
+            "483_Brite Bass",
+            "484_Saw Bass",
+            "485_Sub Bass",
+            "486_Ramp Bass",
+            "487_Fat Bass 1",
+            "488_Fat Bass 2",
+            "489_Fat Bass 3",
+            "490_Flat Bass",
+            "491_Electro Rubb",
+            "492_80s Bass",
+            "493_SynthBass101",
+            "494_Clav Bass",
+            "495_Hammer Bass",
+            "496_SynSlap Bass",
+            "497_Rubber Bass",
+            "498_Attack Pulse",
+            "499_Jazz Scat 1",
+            "500_Jazz Scat 2",
+            "501_GX Choir",
+            "502_Choir Aahs",
+            "503_Chorus Aahs",
+            "504_Choir Pad",
+            "505_Angels Choir",
+            "506_Aerial Choir",
+            "507_Voice Oohs",
+            "508_Doo Pad",
+            "509_Humming",
+            "510_Humming 2",
+            "511_Humming 3",
+            "512_Gospel Hum",
+            "513_Decay Choir",
+            "514_Dcy ChoirPad",
+            "515_Vox Pad 1",
+            "516_Vox Pad 2",
+            "517_Dreamvox 1",
+            "518_Dreamvox 2",
+            "519_80s Vox",
+            "520_SynVox",
+            "521_SynVox 2",
+            "522_SynVox 3",
+            "523_Mini Vox",
+            "524_Chipmunk",
+            "525_Sample Opera",
+            "526_Sad Ceremony",
+            "527_5th Voice",
+            "528_Sop Vox",
+            "529_Analog Voice",
+            "530_Space Voice",
+            "531_Itopia",
+            "532_Dreaming Box",
+            "533_Brass 1",
+            "534_Brass 2",
+            "535_Brass 3",
+            "536_Brass 4",
+            "537_Brass 5",
+            "538_Brass 6",
+            "539_80s Brass 1",
+            "540_80s Brass 2",
+            "541_80s Brass 3",
+            "542_80s Brass 4",
+            "543_80s Brass 5",
+            "544_80s Brass 6",
+            "545_80s Brass 7",
+            "546_80s Brass 8",
+            "547_Soft SynBrs1",
+            "548_Soft SynBrs2",
+            "549_Warm SynBrs",
+            "550_Brite SynBrs",
+            "551_Express Brs",
+            "552_EuroExpress1",
+            "553_JP Brass 1",
+            "554_JP Brass 2",
+            "555_Juno Brass",
+            "556_Ox Brass",
+            "557_Reso Brass",
+            "558_Wide SynBrs",
+            "559_106 Brass",
+            "560_Octa Brass",
+            "561_Poly Brass 1",
+            "562_Poly Brass 2",
+            "563_Dual Saw Brs",
+            "564_Jump Poly",
+            "565_Reso Key 1",
+            "566_EuroExpress2",
+            "567_Ox Synth",
+            "568_VintageBrs 1",
+            "569_VintageBrs 2",
+            "570_VintageBrs 3",
+            "571_VintageBrs 4",
+            "572_JP Brass",
+            "573_Oct SynBrass",
+            "574_Jump Brass",
+            "575_Synth Brass1",
+            "576_Synth Brass2",
+            "577_SynBrass sfz",
+            "578_Velo Brass",
+            "579_Trumpet",
+            "580_Trumpet 2",
+            "581_Dark Trumpet",
+            "582_MuteTrumpet1",
+            "583_MuteTrumpet2",
+            "584_Trombone 1",
+            "585_Trombone 2",
+            "586_Bright Tb",
+            "587_Tuba",
+            "588_Fr.Horn",
+            "589_French Horn",
+            "590_F.Horn Sect",
+            "591_Soprano Sax",
+            "592_Soprano Sax2",
+            "593_Alto Sax",
+            "594_Tenor Sax",
+            "595_Tenor Sax 2",
+            "596_BreathyTenor",
+            "597_Baritone Sax",
+            "598_Oboe",
+            "599_English Horn",
+            "600_Bassoon",
+            "601_Bassoon 2",
+            "602_Clarinet",
+            "603_Piccolo",
+            "604_Flute",
+            "605_Flute 2",
+            "606_Recorder",
+            "607_Pan Flute",
+            "608_Pan Flute 2",
+            "609_Pan Pipes 1",
+            "610_Pan Pipes 2",
+            "611_Bottle Blow",
+            "612_Shakuhachi",
+            "613_Shakuhachi 2",
+            "614_Whistle",
+            "615_Ocarina",
+            "616_Ocarina 2",
+            "617_Bagpipe",
+            "618_Shanai",
+            "619_Dream Trance",
+            "620_Dream Saws",
+            "621_Dream Pulse",
+            "622_Trance Synth",
+            "623_Trancy",
+            "624_Trance Keys",
+            "625_Trance Saws",
+            "626_Auto Trance1",
+            "627_Super Saws 1",
+            "628_Analog Saws",
+            "629_Uni-G",
+            "630_Digitaless",
+            "631_Bustranza",
+            "632_Super Saws 2",
+            "633_Poly Synth 2",
+            "634_Poly Synth 3",
+            "635_Poly Synth 4",
+            "636_Poly Synth 5",
+            "637_Poly Synth 6",
+            "638_Poly Synth 7",
+            "639_Juno Saw Key",
+            "640_Saw Key 1",
+            "641_Saw Key 2",
+            "642_Waspy Synth",
+            "643_Juno SQR",
+            "644_Vintage Key",
+            "645_Ju-D Fifths",
+            "646_Reso Key 2",
+            "647_Fat Synth",
+            "648_DOC Stack",
+            "649_2 Saws",
+            "650_Hi Saw Band",
+            "651_Brite Synth",
+            "652_RAVtune",
+            "653_Saw Lead 1",
+            "654_Saw Lead 2",
+            "655_Saw Lead 3",
+            "656_Saw Lead 4",
+            "657_Saw Lead 5",
+            "658_Saw Lead 6",
+            "659_Saw Lead 7",
+            "660_Saw Lead 8",
+            "661_Saw Lead 9",
+            "662_Saw Lead 10",
+            "663_GR300 Lead 1",
+            "664_GR300 Lead 2",
+            "665_Classic GR",
+            "666_Bright GR",
+            "667_Fat GR Lead",
+            "668_MODified Ld",
+            "669_Syn Lead 1",
+            "670_Syn Lead 2",
+            "671_Syn Lead 3",
+            "672_Syn Lead 4",
+            "673_Syn Lead 5",
+            "674_Syn Lead 6",
+            "675_Syn Lead 7",
+            "676_Pro Fat Ld 1",
+            "677_Pro Fat Ld 2",
+            "678_JupiterLead1",
+            "679_JupiterLead2",
+            "680_Porta Lead",
+            "681_Classic Lead",
+            "682_On Air",
+            "683_Wormy Lead",
+            "684_Waspy Lead",
+            "685_Brite ResoLd",
+            "686_Brass Lead",
+            "687_Legato Tkno",
+            "688_Follow Me",
+            "689_Octa Juice",
+            "690_Juicy Jupe",
+            "691_Octa Saw",
+            "692_Vintager 1",
+            "693_Vintager 2",
+            "694_Sync Lead",
+            "695_Octa Sync",
+            "696_Leading Sync",
+            "697_A Leader",
+            "698_Hot Coffee",
+            "699_Hot Sync",
+            "700_Synchro Lead",
+            "701_Space Solo",
+            "702_Squareheads",
+            "703_Mod Lead",
+            "704_Alpha Spit",
+            "705_Air Lead",
+            "706_Pulstar Lead",
+            "707_Therasaw",
+            "708_Warmy Lead",
+            "709_ResoSawLead",
+            "710_Soft Reso Ld",
+            "711_Reso Lead 1",
+            "712_Reso Lead 2",
+            "713_Reso Lead 3",
+            "714_Reso Lead 4",
+            "715_Reso Lead 5",
+            "716_Juicy Lead",
+            "717_DC Triangle",
+            "718_Soft Lead 1",
+            "719_Soft Lead 2",
+            "720_Soft Lead 3",
+            "721_Soft Lead 4",
+            "722_Soft Lead 5",
+            "723_Soft Lead 6",
+            "724_Soft Lead 7",
+            "725_Soft Lead 8",
+            "726_Soft Lead 9",
+            "727_Soft Lead 10",
+            "728_Tri Lead",
+            "729_Pulse Lead 1",
+            "730_Pulse Lead 2",
+            "731_Pulse Lead 3",
+            "732_Pulse Lead 4",
+            "733_Simple Tri",
+            "734_Simple Sine",
+            "735_Whistle Ld 1",
+            "736_Whistle Ld 2",
+            "737_Square Pipe",
+            "738_CosmicDrops1",
+            "739_CosmicDrops2",
+            "740_Spooky Lead",
+            "741_Pure Lead",
+            "742_303 NRG",
+            "743_Round SQR",
+            "744_Brite SQR",
+            "745_Square SAW",
+            "746_Simple SQR",
+            "747_Sqr Lead",
+            "748_Atk Lead",
+            "749_Octa Square",
+            "750_CS Lead",
+            "751_Mini Growl",
+            "752_Hoover Again",
+            "753_Tranceformer",
+            "754_Analog Seq",
+            "755_Seq Pop",
+            "756_Periscope",
+            "757_Major 7",
+            "758_Pipe Key",
+            "759_Enigmatic",
+            "760_Planetz",
+            "761_Sci-Fi",
+            "762_ResoSweep Dn",
+            "763_Jet Noise",
+            "764_Brandish",
+            "765_909 Fx",
+            "766_Zap",
+            "767_PolySweep Nz",
+            "768_Passing By",
+            "769_Lazer Points",
+            "770_Crystal Fx",
+            "771_Crystal Ice",
+            "772_Mad Noise",
+            "773_Robot Sci-Fi",
+            "774_Computer 1",
+            "775_Computer 2",
+            "776_S&H Noise",
+            "777_S&H Ramp",
+            "778_S&H PWM",
+            "779_S&H Saw 1",
+            "780_S&H Saw 2",
+            "781_Ramp Lead 1",
+            "782_Ramp Lead 2",
+            "783_Sine Lead 1",
+            "784_Sine Lead 2",
+            "785_Mod Chord",
+            "786_Housechord",
+            "787_Juno-D Maj7",
+            "788_Sweet House",
+            "789_Detune Saws",
+            "790_Electrostar",
+            "791_Dance Saws1",
+            "792_Resoform",
+            "793_Melodic Drum",
+            "794_Alpha Said",
+            "795_Shroomy",
+            "796_Detune Seq",
+            "797_LoFi Piano",
+            "798_FX Ramp",
+            "799_Scratch 2",
+            "800_AnalogDays 1",
+            "801_Dance Saws 2",
+            "802_Sync Key",
+            "803_Detune Ramp",
+            "804_Reso Saw",
+            "805_EuroExpress3",
+            "806_Sweep Saw",
+            "807_Pulsatron",
+            "808_Motion Bass",
+            "809_Trance Splt",
+            "810_Rhythmic 5th",
+            "811_Rhythmic 1",
+            "812_Rhythmic 2",
+            "813_Mega Sync 1",
+            "814_StrobeBell 3",
+            "815_Strobe 1",
+            "816_Strobe 2",
+            "817_Strobe 3",
+            "818_Strobe 4",
+            "819_LFO Saw",
+            "820_Keep Going",
+            "821_Keep Running",
+            "822_Electrons",
+            "823_BriskVortex",
+            "824_LFO Vox",
+            "825_Pulsasaw",
+            "826_Arposphere",
+            "827_Mega Sync 2",
+            "828_Compusonic 1",
+            "829_Compusonic 2",
+            "830_Compusonic 3",
+            "831_Compusonic 4",
+            "832_Compusonic 5",
+            "833_AnalogDays 2",
+            "834_Groove 7",
+            "835_Juno Pop",
+            "836_Auto Trance2",
+            "837_In Da Groove",
+            "838_80s Beat",
+            "839_Ride Cymbal",
+            "840_OrchestraHit",
+            "841_Bass Hit",
+            "842_6th Hit",
+            "843_Euro Hit",
+            "844_Square Wave",
+            "845_MG Square",
+            "846_2600 Sine",
+            "847_Saw Wave",
+            "848_OB2 Saw",
+            "849_Doctor Solo",
+            "850_Natural Lead",
+            "851_SequencedSaw",
+            "852_Syn.Calliope",
+            "853_Chiffer Lead",
+            "854_Charang",
+            "855_Wire Lead",
+            "856_Solo Vox",
+            "857_5th Saw Wave",
+            "858_Bass & Lead",
+            "859_Delayed Lead",
+            "860_Goblin",
+            "861_Echo Drops",
+            "862_Echo Bell",
+            "863_Echo Pan",
+            "864_Star Theme",
+            "865_Castanets",
+            "866_Taiko",
+            "867_Concert BD",
+            "868_Melo. Tom 1",
+            "869_Melo. Tom 2",
+            "870_Synth Drum",
+            "871_808 Tom",
+            "872_Elec Perc",
+            "873_Reverse Cymb",
+            "874_Agogo",
+            "875_Woodblock",
+            "876_Gt FretNoise",
+            "877_Gt Cut Noise",
+            "878_String Slap",
+            "879_Breath Noise",
+            "880_Fl.Key Click",
+            "881_Seashore",
+            "882_Rain",
+            "883_Thunder",
+            "884_Wind",
+            "885_Stream",
+            "886_Bubble",
+            "887_Bird 1",
+            "888_Dog",
+            "889_Horse Gallop",
+            "890_Bird 2",
+            "891_Telephone 1",
+            "892_Telephone 2",
+            "893_DoorCreaking",
+            "894_Door",
+            "895_Scratch",
+            "896_Wind Chimes",
+            "897_Helicopter",
+            "898_Car Engine",
+            "899_Car Stop",
+            "900_Car Pass",
+            "901_Car Crash",
+            "902_Siren",
+            "903_Train",
+            "904_Jetplane",
+            "905_Starship",
+            "906_Burst Noise",
+            "907_Applause",
+            "908_Laughing",
+            "909_Screaming",
+            "910_Punch",
+            "911_Heart Beat",
+            "912_Footsteps",
+            "913_Gun Shot",
+            "914_Machine Gun",
+            "915_Laser Gun",
+            "916_Explosion",
+            "917_Standard 1",
+            "918_Standard 2",
+            "919_Standard 3",
+            "920_Rock Kit",
+            "921_Jazz Kit",
+            "922_Brush Kit",
+            "923_Machine Kit",
+            "924_R&B T-Analog",
+            "925_R&B Mini Kit",
+            "926_HipHop Kit",
+            "927_R&B Kit",
+            "928_Dance Kit 1",
+            "929_Dance Kit 2",
+            "930_Dance Kit 3",
+            "931_GM2 STANDARD",
+            "932_GM2 ROOM",
+            "933_GM2 POWER",
+            "934_GM2 ELECTRIC",
+            "935_GM2 ANALOG",
+            "936_GM2 JAZZ",
+            "937_GM2 BRUSH",
+            "938_GM2 ORCHSTRA",
+            "939_GM2 SFX",
+            "0_Honky-tonk",
+            "0_Reed E.Piano",
+            "0_Comp Reed E.P"
+          ]
+        },
+        {
+          "type": "integer",
+          "format": "uint16",
+          "maximum": 942.0,
+          "minimum": 1.0
+        }
+      ]
     },
     "MonoPoly": {
       "type": "string",
@@ -1456,11 +2711,12 @@
       ],
       "properties": {
         "tone_number": {
-          "$ref": "#/definitions/OneIndexedU8"
+          "$ref": "#/definitions/PianoToneNumber"
         },
         "stereo_width": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 63.0,
           "minimum": 0.0
         },
         "nuance": {
@@ -1469,49 +2725,68 @@
         "duplex_scale_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "hammer_noise_level": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<4, 2, 6>"
         },
         "damper_noise_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "string_resonance_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "key_off_resonance_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "sound_lift": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "tone_character": {
-          "$ref": "#/definitions/OffsetU8"
+          "$ref": "#/definitions/OffsetU8<8, 3, 13>"
         },
         "stretch_tune_type": {
           "$ref": "#/definitions/StretchTuneType"
         },
         "micro_tune_percent": {
-          "$ref": "#/definitions/Optional_map_of_MidiNote_to_Offset1Dp"
+          "$ref": "#/definitions/Optional_map_of_MidiNote_to_Offset1Dp<512, 12, 1012>"
         },
         "unused": {
           "$ref": "#/definitions/Bits_size_5"
         }
       }
     },
-    "OneIndexedU8": {
-      "type": "integer",
-      "format": "uint8",
-      "minimum": 0.0
+    "PianoToneNumber": {
+      "type": "null",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "1_ConcertGrand",
+            "2_Honky-tonk1",
+            "3_Concert Mono"
+          ]
+        },
+        {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 3.0,
+          "minimum": 1.0
+        }
+      ]
     },
     "NuanceType": {
       "type": "string",
@@ -1521,6 +2796,18 @@
         "Type3"
       ]
     },
+    "OffsetU8<4, 2, 6>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 2.0,
+      "minimum": -2.0
+    },
+    "OffsetU8<8, 3, 13>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 5.0,
+      "minimum": -5.0
+    },
     "StretchTuneType": {
       "type": "string",
       "enum": [
@@ -1529,399 +2816,402 @@
         "User"
       ]
     },
-    "Optional_map_of_MidiNote_to_Offset1Dp": {
+    "Optional_map_of_MidiNote_to_Offset1Dp<512, 12, 1012>": {
       "type": "object",
       "properties": {
         "CMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "DbMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "DMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "EbMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "EMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "FMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "GbMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "GMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "AbMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "AMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "BbMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "BMinus1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B0": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B1": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B2": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B3": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B4": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B5": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B6": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B7": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Ab8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "A8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Bb8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "B8": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "C9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Db9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "D9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Eb9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "E9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "F9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "Gb9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         },
         "G9": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<512, 12, 1012>"
         }
       },
       "additionalProperties": false
     },
-    "Offset1Dp": {
+    "Offset1Dp<512, 12, 1012>": {
       "type": "number",
-      "format": "double"
+      "format": "double",
+      "multipleOf": 0.1,
+      "maximum": 50.0,
+      "minimum": -50.0
     },
     "Bits_size_5": {
       "type": "string",
@@ -2001,7 +3291,8 @@
         "hardware_version": {
           "type": "string",
           "maxLength": 16,
-          "minLength": 16
+          "minLength": 16,
+          "pattern": "[ -~]*"
         }
       }
     },
@@ -2035,11 +3326,12 @@
       ],
       "properties": {
         "master_tune_percent": {
-          "$ref": "#/definitions/Offset1Dp"
+          "$ref": "#/definitions/Offset1Dp<1024, 24, 2024>"
         },
         "master_level": {
           "type": "integer",
           "format": "uint8",
+          "maximum": 127.0,
           "minimum": 0.0
         },
         "live_set_control_channel": {
@@ -2100,6 +3392,13 @@
           "$ref": "#/definitions/Bits_size_7"
         }
       }
+    },
+    "Offset1Dp<1024, 24, 2024>": {
+      "type": "number",
+      "format": "double",
+      "multipleOf": 0.1,
+      "maximum": 100.0,
+      "minimum": -100.0
     },
     "Polarity": {
       "type": "string",
@@ -2218,6 +3517,12 @@
         }
       }
     },
+    "OneIndexedU8": {
+      "type": "integer",
+      "format": "uint8",
+      "maximum": 128.0,
+      "minimum": 1.0
+    },
     "Bank": {
       "type": "object",
       "required": [
@@ -2270,7 +3575,8 @@
     "OneIndexedU16": {
       "type": "integer",
       "format": "uint16",
-      "minimum": 0.0
+      "maximum": 300.0,
+      "minimum": 1.0
     },
     "Bits_size_6": {
       "type": "string",

@@ -46,43 +46,43 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

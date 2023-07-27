@@ -125,9 +125,12 @@ namespace JsonEditor.Values
         private object GenerateDataTemplate()
         {
             // BindingContext will be set to a Value
-            var layout = new HorizontalStackLayout
+            var layout = new FlexLayout
             {
-                Spacing = 5,
+                AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Start,
+                Direction = Microsoft.Maui.Layouts.FlexDirection.Row,
+                Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                Background = Colors.Gold,//TODO remove
                 Children =
                 {
                     ArrayButton("↑", MoveUp_Clicked),
@@ -142,6 +145,8 @@ namespace JsonEditor.Values
             var view = new ContentView();
             view.SetBinding(ContentView.ContentProperty, nameof(Value.EditView));
             layout.Add(view);
+            //TODO this will only work if I change the object references to relative to the FlexLayout itself (ie. use Children[0].Width rather than Width)
+            //layout.UnfuckFlexLayout();
             return layout;
         }
 

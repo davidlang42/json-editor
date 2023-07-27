@@ -74,20 +74,20 @@ namespace JsonEditor.Values
                     Text = $"Edit {this}"
                 };
                 button.Clicked += Edit_Clicked;
-                var label = new Label
+                var layout = new FlexLayout
                 {
-                    BindingContext = this,
-                    LineBreakMode = LineBreakMode.NoWrap
+                    AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Start,
+                    Direction = Microsoft.Maui.Layouts.FlexDirection.Row,
+                    Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                    Background = Colors.Maroon,//TODO remove
+                    Children =
+                    {
+                        button,
+                        copy,
+                        paste
+                    }
                 };
-                label.SetBinding(Label.TextProperty, nameof(Value), converter: new JsonPreview());
-                var layout = new HorizontalStackLayout
-                {
-                    Spacing = 5
-                };
-                layout.Add(button);
-                layout.Add(copy);
-                layout.Add(paste);
-                layout.Add(label);
+                layout.UnfuckFlexLayout();
                 return layout;
             }
         }

@@ -67,15 +67,20 @@ namespace JsonEditor.Values
                     BindingContext = this
                 };
                 view.SetBinding(ContentView.ContentProperty, $"{nameof(SelectedValue)}.{nameof(Value.EditView)}");
-                return new HorizontalStackLayout
+                var layout = new FlexLayout
                 {
-                    Spacing = 5,
+                    AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Start,
+                    Direction = Microsoft.Maui.Layouts.FlexDirection.Row,
+                    Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
+                    Background = Colors.Tan,//TODO remove
                     Children =
                     {
                         picker,
                         view
                     }
                 };
+                layout.UnfuckFlexLayout();
+                return layout;
             }
         }
     }

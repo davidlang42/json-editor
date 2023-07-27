@@ -79,7 +79,6 @@ namespace JsonEditor.Values
                     AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Start,
                     Direction = Microsoft.Maui.Layouts.FlexDirection.Row,
                     Wrap = Microsoft.Maui.Layouts.FlexWrap.Wrap,
-                    Background = Colors.Maroon,//TODO remove
                     Children =
                     {
                         button,

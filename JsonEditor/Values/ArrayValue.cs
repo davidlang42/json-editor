@@ -127,7 +127,6 @@ namespace JsonEditor.Values
             // BindingContext will be set to a Value
             var grid = new Grid
             {
-                Background = Colors.Gold,//TODO remove
                 ColumnDefinitions =
                 {
                     new ColumnDefinition(GridLength.Auto),

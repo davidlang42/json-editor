@@ -88,9 +88,9 @@ public class EditJson : ContentPage
             Margin = 5,
             ColumnDefinitions =
             {
-                new ColumnDefinition(new GridLength(200, GridUnitType.Absolute)),
+                new ColumnDefinition(new GridLength(0.2, GridUnitType.Star)),
                 new ColumnDefinition(new GridLength(50, GridUnitType.Absolute)),
-                new ColumnDefinition(GridLength.Star)
+                new ColumnDefinition(new GridLength(0.8, GridUnitType.Star))
             }
         };
         for (var i = 0; i < properties.Count; i++)
@@ -105,7 +105,11 @@ public class EditJson : ContentPage
             var content = new ContentView { Content = property.Value.EditView };
             grid.Add(title);
             grid.SetRow(title, i);
-            if (!property.Required)
+            if (property.Required)
+            {
+                grid.SetColumnSpan(title, 2);
+            }
+            else
             {
                 var null_switch = new Switch
                 {

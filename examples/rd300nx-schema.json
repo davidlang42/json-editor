@@ -270,13 +270,8 @@
       "additionalProperties": false
     },
     "VoiceReserve": {
+      "type": "null",
       "oneOf": [
-        {
-          "type": "string",
-          "enum": [
-            "Full"
-          ]
-        },
         {
           "type": "object",
           "required": [
@@ -286,19 +281,27 @@
             "Voices": {
               "type": "integer",
               "format": "uint8",
+              "maximum": 63.0,
               "minimum": 0.0
             }
-          },
-          "additionalProperties": false
+          }
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Full"
+          ]
         }
       ]
     },
     "PedalFunction": {
+      "type": "null",
       "oneOf": [
         {
           "type": "string",
           "enum": [
             "Off",
+            "ControlChange(0)",
             "BendUp",
             "BendDown",
             "AfterTouch",
@@ -311,6 +314,8 @@
             "SongReset",
             "Mfx1Switch",
             "UnusedMfx2Switch",
+            "Mfx1Control",
+            "UnusedMfx2Control",
             "RotarySpeed",
             "SoundFocusValue",
             "LiveSetUp",
@@ -326,14 +331,15 @@
             "ControlChange": {
               "type": "integer",
               "format": "uint8",
+              "maximum": 127.0,
               "minimum": 0.0
             }
-          },
-          "additionalProperties": false
+          }
         }
       ]
     },
     "SoundFocusType": {
+      "type": "null",
       "oneOf": [
         {
           "type": "string",
@@ -343,7 +349,8 @@
             "UnusedEPianoType",
             "SoundLift",
             "Enhancer",
-            "MidBoost"
+            "MidBoost",
+            "Other(0)"
           ]
         },
         {
@@ -355,10 +362,10 @@
             "Other": {
               "type": "integer",
               "format": "uint8",
-              "minimum": 0.0
+              "maximum": 31.0,
+              "minimum": 6.0
             }
-          },
-          "additionalProperties": false
+          }
         }
       ]
     },
@@ -393,6 +400,7 @@
       "pattern": "^(?:[01]{8} ){8}[01]{4}$"
     },
     "KeyTouchVelocity": {
+      "type": "null",
       "oneOf": [
         {
           "type": "string",
@@ -409,10 +417,10 @@
             "Fixed": {
               "type": "integer",
               "format": "uint8",
-              "minimum": 0.0
+              "maximum": 127.0,
+              "minimum": 1.0
             }
-          },
-          "additionalProperties": false
+          }
         }
       ]
     },
@@ -477,11 +485,13 @@
       "additionalProperties": false
     },
     "SliderFunction": {
+      "type": "null",
       "oneOf": [
         {
           "type": "string",
           "enum": [
             "Off",
+            "ControlChange(0)",
             "BendUp",
             "BendDown",
             "AfterTouch",
@@ -498,10 +508,10 @@
             "ControlChange": {
               "type": "integer",
               "format": "uint8",
+              "maximum": 127.0,
               "minimum": 0.0
             }
-          },
-          "additionalProperties": false
+          }
         }
       ]
     },
@@ -680,8 +690,7 @@
       "required": [
         "chorus_type",
         "depth",
-        "output_select",
-        "parameters"
+        "output_select"
       ],
       "properties": {
         "chorus_type": {
@@ -699,7 +708,70 @@
         "output_select": {
           "$ref": "#/definitions/OutputSelect"
         },
-        "parameters": {
+        "unused": {
+          "$ref": "#/definitions/Bits_size_1"
+        }
+      }
+    },
+    "ChorusType": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "Off"
+          ],
+          "properties": {
+            "Off": {
+              "$ref": "#/definitions/UnusedParameters_for_20"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Chorus"
+          ],
+          "properties": {
+            "Chorus": {
+              "$ref": "#/definitions/ChorusParameters"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Delay"
+          ],
+          "properties": {
+            "Delay": {
+              "$ref": "#/definitions/DelayParameters"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Gm2Chorus"
+          ],
+          "properties": {
+            "Gm2Chorus": {
+              "$ref": "#/definitions/Gm2ChorusParameters"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "UnusedParameters_for_20": {
+      "type": "object",
+      "required": [
+        "unused"
+      ],
+      "properties": {
+        "unused": {
           "type": "array",
           "items": [
             {
@@ -708,20 +780,769 @@
           ],
           "maxItems": 20,
           "minItems": 0
-        },
-        "unused": {
-          "$ref": "#/definitions/Bits_size_1"
         }
       }
     },
-    "ChorusType": {
+    "Parameter": {
+      "type": "integer",
+      "format": "int16",
+      "maximum": 20000.0,
+      "minimum": -20000.0
+    },
+    "ChorusParameters": {
+      "type": "object",
+      "required": [
+        "cutoff_frequency",
+        "depth",
+        "feedback",
+        "filter_type",
+        "phase_degrees",
+        "pre_delay",
+        "rate_hz",
+        "rate_mode",
+        "rate_note",
+        "unused_parameters"
+      ],
+      "properties": {
+        "filter_type": {
+          "$ref": "#/definitions/FilterType"
+        },
+        "cutoff_frequency": {
+          "$ref": "#/definitions/LogFrequency<200, 8000>"
+        },
+        "pre_delay": {
+          "$ref": "#/definitions/LogMilliseconds"
+        },
+        "rate_mode": {
+          "$ref": "#/definitions/RateMode"
+        },
+        "rate_hz": {
+          "$ref": "#/definitions/LinearFrequency"
+        },
+        "rate_note": {
+          "$ref": "#/definitions/NoteLength"
+        },
+        "depth": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "phase_degrees": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 180.0,
+          "minimum": 0.0
+        },
+        "feedback": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 11,
+          "minItems": 0
+        }
+      }
+    },
+    "FilterType": {
       "type": "string",
       "enum": [
         "Off",
-        "Chorus",
-        "Delay",
-        "Gm2Chorus"
+        "LowPassFilter",
+        "HighPassFilter"
       ]
+    },
+    "LogFrequency<200, 8000>": {
+      "type": "string",
+      "enum": [
+        "200Hz",
+        "250Hz",
+        "315Hz",
+        "400Hz",
+        "500Hz",
+        "630Hz",
+        "800Hz",
+        "1000Hz",
+        "1250Hz",
+        "1600Hz",
+        "2000Hz",
+        "2500Hz",
+        "3150Hz",
+        "4000Hz",
+        "5000Hz",
+        "6300Hz",
+        "8000Hz"
+      ]
+    },
+    "LogMilliseconds": {
+      "type": "string",
+      "enum": [
+        "0.0ms",
+        "0.1ms",
+        "0.2ms",
+        "0.3ms",
+        "0.4ms",
+        "0.5ms",
+        "0.6ms",
+        "0.7ms",
+        "0.8ms",
+        "0.9ms",
+        "1.0ms",
+        "1.1ms",
+        "1.2ms",
+        "1.3ms",
+        "1.4ms",
+        "1.5ms",
+        "1.6ms",
+        "1.7ms",
+        "1.8ms",
+        "1.9ms",
+        "2.0ms",
+        "2.1ms",
+        "2.2ms",
+        "2.3ms",
+        "2.4ms",
+        "2.5ms",
+        "2.6ms",
+        "2.7ms",
+        "2.8ms",
+        "2.9ms",
+        "3.0ms",
+        "3.1ms",
+        "3.2ms",
+        "3.3ms",
+        "3.4ms",
+        "3.5ms",
+        "3.6ms",
+        "3.7ms",
+        "3.8ms",
+        "3.9ms",
+        "4.0ms",
+        "4.1ms",
+        "4.2ms",
+        "4.3ms",
+        "4.4ms",
+        "4.5ms",
+        "4.6ms",
+        "4.7ms",
+        "4.8ms",
+        "4.9ms",
+        "5.0ms",
+        "5.5ms",
+        "6.0ms",
+        "6.5ms",
+        "7.0ms",
+        "7.5ms",
+        "8.0ms",
+        "8.5ms",
+        "9.0ms",
+        "9.5ms",
+        "10.0ms",
+        "11.0ms",
+        "12.0ms",
+        "13.0ms",
+        "14.0ms",
+        "15.0ms",
+        "16.0ms",
+        "17.0ms",
+        "18.0ms",
+        "19.0ms",
+        "20.0ms",
+        "21.0ms",
+        "22.0ms",
+        "23.0ms",
+        "24.0ms",
+        "25.0ms",
+        "26.0ms",
+        "27.0ms",
+        "28.0ms",
+        "29.0ms",
+        "30.0ms",
+        "31.0ms",
+        "32.0ms",
+        "33.0ms",
+        "34.0ms",
+        "35.0ms",
+        "36.0ms",
+        "37.0ms",
+        "38.0ms",
+        "39.0ms",
+        "40.0ms",
+        "41.0ms",
+        "42.0ms",
+        "43.0ms",
+        "44.0ms",
+        "45.0ms",
+        "46.0ms",
+        "47.0ms",
+        "48.0ms",
+        "49.0ms",
+        "50.0ms",
+        "52.0ms",
+        "54.0ms",
+        "56.0ms",
+        "58.0ms",
+        "60.0ms",
+        "62.0ms",
+        "64.0ms",
+        "66.0ms",
+        "68.0ms",
+        "70.0ms",
+        "72.0ms",
+        "74.0ms",
+        "76.0ms",
+        "78.0ms",
+        "80.0ms",
+        "82.0ms",
+        "84.0ms",
+        "86.0ms",
+        "88.0ms",
+        "90.0ms",
+        "92.0ms",
+        "94.0ms",
+        "96.0ms",
+        "98.0ms",
+        "100.0ms"
+      ]
+    },
+    "RateMode": {
+      "type": "string",
+      "enum": [
+        "Hertz",
+        "Note"
+      ]
+    },
+    "LinearFrequency": {
+      "type": "string",
+      "enum": [
+        "0.05ms",
+        "0.10ms",
+        "0.15ms",
+        "0.20ms",
+        "0.25ms",
+        "0.30ms",
+        "0.35ms",
+        "0.40ms",
+        "0.45ms",
+        "0.50ms",
+        "0.55ms",
+        "0.60ms",
+        "0.65ms",
+        "0.70ms",
+        "0.75ms",
+        "0.80ms",
+        "0.85ms",
+        "0.90ms",
+        "0.95ms",
+        "1.00ms",
+        "1.05ms",
+        "1.10ms",
+        "1.15ms",
+        "1.20ms",
+        "1.25ms",
+        "1.30ms",
+        "1.35ms",
+        "1.40ms",
+        "1.45ms",
+        "1.50ms",
+        "1.55ms",
+        "1.60ms",
+        "1.65ms",
+        "1.70ms",
+        "1.75ms",
+        "1.80ms",
+        "1.85ms",
+        "1.90ms",
+        "1.95ms",
+        "2.00ms",
+        "2.05ms",
+        "2.10ms",
+        "2.15ms",
+        "2.20ms",
+        "2.25ms",
+        "2.30ms",
+        "2.35ms",
+        "2.40ms",
+        "2.45ms",
+        "2.50ms",
+        "2.55ms",
+        "2.60ms",
+        "2.65ms",
+        "2.70ms",
+        "2.75ms",
+        "2.80ms",
+        "2.85ms",
+        "2.90ms",
+        "2.95ms",
+        "3.00ms",
+        "3.05ms",
+        "3.10ms",
+        "3.15ms",
+        "3.20ms",
+        "3.25ms",
+        "3.30ms",
+        "3.35ms",
+        "3.40ms",
+        "3.45ms",
+        "3.50ms",
+        "3.55ms",
+        "3.60ms",
+        "3.65ms",
+        "3.70ms",
+        "3.75ms",
+        "3.80ms",
+        "3.85ms",
+        "3.90ms",
+        "3.95ms",
+        "4.00ms",
+        "4.05ms",
+        "4.10ms",
+        "4.15ms",
+        "4.20ms",
+        "4.25ms",
+        "4.30ms",
+        "4.35ms",
+        "4.40ms",
+        "4.45ms",
+        "4.50ms",
+        "4.55ms",
+        "4.60ms",
+        "4.65ms",
+        "4.70ms",
+        "4.75ms",
+        "4.80ms",
+        "4.85ms",
+        "4.90ms",
+        "4.95ms",
+        "5.00ms",
+        "5.05ms",
+        "5.10ms",
+        "5.15ms",
+        "5.20ms",
+        "5.25ms",
+        "5.30ms",
+        "5.35ms",
+        "5.40ms",
+        "5.45ms",
+        "5.50ms",
+        "5.55ms",
+        "5.60ms",
+        "5.65ms",
+        "5.70ms",
+        "5.75ms",
+        "5.80ms",
+        "5.85ms",
+        "5.90ms",
+        "5.95ms",
+        "6.00ms",
+        "6.05ms",
+        "6.10ms",
+        "6.15ms",
+        "6.20ms",
+        "6.25ms",
+        "6.30ms",
+        "6.35ms",
+        "6.40ms",
+        "6.45ms",
+        "6.50ms",
+        "6.55ms",
+        "6.60ms",
+        "6.65ms",
+        "6.70ms",
+        "6.75ms",
+        "6.80ms",
+        "6.85ms",
+        "6.90ms",
+        "6.95ms",
+        "7.00ms",
+        "7.05ms",
+        "7.10ms",
+        "7.15ms",
+        "7.20ms",
+        "7.25ms",
+        "7.30ms",
+        "7.35ms",
+        "7.40ms",
+        "7.45ms",
+        "7.50ms",
+        "7.55ms",
+        "7.60ms",
+        "7.65ms",
+        "7.70ms",
+        "7.75ms",
+        "7.80ms",
+        "7.85ms",
+        "7.90ms",
+        "7.95ms",
+        "8.00ms",
+        "8.05ms",
+        "8.10ms",
+        "8.15ms",
+        "8.20ms",
+        "8.25ms",
+        "8.30ms",
+        "8.35ms",
+        "8.40ms",
+        "8.45ms",
+        "8.50ms",
+        "8.55ms",
+        "8.60ms",
+        "8.65ms",
+        "8.70ms",
+        "8.75ms",
+        "8.80ms",
+        "8.85ms",
+        "8.90ms",
+        "8.95ms",
+        "9.00ms",
+        "9.05ms",
+        "9.10ms",
+        "9.15ms",
+        "9.20ms",
+        "9.25ms",
+        "9.30ms",
+        "9.35ms",
+        "9.40ms",
+        "9.45ms",
+        "9.50ms",
+        "9.55ms",
+        "9.60ms",
+        "9.65ms",
+        "9.70ms",
+        "9.75ms",
+        "9.80ms",
+        "9.85ms",
+        "9.90ms",
+        "9.95ms",
+        "10.00ms"
+      ]
+    },
+    "NoteLength": {
+      "type": "string",
+      "enum": [
+        "SixtyFourthNoteTriplet",
+        "SixtyFourthNote",
+        "ThirtySecondNoteTriplet",
+        "ThirtySecondNote",
+        "SixteenthNoteTriplet",
+        "DottedThirtySecondNote",
+        "SixteenthNote",
+        "EighthNoteTriplet",
+        "DottedSixteenthNote",
+        "EighthNote",
+        "QuarterNoteTriplet",
+        "DottedEighthNote",
+        "QuarterNote",
+        "HalfNoteTriplet",
+        "DottedQuarterNote",
+        "HalfNote",
+        "WholeNoteTriplet",
+        "DottedHalfNote",
+        "WholeNote",
+        "DoubleNoteTriplet",
+        "DottedWholeNote",
+        "DoubleNote"
+      ]
+    },
+    "DelayParameters": {
+      "type": "object",
+      "required": [
+        "centre_feedback_percent",
+        "centre_level",
+        "delay_centre_mode",
+        "delay_centre_ms",
+        "delay_centre_note",
+        "delay_left_mode",
+        "delay_left_ms",
+        "delay_left_note",
+        "delay_right_mode",
+        "delay_right_ms",
+        "delay_right_note",
+        "hf_damp",
+        "left_level",
+        "right_level",
+        "unused_parameters"
+      ],
+      "properties": {
+        "delay_left_mode": {
+          "$ref": "#/definitions/DelayMode"
+        },
+        "delay_left_ms": {
+          "type": "integer",
+          "format": "uint16",
+          "maximum": 1000.0,
+          "minimum": 1.0
+        },
+        "delay_left_note": {
+          "$ref": "#/definitions/NoteLength"
+        },
+        "delay_right_mode": {
+          "$ref": "#/definitions/DelayMode"
+        },
+        "delay_right_ms": {
+          "type": "integer",
+          "format": "uint16",
+          "maximum": 1000.0,
+          "minimum": 1.0
+        },
+        "delay_right_note": {
+          "$ref": "#/definitions/NoteLength"
+        },
+        "delay_centre_mode": {
+          "$ref": "#/definitions/DelayMode"
+        },
+        "delay_centre_ms": {
+          "type": "integer",
+          "format": "uint16",
+          "maximum": 1000.0,
+          "minimum": 1.0
+        },
+        "delay_centre_note": {
+          "$ref": "#/definitions/NoteLength"
+        },
+        "centre_feedback_percent": {
+          "$ref": "#/definitions/EvenPercent"
+        },
+        "hf_damp": {
+          "$ref": "#/definitions/LogFrequencyOrByPass_for_200_and_8000"
+        },
+        "left_level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "right_level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "centre_level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 6,
+          "minItems": 0
+        }
+      }
+    },
+    "DelayMode": {
+      "type": "string",
+      "enum": [
+        "Milliseconds",
+        "Note"
+      ]
+    },
+    "EvenPercent": {
+      "type": "string",
+      "enum": [
+        "-98%",
+        "-96%",
+        "-94%",
+        "-92%",
+        "-90%",
+        "-88%",
+        "-86%",
+        "-84%",
+        "-82%",
+        "-80%",
+        "-78%",
+        "-76%",
+        "-74%",
+        "-72%",
+        "-70%",
+        "-68%",
+        "-66%",
+        "-64%",
+        "-62%",
+        "-60%",
+        "-58%",
+        "-56%",
+        "-54%",
+        "-52%",
+        "-50%",
+        "-48%",
+        "-46%",
+        "-44%",
+        "-42%",
+        "-40%",
+        "-38%",
+        "-36%",
+        "-34%",
+        "-32%",
+        "-30%",
+        "-28%",
+        "-26%",
+        "-24%",
+        "-22%",
+        "-20%",
+        "-18%",
+        "-16%",
+        "-14%",
+        "-12%",
+        "-10%",
+        "-8%",
+        "-6%",
+        "-4%",
+        "-2%",
+        "0%",
+        "2%",
+        "4%",
+        "6%",
+        "8%",
+        "10%",
+        "12%",
+        "14%",
+        "16%",
+        "18%",
+        "20%",
+        "22%",
+        "24%",
+        "26%",
+        "28%",
+        "30%",
+        "32%",
+        "34%",
+        "36%",
+        "38%",
+        "40%",
+        "42%",
+        "44%",
+        "46%",
+        "48%",
+        "50%",
+        "52%",
+        "54%",
+        "56%",
+        "58%",
+        "60%",
+        "62%",
+        "64%",
+        "66%",
+        "68%",
+        "70%",
+        "72%",
+        "74%",
+        "76%",
+        "78%",
+        "80%",
+        "82%",
+        "84%",
+        "86%",
+        "88%",
+        "90%",
+        "92%",
+        "94%",
+        "96%",
+        "98%"
+      ]
+    },
+    "LogFrequencyOrByPass_for_200_and_8000": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "ByPass"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Frequency"
+          ],
+          "properties": {
+            "Frequency": {
+              "$ref": "#/definitions/LogFrequency<200, 8000>"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Gm2ChorusParameters": {
+      "type": "object",
+      "required": [
+        "delay",
+        "depth",
+        "feedback",
+        "level",
+        "pre_lpf",
+        "rate",
+        "send_to_reverb",
+        "unused_parameters"
+      ],
+      "properties": {
+        "pre_lpf": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 7.0,
+          "minimum": 0.0
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "feedback": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "delay": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "rate": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "depth": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "send_to_reverb": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 13,
+          "minItems": 0
+        }
+      }
     },
     "OutputSelect": {
       "type": "string",
@@ -731,17 +1552,10 @@
         "Both"
       ]
     },
-    "Parameter": {
-      "type": "integer",
-      "format": "uint8",
-      "maximum": 20000.0,
-      "minimum": -20000.0
-    },
     "Reverb": {
       "type": "object",
       "required": [
         "depth",
-        "parameters",
         "reverb_type"
       ],
       "properties": {
@@ -757,32 +1571,577 @@
         "unused1": {
           "$ref": "#/definitions/Bits_size_2"
         },
-        "parameters": {
-          "type": "array",
-          "items": [
-            {
-              "$ref": "#/definitions/Parameter"
-            }
-          ],
-          "maxItems": 20,
-          "minItems": 0
-        },
         "unused2": {
           "$ref": "#/definitions/Bits_size_3"
         }
       }
     },
     "ReverbType": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "Off"
+          ],
+          "properties": {
+            "Off": {
+              "$ref": "#/definitions/UnusedParameters_for_20"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Reverb"
+          ],
+          "properties": {
+            "Reverb": {
+              "$ref": "#/definitions/ReverbParameters"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Room"
+          ],
+          "properties": {
+            "Room": {
+              "$ref": "#/definitions/CharacterParameters_for_50_and_64"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Hall"
+          ],
+          "properties": {
+            "Hall": {
+              "$ref": "#/definitions/CharacterParameters_for_76_and_70"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Plate"
+          ],
+          "properties": {
+            "Plate": {
+              "$ref": "#/definitions/CharacterParameters_for_66_and_64"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Gm2Reverb"
+          ],
+          "properties": {
+            "Gm2Reverb": {
+              "$ref": "#/definitions/Gm2ReverbParameters"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "Cathedral"
+          ],
+          "properties": {
+            "Cathedral": {
+              "$ref": "#/definitions/CathedralParameters"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ReverbParameters": {
+      "type": "object",
+      "required": [
+        "character",
+        "delay_feedback",
+        "hf_damp",
+        "level",
+        "time",
+        "unused_parameters"
+      ],
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/ReverbCharacter"
+        },
+        "time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "hf_damp": {
+          "$ref": "#/definitions/LogFrequencyOrByPass_for_200_and_8000"
+        },
+        "delay_feedback": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 15,
+          "minItems": 0
+        }
+      }
+    },
+    "ReverbCharacter": {
       "type": "string",
       "enum": [
-        "Off",
-        "Reverb",
-        "Room",
-        "Hall",
-        "Plate",
-        "Gm2Reverb",
-        "Cathedral"
+        "Room1",
+        "Room2",
+        "Stage1",
+        "Stage2",
+        "Hall1",
+        "Hall2",
+        "Delay",
+        "PanDelay"
       ]
+    },
+    "CharacterParameters_for_50_and_64": {
+      "type": "object",
+      "required": [
+        "density",
+        "diffusion",
+        "hf_damp_freq",
+        "hf_damp_gain",
+        "high_cut",
+        "level",
+        "lf_damp_freq",
+        "lf_damp_gain",
+        "pre_delay",
+        "size",
+        "time",
+        "unused_parameters"
+      ],
+      "properties": {
+        "pre_delay": {
+          "$ref": "#/definitions/LogMilliseconds"
+        },
+        "time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "size": {
+          "$ref": "#/definitions/OneIndexedU8<8>"
+        },
+        "high_cut": {
+          "$ref": "#/definitions/LogFrequencyOrByPass_for_160_and_12500"
+        },
+        "density": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "diffusion": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "lf_damp_freq": {
+          "$ref": "#/definitions/LogFrequency<50, 4000>"
+        },
+        "lf_damp_gain": {
+          "$ref": "#/definitions/OffsetU8<36, 0, 36>"
+        },
+        "hf_damp_freq": {
+          "$ref": "#/definitions/LogFrequency<4000, 12500>"
+        },
+        "hf_damp_gain": {
+          "$ref": "#/definitions/OffsetU8<36, 0, 36>"
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 9,
+          "minItems": 0
+        }
+      }
+    },
+    "OneIndexedU8<8>": {
+      "type": "integer",
+      "format": "uint8",
+      "maximum": 8.0,
+      "minimum": 1.0
+    },
+    "LogFrequencyOrByPass_for_160_and_12500": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "ByPass"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "Frequency"
+          ],
+          "properties": {
+            "Frequency": {
+              "$ref": "#/definitions/LogFrequency<160, 12500>"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "LogFrequency<160, 12500>": {
+      "type": "string",
+      "enum": [
+        "160Hz",
+        "200Hz",
+        "250Hz",
+        "315Hz",
+        "400Hz",
+        "500Hz",
+        "630Hz",
+        "800Hz",
+        "1000Hz",
+        "1250Hz",
+        "1600Hz",
+        "2000Hz",
+        "2500Hz",
+        "3150Hz",
+        "4000Hz",
+        "5000Hz",
+        "6300Hz",
+        "8000Hz",
+        "10000Hz",
+        "12500Hz"
+      ]
+    },
+    "LogFrequency<50, 4000>": {
+      "type": "string",
+      "enum": [
+        "50Hz",
+        "63Hz",
+        "80Hz",
+        "100Hz",
+        "125Hz",
+        "160Hz",
+        "200Hz",
+        "250Hz",
+        "315Hz",
+        "400Hz",
+        "500Hz",
+        "630Hz",
+        "800Hz",
+        "1000Hz",
+        "1250Hz",
+        "1600Hz",
+        "2000Hz",
+        "2500Hz",
+        "3150Hz",
+        "4000Hz"
+      ]
+    },
+    "OffsetU8<36, 0, 36>": {
+      "type": "integer",
+      "format": "int8",
+      "maximum": 0.0,
+      "minimum": -36.0
+    },
+    "LogFrequency<4000, 12500>": {
+      "type": "string",
+      "enum": [
+        "4000Hz",
+        "5000Hz",
+        "6300Hz",
+        "8000Hz",
+        "10000Hz",
+        "12500Hz"
+      ]
+    },
+    "CharacterParameters_for_76_and_70": {
+      "type": "object",
+      "required": [
+        "density",
+        "diffusion",
+        "hf_damp_freq",
+        "hf_damp_gain",
+        "high_cut",
+        "level",
+        "lf_damp_freq",
+        "lf_damp_gain",
+        "pre_delay",
+        "size",
+        "time",
+        "unused_parameters"
+      ],
+      "properties": {
+        "pre_delay": {
+          "$ref": "#/definitions/LogMilliseconds"
+        },
+        "time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "size": {
+          "$ref": "#/definitions/OneIndexedU8<8>"
+        },
+        "high_cut": {
+          "$ref": "#/definitions/LogFrequencyOrByPass_for_160_and_12500"
+        },
+        "density": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "diffusion": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "lf_damp_freq": {
+          "$ref": "#/definitions/LogFrequency<50, 4000>"
+        },
+        "lf_damp_gain": {
+          "$ref": "#/definitions/OffsetU8<36, 0, 36>"
+        },
+        "hf_damp_freq": {
+          "$ref": "#/definitions/LogFrequency<4000, 12500>"
+        },
+        "hf_damp_gain": {
+          "$ref": "#/definitions/OffsetU8<36, 0, 36>"
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 9,
+          "minItems": 0
+        }
+      }
+    },
+    "CharacterParameters_for_66_and_64": {
+      "type": "object",
+      "required": [
+        "density",
+        "diffusion",
+        "hf_damp_freq",
+        "hf_damp_gain",
+        "high_cut",
+        "level",
+        "lf_damp_freq",
+        "lf_damp_gain",
+        "pre_delay",
+        "size",
+        "time",
+        "unused_parameters"
+      ],
+      "properties": {
+        "pre_delay": {
+          "$ref": "#/definitions/LogMilliseconds"
+        },
+        "time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "size": {
+          "$ref": "#/definitions/OneIndexedU8<8>"
+        },
+        "high_cut": {
+          "$ref": "#/definitions/LogFrequencyOrByPass_for_160_and_12500"
+        },
+        "density": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "diffusion": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "lf_damp_freq": {
+          "$ref": "#/definitions/LogFrequency<50, 4000>"
+        },
+        "lf_damp_gain": {
+          "$ref": "#/definitions/OffsetU8<36, 0, 36>"
+        },
+        "hf_damp_freq": {
+          "$ref": "#/definitions/LogFrequency<4000, 12500>"
+        },
+        "hf_damp_gain": {
+          "$ref": "#/definitions/OffsetU8<36, 0, 36>"
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 9,
+          "minItems": 0
+        }
+      }
+    },
+    "Gm2ReverbParameters": {
+      "type": "object",
+      "required": [
+        "character",
+        "delay_feedback",
+        "level",
+        "pre_lpf",
+        "time",
+        "unused_parameters"
+      ],
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/Gm2ReverbCharacter"
+        },
+        "pre_lpf": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 7.0,
+          "minimum": 0.0
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "delay_feedback": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 15,
+          "minItems": 0
+        }
+      }
+    },
+    "Gm2ReverbCharacter": {
+      "type": "string",
+      "enum": [
+        "Room1",
+        "Room2",
+        "Room3",
+        "Hall1",
+        "Hall2",
+        "Plate",
+        "Delay",
+        "PanDelay"
+      ]
+    },
+    "CathedralParameters": {
+      "type": "object",
+      "required": [
+        "level",
+        "pre_lpf",
+        "time",
+        "unused_parameters"
+      ],
+      "properties": {
+        "pre_lpf": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 7.0,
+          "minimum": 0.0
+        },
+        "level": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "time": {
+          "type": "integer",
+          "format": "uint8",
+          "maximum": 127.0,
+          "minimum": 0.0
+        },
+        "unused_parameters": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Parameter"
+            }
+          ],
+          "maxItems": 17,
+          "minItems": 0
+        }
+      }
     },
     "Bits_size_3": {
       "type": "string",
@@ -1135,13 +2494,8 @@
       }
     },
     "Pan": {
+      "type": "null",
       "oneOf": [
-        {
-          "type": "string",
-          "enum": [
-            "Centre"
-          ]
-        },
         {
           "type": "object",
           "required": [
@@ -1151,10 +2505,16 @@
             "Left": {
               "type": "integer",
               "format": "uint8",
-              "minimum": 0.0
+              "maximum": 64.0,
+              "minimum": 1.0
             }
-          },
-          "additionalProperties": false
+          }
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Centre"
+          ]
         },
         {
           "type": "object",
@@ -1165,10 +2525,10 @@
             "Right": {
               "type": "integer",
               "format": "uint8",
-              "minimum": 0.0
+              "maximum": 63.0,
+              "minimum": 1.0
             }
-          },
-          "additionalProperties": false
+          }
         }
       ]
     },
@@ -2782,7 +4142,7 @@
         },
         {
           "type": "integer",
-          "format": "uint8",
+          "format": "uint16",
           "maximum": 3.0,
           "minimum": 1.0
         }
@@ -3230,16 +4590,16 @@
     "System": {
       "type": "object",
       "required": [
+        "checksum1",
+        "checksum2",
+        "checksum3",
+        "checksum4",
+        "checksum5",
         "common",
         "compressor",
         "favorites",
         "hardware_version",
         "switch_assign",
-        "unsure2",
-        "unsure3",
-        "unsure4",
-        "unsure5",
-        "unsure6",
         "v_link"
       ],
       "properties": {
@@ -3249,8 +4609,8 @@
         "common": {
           "$ref": "#/definitions/SystemCommon"
         },
-        "unsure2": {
-          "$ref": "#/definitions/Bits_size_16"
+        "checksum1": {
+          "$ref": "#/definitions/SystemCheckSum"
         },
         "padding2": {
           "$ref": "#/definitions/Bits_size_16"
@@ -3258,8 +4618,8 @@
         "compressor": {
           "$ref": "#/definitions/Compressor"
         },
-        "unsure3": {
-          "$ref": "#/definitions/Bits_size_16"
+        "checksum2": {
+          "$ref": "#/definitions/SystemCheckSum"
         },
         "padding3": {
           "$ref": "#/definitions/Bits_size_16"
@@ -3267,8 +4627,8 @@
         "v_link": {
           "$ref": "#/definitions/VLink"
         },
-        "unsure4": {
-          "$ref": "#/definitions/Bits_size_16"
+        "checksum3": {
+          "$ref": "#/definitions/SystemCheckSum"
         },
         "padding4": {
           "$ref": "#/definitions/Bits_size_16"
@@ -3276,8 +4636,8 @@
         "favorites": {
           "$ref": "#/definitions/Favorites"
         },
-        "unsure5": {
-          "$ref": "#/definitions/Bits_size_16"
+        "checksum4": {
+          "$ref": "#/definitions/SystemCheckSum"
         },
         "padding5": {
           "$ref": "#/definitions/Bits_size_16"
@@ -3285,8 +4645,8 @@
         "switch_assign": {
           "$ref": "#/definitions/SwitchAssign"
         },
-        "unsure6": {
-          "$ref": "#/definitions/Bits_size_16"
+        "checksum5": {
+          "$ref": "#/definitions/SystemCheckSum"
         },
         "hardware_version": {
           "type": "string",
@@ -3451,6 +4811,11 @@
         "B"
       ]
     },
+    "SystemCheckSum": {
+      "type": "integer",
+      "format": "uint8",
+      "minimum": 0.0
+    },
     "Compressor": {
       "$ref": "#/definitions/Bits_size_112"
     },
@@ -3479,23 +4844,23 @@
       ],
       "properties": {
         "one_touch_piano_current_number": {
-          "$ref": "#/definitions/OneIndexedU8"
+          "$ref": "#/definitions/OneIndexedU8<128>"
         },
         "unused_one_touch_piano_current_number": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OneIndexedU8"
+            "$ref": "#/definitions/OneIndexedU8<128>"
           },
           "maxItems": 2,
           "minItems": 2
         },
         "one_touch_e_piano_current_number": {
-          "$ref": "#/definitions/OneIndexedU8"
+          "$ref": "#/definitions/OneIndexedU8<128>"
         },
         "unused_one_touch_e_piano_current_number": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OneIndexedU8"
+            "$ref": "#/definitions/OneIndexedU8<128>"
           },
           "maxItems": 2,
           "minItems": 2
@@ -3517,7 +4882,7 @@
         }
       }
     },
-    "OneIndexedU8": {
+    "OneIndexedU8<128>": {
       "type": "integer",
       "format": "uint8",
       "maximum": 128.0,

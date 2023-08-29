@@ -5,7 +5,7 @@
         "name": "Clav 1          ",
         "voice_reserve": {},
         "live_set_tempo": 120,
-        "fc1_assign": "RotarySpeed",
+        "fc1_assign": "Mfx1Control",
         "fc2_assign": "Off",
         "sound_focus_switch": false,
         "sound_focus_type": "Enhancer",
@@ -69,27 +69,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 63,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -819,27 +826,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 61,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 61
       },
       "mfx": {
         "enable": true,
@@ -1555,27 +1569,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 63,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -2294,27 +2315,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 63,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": true,
@@ -2998,27 +3026,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 63,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -3741,27 +3776,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 63,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -4484,42 +4526,48 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Delay",
+        "chorus_type": {
+          "Delay": {
+            "delay_left_mode": "Note",
+            "delay_left_ms": 200,
+            "delay_left_note": "EighthNoteTriplet",
+            "delay_right_mode": "Note",
+            "delay_right_ms": 400,
+            "delay_right_note": "QuarterNoteTriplet",
+            "delay_centre_mode": "Note",
+            "delay_centre_ms": 600,
+            "delay_centre_note": "QuarterNote",
+            "centre_feedback_percent": "20%",
+            "hf_damp": "ByPass",
+            "left_level": 127,
+            "right_level": 127,
+            "centre_level": 127,
+            "unused_parameters": []
+          }
+        },
         "depth": 23,
-        "output_select": "Main",
-        "parameters": [
-          1,
-          200,
-          7,
-          1,
-          400,
-          10,
-          1,
-          600,
-          12,
-          59,
-          17,
-          127,
-          127,
-          127
-        ]
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 60,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 60
       },
       "mfx": {
         "enable": false,
@@ -5223,27 +5271,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 41,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 41
       },
       "mfx": {
         "enable": false,
@@ -5947,27 +6002,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 41,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 41
       },
       "mfx": {
         "enable": false,
@@ -6671,27 +6733,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 32,
-        "parameters": [
-          50,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 32
       },
       "mfx": {
         "enable": true,
@@ -7417,27 +7486,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 63,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -8171,27 +8247,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 63,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -8925,27 +9008,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 83,
-        "parameters": [
-          50,
-          80,
-          6,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 80,
+            "size": 7,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 83
       },
       "mfx": {
         "enable": true,
@@ -9709,27 +9799,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -10465,27 +10562,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -11258,27 +11362,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 63,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": false,
@@ -11985,27 +12096,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": false,
@@ -12758,27 +12876,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": false,
@@ -13470,27 +13595,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -14167,27 +14299,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": false,
@@ -14892,27 +15031,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -15589,27 +15735,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -16304,27 +16457,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -17001,27 +17161,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -17698,27 +17865,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -18395,27 +18569,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -19092,27 +19273,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -19789,27 +19977,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -20486,27 +20681,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -21183,27 +21385,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -21913,36 +22122,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 127,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 52,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 52
       },
       "mfx": {
         "enable": true,
@@ -22715,27 +22931,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 80,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 80
       },
       "mfx": {
         "enable": true,
@@ -23483,36 +23706,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 127,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -24285,36 +24515,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 127,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -25086,36 +25323,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 3,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -25887,27 +26131,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -26584,27 +26835,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": false,
@@ -27348,27 +27606,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": false,
@@ -28077,27 +28342,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -28774,27 +29046,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -29471,27 +29750,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -30168,27 +30454,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -30865,27 +31158,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -31562,27 +31862,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -32259,27 +32566,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 63,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 63
       },
       "mfx": {
         "enable": true,
@@ -32956,27 +33270,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 57,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 57
       },
       "mfx": {
         "enable": true,
@@ -33653,36 +33974,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 127,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 57,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 57
       },
       "mfx": {
         "enable": true,
@@ -34443,27 +34771,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -35235,27 +35570,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 28,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 28
       },
       "mfx": {
         "enable": true,
@@ -36040,27 +36382,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 49,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 49
       },
       "mfx": {
         "enable": true,
@@ -36832,36 +37181,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 14,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -37634,36 +37990,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 34,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -38431,36 +38794,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 34,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": false,
@@ -39216,27 +39586,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Both",
-        "parameters": []
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -40009,36 +40386,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "Off",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 63,
-        "output_select": "Both",
-        "parameters": [
-          0,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": false,
@@ -40795,36 +41179,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "Off",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 67,
-        "output_select": "Both",
-        "parameters": [
-          0,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          80,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 80,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -41597,36 +41988,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "HighPassFilter",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 20,
-        "output_select": "Both",
-        "parameters": [
-          2,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -42399,36 +42797,43 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Chorus",
+        "chorus_type": {
+          "Chorus": {
+            "filter_type": "Off",
+            "cutoff_frequency": "800Hz",
+            "pre_delay": "2.0ms",
+            "rate_mode": "Hertz",
+            "rate_hz": "0.50ms",
+            "rate_note": "WholeNote",
+            "depth": 30,
+            "phase_degrees": 90,
+            "feedback": 0,
+            "unused_parameters": []
+          }
+        },
         "depth": 49,
-        "output_select": "Both",
-        "parameters": [
-          0,
-          6,
-          20,
-          0,
-          10,
-          18,
-          30,
-          90
-        ]
+        "output_select": "Both"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          9,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "400Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -43201,27 +43606,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -43898,27 +44310,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 49,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 49
       },
       "mfx": {
         "enable": true,
@@ -44593,27 +45012,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -45373,27 +45799,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -46143,27 +46576,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -46903,27 +47343,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -47679,27 +48126,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -48471,27 +48925,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -49227,27 +49688,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -50001,27 +50469,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -50785,27 +51260,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 50,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 50
       },
       "mfx": {
         "enable": true,
@@ -51532,27 +52014,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -52313,27 +52802,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -53094,27 +53590,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -53869,27 +54372,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -54645,27 +55155,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -55393,27 +55910,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -56179,27 +56703,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -56975,27 +57506,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -57789,27 +58327,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -58542,27 +59087,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -59304,27 +59856,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Hall",
-        "depth": 40,
-        "parameters": [
-          76,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Hall": {
+            "pre_delay": "26.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -60075,27 +60634,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -60829,27 +61395,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -61624,27 +62197,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -62420,27 +63000,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -63208,27 +63795,34 @@
         "rhythm_output_port": "All"
       },
       "chorus": {
-        "chorus_type": "Off",
+        "chorus_type": {
+          "Off": {
+            "unused": []
+          }
+        },
         "depth": 40,
-        "output_select": "Main",
-        "parameters": []
+        "output_select": "Main"
       },
       "reverb": {
-        "reverb_type": "Room",
-        "depth": 40,
-        "parameters": [
-          50,
-          70,
-          7,
-          19,
-          127,
-          127,
-          19,
-          36,
-          0,
-          36,
-          64
-        ]
+        "reverb_type": {
+          "Room": {
+            "pre_delay": "5.0ms",
+            "time": 70,
+            "size": 8,
+            "high_cut": {
+              "Frequency": "12500Hz"
+            },
+            "density": 127,
+            "diffusion": 127,
+            "lf_damp_freq": "4000Hz",
+            "lf_damp_gain": 0,
+            "hf_damp_freq": "4000Hz",
+            "hf_damp_gain": 0,
+            "level": 64,
+            "unused_parameters": []
+          }
+        },
+        "depth": 40
       },
       "mfx": {
         "enable": true,
@@ -63963,11 +64557,11 @@
       "temperament": "Equal",
       "temperament_key": "C"
     },
-    "unsure2": "10010101 01000111",
+    "checksum1": 71,
     "compressor": "00010100 00010100 10010011 00001100 10100000 10100011 00011000 01100101 00000101 00001100 11000011 00110110 00000000 00000000",
-    "unsure3": "01100111 00000111",
+    "checksum2": 7,
     "v_link": "00000000 10010000 00000000 01011000",
-    "unsure4": "00101011 11101100",
+    "checksum3": 236,
     "favorites": {
       "one_touch_piano_current_number": 1,
       "unused_one_touch_piano_current_number": [
@@ -64164,9 +64758,9 @@
         ]
       }
     },
-    "unsure5": "10101110 01000000",
+    "checksum4": 64,
     "switch_assign": "00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000",
-    "unsure6": "11111111 00000000",
+    "checksum5": 0,
     "hardware_version": "RD-300NX V01.000"
   }
 }

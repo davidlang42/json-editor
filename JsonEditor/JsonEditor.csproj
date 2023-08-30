@@ -80,6 +80,18 @@
 	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
+		<MtouchLink>SdkOnly</MtouchLink>
+		<EnableCodeSigning>True</EnableCodeSigning>
+		<EnablePackageSigning>true</EnablePackageSigning>
+		<CreatePackage>true</CreatePackage>
+		<CodesignKey>Developer ID Application: David Lang (45435R99CA)</CodesignKey>
+		<CodesignProvision>JsonEditor</CodesignProvision>
+		<CodesignEntitlements>Platforms\MacCatalyst\Entitlements.plist</CodesignEntitlements>
+		<PackageSigningKey>Developer ID Installer: David Lang (45435R99CA)</PackageSigningKey>
+		<UseHardenedRuntime>true</UseHardenedRuntime>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
 	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
@@ -109,4 +121,9 @@
 		<PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.15" />
 	</ItemGroup>
 
+	<Target Name="_SkipCodesignVerify" BeforeTargets="_CodesignVerify" AfterTargets="_CodesignAppBundle">  
+		<PropertyGroup>    
+		<_RequireCodeSigning>false</_RequireCodeSigning>  
+		</PropertyGroup>
+	</Target>
 </Project>

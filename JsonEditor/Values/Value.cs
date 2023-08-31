@@ -60,42 +60,42 @@ namespace JsonEditor.Values
             {
                 JSchemaType.String when schema.Enum.Count > 0 => new EnumStringValue
                 {
-                    Value = (value as JValue)?.Value as string ?? "",
+                    Value = (value as JValue)?.Value as string ?? (schema.Default?.DeepClone() as JValue)?.Value as string ?? "",
                     ValidStrings = schema.Enum.Select(j => ((JValue)j).Value as string ?? throw new ApplicationException($"Invalid enum: {j}")).ToArray()
                 },
                 JSchemaType.String => new StringValue
                 {
-                    Value = (value as JValue)?.Value as string ?? "",
+                    Value = (value as JValue)?.Value as string ?? (schema.Default?.DeepClone() as JValue)?.Value as string ?? "",
                     MinLength = (int?)schema.MinimumLength,
                     MaxLength = (int?)schema.MaximumLength,
                     Pattern = schema.Pattern
                 },
                 JSchemaType.Integer => new IntegerValue
                 {
-                    Value = (value as JValue)?.Value as long? ?? 0,
+                    Value = (value as JValue)?.Value as long? ?? (schema.Default?.DeepClone() as JValue)?.Value as long? ?? 0,
                     Minimum = schema.Minimum,
                     Maximum = schema.Maximum
                 },
                 JSchemaType.Number => new DoubleValue
                 {
-                    Value = (value as JValue)?.Value as double? ?? 0,
+                    Value = (value as JValue)?.Value as double? ?? (schema.Default?.DeepClone() as JValue)?.Value as double? ?? 0,
                     Minimum = schema.Minimum,
                     Maximum = schema.Maximum,
                     MultipleOf = schema.MultipleOf
                 },
                 JSchemaType.Boolean => new BooleanValue
                 {
-                    Value = (value as JValue)?.Value as bool? ?? false
+                    Value = (value as JValue)?.Value as bool? ?? (schema.Default?.DeepClone() as JValue)?.Value as bool? ?? false
                 },
                 JSchemaType.Array when schema.Items.SingleOrDefaultSafe() is JSchema one_type_of_item
-                    => new ArrayValue(edit_object_action, value as JArray ?? new JArray(), one_type_of_item, schema.MinimumItems, schema.MaximumItems),
+                    => new ArrayValue(edit_object_action, value as JArray ?? (schema.Default?.DeepClone() as JArray) ?? new JArray(), one_type_of_item, schema.MinimumItems, schema.MaximumItems),
                 JSchemaType.Object => new ObjectValue(edit_object_action)
                 {
-                    Value = value as JObject ?? new JObject(),
+                    Value = value as JObject ?? schema.Default?.DeepClone() as JObject ?? new JObject(),
                     ObjectSchema = schema,
                     ObjectType = schema.Title
                 },
-                null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, value, schema.OneOf.ToArray()),
+                null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, value ?? schema.Default?.DeepClone(), schema.OneOf.ToArray()),
                 _ => new RawValue(value, schema)
             };
         }

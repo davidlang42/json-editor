@@ -46,7 +46,7 @@ namespace JsonEditor.Values
             }
             if (MinItems.HasValue)
             {
-                var template = array.Last ?? new JArray();
+                var template = item_schema.Default ?? array.Last ?? new JArray();
                 while (Items.Count < MinItems.Value)
                     Items.Add(MakeNewItem(template.DeepClone()));
             }
@@ -214,7 +214,7 @@ namespace JsonEditor.Values
         private void Add_Clicked(object? sender, EventArgs e)
         {
             if (!MaxItems.HasValue || Items.Count < MaxItems.Value)
-                Items.Add(MakeNewItem(new JArray()));
+                Items.Add(MakeNewItem(itemSchema.Default?.DeepClone() ?? new JArray()));
         }
     }
 }

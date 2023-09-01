@@ -19,7 +19,7 @@
 		<ApplicationIdGuid>91726d6c-68e2-4c75-ad75-128ea71f0054</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
@@ -46,34 +46,34 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	  <CreatePackage>false</CreatePackage>
 	  <CodesignProvision>Automatic</CodesignProvision>
 	  <CodesignKey>iPhone Distribution</CodesignKey>
@@ -81,7 +81,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
@@ -98,7 +98,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
 	  <ApplicationId>com.davidlang.jsoneditor</ApplicationId>
-	  <ApplicationDisplayVersion>1.2</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.3</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

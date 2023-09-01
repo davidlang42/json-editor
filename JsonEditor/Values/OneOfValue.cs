@@ -39,8 +39,9 @@ namespace JsonEditor.Values
             PossibleValues = new Value[possible_schemas.Length];
             for (var i = 0; i < possible_schemas.Length; i++)
             {
-                PossibleValues[i] = For(edit_object_action, value, possible_schemas[i]);
-                if (selectedValue == null && value?.IsValid(possible_schemas[i]) == true)
+                var value_valid_for_this_option = value?.IsValid(possible_schemas[i]) == true;
+                PossibleValues[i] = For(edit_object_action, value_valid_for_this_option ? value : possible_schemas[i].Default?.DeepClone(), possible_schemas[i]);
+                if (selectedValue == null && value_valid_for_this_option)
                     selectedValue = PossibleValues[i];
             }
             selectedValue ??= PossibleValues.First();

@@ -44,7 +44,7 @@ public class EditJson : ContentPage
             Content = PropertyGrid(model.Properties),
         };
         var back = MakeButton("Back", Colors.Red, Cancel_Clicked);
-        var save = MakeButton("Save", Colors.Green, Ok_Clicked);
+        var save = MakeButton("Save", Colors.Green, Ok_Clicked, nameof(JsonModel.AnyChanges));
         var grid = new Grid
         {
             Margin = 5,
@@ -68,14 +68,23 @@ public class EditJson : ContentPage
         return grid;
     }
 
-    static Button MakeButton(string text, Color color, EventHandler clicked)
+    Button MakeButton(string text, Color color, EventHandler clicked, string? enabled_binding = null)
     {
         var button = new Button
         {
-            Text = text,
-            BackgroundColor = color,
+            Text = text
         };
         button.Clicked += clicked;
+        if (enabled_binding != null)
+        {
+            button.BindingContext = model;
+            button.SetBinding(Button.IsEnabledProperty, new Binding(enabled_binding));
+            button.SetBinding(Button.BackgroundColorProperty, new Binding(enabled_binding, converter: new BoolToColor(color, Colors.Gray)));
+        }
+        else
+        {
+            button.BackgroundColor = color;
+        }
         return button;
     }
 

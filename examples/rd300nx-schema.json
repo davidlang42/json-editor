@@ -1700,6 +1700,11 @@
     "ReverbType": {
       "oneOf": [
         {
+          "default": {
+            "Off": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "Off"
@@ -1712,6 +1717,18 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Reverb": {
+              "character": "Stage2",
+              "delay_feedback": 0,
+              "hf_damp": {
+                "Frequency": "8000Hz"
+              },
+              "level": 64,
+              "time": 84,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Reverb"
@@ -1724,6 +1741,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Room": {
+              "density": 127,
+              "diffusion": 127,
+              "hf_damp_freq": "4000Hz",
+              "hf_damp_gain": 0,
+              "high_cut": {
+                "Frequency": "12500Hz"
+              },
+              "level": 64,
+              "lf_damp_freq": "4000Hz",
+              "lf_damp_gain": 0,
+              "pre_delay": "5.0ms",
+              "size": 8,
+              "time": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Room"
@@ -1736,6 +1771,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Hall": {
+              "density": 127,
+              "diffusion": 127,
+              "hf_damp_freq": "4000Hz",
+              "hf_damp_gain": 0,
+              "high_cut": {
+                "Frequency": "12500Hz"
+              },
+              "level": 64,
+              "lf_damp_freq": "4000Hz",
+              "lf_damp_gain": 0,
+              "pre_delay": "26.0ms",
+              "size": 8,
+              "time": 70,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Hall"
@@ -1748,6 +1801,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Plate": {
+              "density": 127,
+              "diffusion": 127,
+              "hf_damp_freq": "4000Hz",
+              "hf_damp_gain": 0,
+              "high_cut": {
+                "Frequency": "12500Hz"
+              },
+              "level": 64,
+              "lf_damp_freq": "4000Hz",
+              "lf_damp_gain": 0,
+              "pre_delay": "16.0ms",
+              "size": 8,
+              "time": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Plate"
@@ -1760,6 +1831,16 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Gm2Reverb": {
+              "character": "Hall2",
+              "delay_feedback": 0,
+              "level": 64,
+              "pre_lpf": 0,
+              "time": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Gm2Reverb"
@@ -1772,6 +1853,14 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Cathedral": {
+              "level": 64,
+              "pre_lpf": 3,
+              "time": 54,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Cathedral"
@@ -2248,6 +2337,11 @@
     "MfxType": {
       "oneOf": [
         {
+          "default": {
+            "Thru": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "Thru"
@@ -2260,6 +2354,22 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Equalizer": {
+              "high_freq": "4000Hz",
+              "high_gain": 0,
+              "level": 127,
+              "low_freq": "200Hz",
+              "low_gain": 0,
+              "mid1_freq": "1000Hz",
+              "mid1_gain": 0,
+              "mid1_q": "0.5",
+              "mid2_freq": "2000Hz",
+              "mid2_gain": 0,
+              "mid2_q": "0.5",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Equalizer"
@@ -2272,6 +2382,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Spectrum": {
+              "band1_250hz": 0,
+              "band2_500hz": 0,
+              "band3_1000hz": 0,
+              "band4_1250hz": 0,
+              "band5_2000hz": 0,
+              "band6_3150hz": 0,
+              "band7_4000hz": 0,
+              "band8_8000hz": 0,
+              "level": 127,
+              "q": "0.5",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Spectrum"
@@ -2284,6 +2409,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Isolator": {
+              "a_phase_low_level": 127,
+              "a_phase_low_sw": false,
+              "a_phase_mid_level": 127,
+              "a_phase_mid_sw": false,
+              "boost_cut_high": 0,
+              "boost_cut_low": 0,
+              "boost_cut_mid": 0,
+              "level": 127,
+              "low_boost_level": 64,
+              "low_boost_sw": false,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Isolator"
@@ -2296,6 +2436,17 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "LowBoost": {
+              "boost_freq": "80Hz",
+              "boost_gain": 6,
+              "boost_width": "Wide",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "LowBoost"
@@ -2308,6 +2459,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "SuperFilter": {
+              "attack": 50,
+              "depth": 40,
+              "filter_cutoff": 30,
+              "filter_gain": 0,
+              "filter_resonance": 40,
+              "filter_slope": "-36dB",
+              "filter_type": "HighPassFilter",
+              "level": 127,
+              "modulation_sw": false,
+              "modulation_wave": "Triangle",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "SuperFilter"
@@ -2320,6 +2489,36 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepFilter": {
+              "attack": 50,
+              "filter_gain": 0,
+              "filter_resonance": 40,
+              "filter_slope": "-36dB",
+              "filter_type": "HighPassFilter",
+              "level": 127,
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "step1": 60,
+              "step10": 60,
+              "step11": 30,
+              "step12": 60,
+              "step13": 60,
+              "step14": 30,
+              "step15": 60,
+              "step16": 30,
+              "step2": 30,
+              "step3": 60,
+              "step4": 30,
+              "step5": 60,
+              "step6": 30,
+              "step7": 60,
+              "step8": 30,
+              "step9": 60,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepFilter"
@@ -2332,6 +2531,16 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Enhancer": {
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "mix": 64,
+              "sensitivity": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Enhancer"
@@ -2344,6 +2553,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "AutoWah": {
+              "depth": 60,
+              "filter_type": "BandPassFilter",
+              "high_gain": 0,
+              "level": 100,
+              "low_gain": 0,
+              "manual": 60,
+              "peak": 40,
+              "phase": "0deg",
+              "polarity": "Up",
+              "rate_hz": "2.00ms",
+              "rate_mode": "Note",
+              "rate_note": "QuarterNote",
+              "sensitivity": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "AutoWah"
@@ -2356,6 +2583,26 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Humanizer": {
+              "depth": 127,
+              "drive": 127,
+              "drive_sw": true,
+              "high_gain": 0,
+              "input_sync_sw": false,
+              "input_sync_threshold": 60,
+              "level": 100,
+              "low_gain": 0,
+              "manual": 50,
+              "pan": "Centre",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "HalfNote",
+              "unused_parameters": [],
+              "vowel1": "U",
+              "vowel2": "A"
+            }
+          },
           "type": "object",
           "required": [
             "Humanizer"
@@ -2368,6 +2615,16 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "SpeakerSimulator": {
+              "direct_level": 0,
+              "level": 127,
+              "mic_level": 127,
+              "mic_setting": 2,
+              "speaker": "BuiltIn3",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "SpeakerSimulator"
@@ -2380,6 +2637,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Phaser": {
+              "cross_feedback": "0%",
+              "depth": 40,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "manual": 64,
+              "mix": 127,
+              "mode": "12-Stage",
+              "polarity": "Synchro",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "resonance": 40,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Phaser"
@@ -2392,6 +2667,27 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepPhaser": {
+              "cross_feedback": "0%",
+              "depth": 40,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "manual": 64,
+              "mix": 127,
+              "mode": "12-Stage",
+              "polarity": "Synchro",
+              "rate_hz": "1.50ms",
+              "rate_mode": "Note",
+              "rate_note": "HalfNoteTriplet",
+              "resonance": 40,
+              "step_rate_hz": "8.0ms",
+              "step_rate_mode": "Note",
+              "step_rate_note": "SixteenthNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepPhaser"
@@ -2404,6 +2700,23 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "MultiStagePhaser": {
+              "depth": 40,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "manual": 60,
+              "mix": 127,
+              "mode": "24-Stage",
+              "pan": "Centre",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "resonance": 40,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "MultiStagePhaser"
@@ -2416,6 +2729,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "InfinitePhaser": {
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "mix": 127,
+              "mode": 4,
+              "pan": "Centre",
+              "resonance": 80,
+              "speed": 40,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "InfinitePhaser"
@@ -2428,6 +2754,18 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "RingModulator": {
+              "balance": "D50:50W",
+              "frequency": 60,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "polarity": "Up",
+              "sensitivity": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "RingModulator"
@@ -2440,6 +2778,35 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepRingModulator": {
+              "attack": 50,
+              "balance": "D50:50W",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "step1": 120,
+              "step10": 90,
+              "step11": 60,
+              "step12": 90,
+              "step13": 60,
+              "step14": 60,
+              "step15": 90,
+              "step16": 60,
+              "step2": 60,
+              "step3": 120,
+              "step4": 60,
+              "step5": 90,
+              "step6": 90,
+              "step7": 60,
+              "step8": 90,
+              "step9": 60,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepRingModulator"
@@ -2452,6 +2819,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Tremolo": {
+              "depth": 96,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "mod_wave": "Triangle",
+              "rate_hz": "4.00ms",
+              "rate_mode": "Note",
+              "rate_note": "EighthNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Tremolo"
@@ -2464,6 +2844,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "AutoPan": {
+              "depth": 96,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "mod_wave": "Triangle",
+              "rate_hz": "4.00ms",
+              "rate_mode": "Note",
+              "rate_note": "EighthNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "AutoPan"
@@ -2476,6 +2869,54 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepPan": {
+              "attack": 50,
+              "input_sync_sw": false,
+              "input_sync_threshold": 60,
+              "level": 127,
+              "rate_hz": "0.25ms",
+              "rate_mode": "Note",
+              "rate_note": "DoubleNote",
+              "step1": "Centre",
+              "step10": {
+                "Left": 64
+              },
+              "step11": {
+                "Right": 63
+              },
+              "step12": {
+                "Left": 64
+              },
+              "step13": "Centre",
+              "step14": {
+                "Right": 63
+              },
+              "step15": {
+                "Left": 64
+              },
+              "step16": {
+                "Right": 63
+              },
+              "step2": {
+                "Left": 64
+              },
+              "step3": "Centre",
+              "step4": {
+                "Left": 64
+              },
+              "step5": "Centre",
+              "step6": {
+                "Right": 63
+              },
+              "step7": "Centre",
+              "step8": {
+                "Right": 63
+              },
+              "step9": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepPan"
@@ -2488,6 +2929,36 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Slicer": {
+              "attack": 50,
+              "input_sync_sw": false,
+              "input_sync_threshold": 60,
+              "level": 127,
+              "mode": "Legato",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "shuffle": 0,
+              "step1": 127,
+              "step10": 0,
+              "step11": 30,
+              "step12": 127,
+              "step13": 0,
+              "step14": 0,
+              "step15": 30,
+              "step16": 0,
+              "step2": 0,
+              "step3": 30,
+              "step4": 127,
+              "step5": 127,
+              "step6": 0,
+              "step7": 30,
+              "step8": 0,
+              "step9": 127,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Slicer"
@@ -2500,6 +2971,22 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Rotary": {
+              "level": 127,
+              "separation": 80,
+              "speed": "Slow",
+              "tweeter_accel": 12,
+              "tweeter_fast_rate": "7.00ms",
+              "tweeter_level": 120,
+              "tweeter_slow_rate": "0.70ms",
+              "unused_parameters": [],
+              "woofer_accel": 5,
+              "woofer_fast_rate": "6.00ms",
+              "woofer_level": 127,
+              "woofer_slow_rate": "0.60ms"
+            }
+          },
           "type": "object",
           "required": [
             "Rotary"
@@ -2512,6 +2999,27 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "VkRotary": {
+              "brake": false,
+              "high_gain": 6,
+              "level": 127,
+              "low_gain": 0,
+              "speed": "Slow",
+              "spread": 10,
+              "tweeter_fast_rate": "7.00ms",
+              "tweeter_level": 127,
+              "tweeter_slow_rate": "0.70ms",
+              "tweeter_trans_down": 97,
+              "tweeter_trans_up": 97,
+              "unused_parameters": [],
+              "woofer_fast_rate": "6.00ms",
+              "woofer_level": 127,
+              "woofer_slow_rate": "0.60ms",
+              "woofer_trans_down": 67,
+              "woofer_trans_up": 67
+            }
+          },
           "type": "object",
           "required": [
             "VkRotary"
@@ -2524,6 +3032,23 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Chorus": {
+              "balance": "D50:50W",
+              "cutoff_freq": "800Hz",
+              "depth": 20,
+              "filter_type": "HighPassFilter",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Hertz",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Chorus"
@@ -2536,6 +3061,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Flanger": {
+              "balance": "D50:50W",
+              "cutoff_freq": "800Hz",
+              "depth": 40,
+              "feedback": "60%",
+              "filter_type": "HighPassFilter",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Flanger"
@@ -2548,6 +3091,27 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepFlanger": {
+              "balance": "D50:50W",
+              "cutoff_freq": "800Hz",
+              "depth": 40,
+              "feedback": "60%",
+              "filter_type": "HighPassFilter",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "1.50ms",
+              "rate_mode": "Note",
+              "rate_note": "HalfNoteTriplet",
+              "step_rate_hz": "8.0ms",
+              "step_rate_mode": "Note",
+              "step_rate_note": "SixteenthNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepFlanger"
@@ -2560,6 +3124,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "HexaChorus": {
+              "balance": "D50:50W",
+              "depth": 20,
+              "depth_deviation": 0,
+              "level": 127,
+              "pan_deviation": 20,
+              "pre_delay": "2.0ms",
+              "pre_delay_deviation": 0,
+              "rate_hz": "0.50ms",
+              "rate_mode": "Hertz",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "HexaChorus"
@@ -2572,6 +3151,23 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TremoloChorus": {
+              "balance": "D50:50W",
+              "cho_depth": 50,
+              "cho_rate_hz": "0.50ms",
+              "cho_rate_mode": "Hertz",
+              "cho_rate_note": "WholeNote",
+              "level": 127,
+              "pre_delay": "2.0ms",
+              "trem_phase": "180deg",
+              "trem_rate_hz": "2.00ms",
+              "trem_rate_mode": "Hertz",
+              "trem_rate_note": "QuarterNote",
+              "trem_separation": 127,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "TremoloChorus"
@@ -2584,6 +3180,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "SpaceD": {
+              "balance": "D50:50W",
+              "depth": 20,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Hertz",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "SpaceD"
@@ -2596,6 +3207,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Chorus3D": {
+              "balance": "D50:50W",
+              "cutoff_freq": "800Hz",
+              "depth": 20,
+              "filter_type": "HighPassFilter",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "output_mode": "Speaker",
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Hertz",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Chorus3D"
@@ -2608,6 +3237,25 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Flanger3D": {
+              "balance": "D50:50W",
+              "cutoff_freq": "800Hz",
+              "depth": 40,
+              "feedback": "60%",
+              "filter_type": "HighPassFilter",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "output_mode": "Speaker",
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Flanger3D"
@@ -2620,6 +3268,28 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepFlanger3D": {
+              "balance": "D50:50W",
+              "cutoff_freq": "800Hz",
+              "depth": 40,
+              "feedback": "60%",
+              "filter_type": "HighPassFilter",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "output_mode": "Speaker",
+              "phase": "180deg",
+              "pre_delay": "2.0ms",
+              "rate_hz": "1.50ms",
+              "rate_mode": "Note",
+              "rate_note": "HalfNoteTriplet",
+              "step_rate_hz": "8.0ms",
+              "step_rate_mode": "Note",
+              "step_rate_note": "SixteenthNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepFlanger3D"
@@ -2632,6 +3302,26 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TwoBandChorus": {
+              "balance": "D50:50W",
+              "high_depth": 20,
+              "high_phase": "180deg",
+              "high_pre_delay": "1.0ms",
+              "high_rate_hz": "0.50ms",
+              "high_rate_mode": "Hertz",
+              "high_rate_note": "WholeNote",
+              "level": 127,
+              "low_depth": 20,
+              "low_phase": "180deg",
+              "low_pre_delay": "4.0ms",
+              "low_rate_hz": "0.25ms",
+              "low_rate_mode": "Hertz",
+              "low_rate_note": "DoubleNote",
+              "split_freq": "800Hz",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "TwoBandChorus"
@@ -2644,6 +3334,28 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TwoBandFlanger": {
+              "balance": "D50:50W",
+              "high_depth": 40,
+              "high_feedback": "40%",
+              "high_phase": "180deg",
+              "high_pre_delay": "1.0ms",
+              "high_rate_hz": "0.50ms",
+              "high_rate_mode": "Note",
+              "high_rate_note": "WholeNote",
+              "level": 127,
+              "low_depth": 40,
+              "low_feedback": "60%",
+              "low_phase": "180deg",
+              "low_pre_delay": "4.0ms",
+              "low_rate_hz": "0.25ms",
+              "low_rate_mode": "Note",
+              "low_rate_note": "DoubleNote",
+              "split_freq": "800Hz",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "TwoBandFlanger"
@@ -2656,6 +3368,34 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TwoBandStepFlanger": {
+              "balance": "D50:50W",
+              "high_depth": 40,
+              "high_feedback": "40%",
+              "high_phase": "180deg",
+              "high_pre_delay": "1.0ms",
+              "high_rate_hz": "1.50ms",
+              "high_rate_mode": "Note",
+              "high_rate_note": "HalfNoteTriplet",
+              "high_step_rate_hz": "8.0ms",
+              "high_step_rate_mode": "Note",
+              "high_step_rate_note": "SixteenthNote",
+              "level": 127,
+              "low_depth": 40,
+              "low_feedback": "60%",
+              "low_phase": "180deg",
+              "low_pre_delay": "4.0ms",
+              "low_rate_hz": "3.00ms",
+              "low_rate_mode": "Note",
+              "low_rate_note": "QuarterNoteTriplet",
+              "low_step_rate_hz": "4.0ms",
+              "low_step_rate_mode": "Note",
+              "low_step_rate_note": "EighthNote",
+              "split_freq": "800Hz",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "TwoBandStepFlanger"
@@ -2668,6 +3408,17 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Overdrive": {
+              "amp_type": "Small",
+              "drive": 127,
+              "high_gain": 0,
+              "level": 70,
+              "low_gain": 0,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Overdrive"
@@ -2680,6 +3431,17 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Distortion": {
+              "amp_type": "ThreeStack",
+              "drive": 127,
+              "high_gain": 0,
+              "level": 50,
+              "low_gain": 0,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Distortion"
@@ -2692,6 +3454,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "VsOverdrive": {
+              "amp_sw": true,
+              "amp_type": "Small",
+              "drive": 127,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pan": "Centre",
+              "tone": 50,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "VsOverdrive"
@@ -2704,6 +3479,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "VsDistortion": {
+              "amp_sw": true,
+              "amp_type": "ThreeStack",
+              "drive": 127,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pan": "Centre",
+              "tone": 50,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "VsDistortion"
@@ -2716,6 +3504,28 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "GuitarAmpSimulator": {
+              "direct_level": 0,
+              "level": 127,
+              "mic_level": 127,
+              "mic_setting": 2,
+              "pan": "Centre",
+              "pre_amp_bass": 64,
+              "pre_amp_bright": false,
+              "pre_amp_gain": "Middle",
+              "pre_amp_master": 100,
+              "pre_amp_middle": 64,
+              "pre_amp_presence": 0,
+              "pre_amp_sw": true,
+              "pre_amp_treble": 64,
+              "pre_amp_type": "CleanTwin",
+              "pre_amp_volume": 80,
+              "speaker_sw": true,
+              "speaker_type": "BuiltIn1",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "GuitarAmpSimulator"
@@ -2728,6 +3538,17 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Compressor": {
+              "attack": 20,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "post_gain": 6,
+              "threshold": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Compressor"
@@ -2740,6 +3561,18 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Limiter": {
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "post_gain": 6,
+              "ratio": "4:1",
+              "release": 32,
+              "threshold": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Limiter"
@@ -2752,6 +3585,18 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Gate": {
+              "attack": 8,
+              "balance": "D100:0W",
+              "hold": 0,
+              "level": 127,
+              "mode": "Gate",
+              "release": 16,
+              "threshold": 70,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Gate"
@@ -2764,6 +3609,26 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Delay": {
+              "balance": "D10:90W",
+              "delay_left_mode": "Note",
+              "delay_left_ms": 600,
+              "delay_left_note": "QuarterNote",
+              "delay_right_mode": "Note",
+              "delay_right_ms": 600,
+              "delay_right_note": "QuarterNote",
+              "feedback_mode": "Normal",
+              "feedback_percent": "20%",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "phase_left": "Normal",
+              "phase_right": "Normal",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Delay"
@@ -2776,6 +3641,22 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "LongDelay": {
+              "balance": "D10:90W",
+              "delay_mode": "Note",
+              "delay_ms": 1200,
+              "delay_note": "HalfNote",
+              "feedback_percent": "20%",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pan": "Centre",
+              "phase_type": "Normal",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "LongDelay"
@@ -2788,6 +3669,26 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "SerialDelay": {
+              "balance": "D10:90W",
+              "delay_1_feedback": "40%",
+              "delay_1_hf_damp": "ByPass",
+              "delay_1_mode": "Note",
+              "delay_1_ms": 150,
+              "delay_1_note": "SixteenthNote",
+              "delay_2_feedback": "40%",
+              "delay_2_hf_damp": "ByPass",
+              "delay_2_mode": "Note",
+              "delay_2_ms": 600,
+              "delay_2_note": "QuarterNote",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "SerialDelay"
@@ -2800,6 +3701,29 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "ModulationDelay": {
+              "balance": "D10:90W",
+              "delay_left_mode": "Note",
+              "delay_left_ms": 600,
+              "delay_left_note": "QuarterNote",
+              "delay_right_mode": "Note",
+              "delay_right_ms": 600,
+              "delay_right_note": "QuarterNote",
+              "depth": 20,
+              "feedback_mode": "Normal",
+              "feedback_percent": "20%",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "phase": "180deg",
+              "rate_hz": "0.50ms",
+              "rate_mode": "Hertz",
+              "rate_note": "WholeNote",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "ModulationDelay"
@@ -2812,6 +3736,29 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "ThreeTapPanDelay": {
+              "balance": "D10:90W",
+              "centre_feedback": "20%",
+              "centre_level": 127,
+              "delay_centre_mode": "Note",
+              "delay_centre_ms": 1200,
+              "delay_centre_note": "HalfNote",
+              "delay_left_mode": "Note",
+              "delay_left_ms": 400,
+              "delay_left_note": "QuarterNoteTriplet",
+              "delay_right_mode": "Note",
+              "delay_right_ms": 800,
+              "delay_right_note": "HalfNoteTriplet",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "left_level": 127,
+              "level": 127,
+              "low_gain": 0,
+              "right_level": 127,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "ThreeTapPanDelay"
@@ -2824,6 +3771,33 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "FourTapPanDelay": {
+              "balance": "D10:90W",
+              "delay_1_feedback": "20%",
+              "delay_1_level": 127,
+              "delay_1_mode": "Note",
+              "delay_1_ms": 1200,
+              "delay_1_note": "HalfNote",
+              "delay_2_level": 127,
+              "delay_2_mode": "Note",
+              "delay_2_ms": 900,
+              "delay_2_note": "DottedQuarterNote",
+              "delay_3_level": 127,
+              "delay_3_mode": "Note",
+              "delay_3_ms": 600,
+              "delay_3_note": "QuarterNote",
+              "delay_4_level": 127,
+              "delay_4_mode": "Note",
+              "delay_4_ms": 300,
+              "delay_4_note": "EighthNote",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "FourTapPanDelay"
@@ -2836,6 +3810,45 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "MultiTapDelay": {
+              "balance": "D10:90W",
+              "delay_1_feedback": "20%",
+              "delay_1_level": 127,
+              "delay_1_mode": "Note",
+              "delay_1_ms": 1200,
+              "delay_1_note": "HalfNote",
+              "delay_1_pan": {
+                "Left": 64
+              },
+              "delay_2_level": 127,
+              "delay_2_mode": "Note",
+              "delay_2_ms": 900,
+              "delay_2_note": "DottedQuarterNote",
+              "delay_2_pan": {
+                "Right": 63
+              },
+              "delay_3_level": 127,
+              "delay_3_mode": "Note",
+              "delay_3_ms": 600,
+              "delay_3_note": "QuarterNote",
+              "delay_3_pan": {
+                "Left": 32
+              },
+              "delay_4_level": 127,
+              "delay_4_mode": "Note",
+              "delay_4_ms": 300,
+              "delay_4_note": "EighthNote",
+              "delay_4_pan": {
+                "Right": 32
+              },
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "MultiTapDelay"
@@ -2848,6 +3861,42 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "ReverseDelay": {
+              "balance": "D20:80W",
+              "delay_1_level": 0,
+              "delay_1_mode": "Note",
+              "delay_1_ms": 300,
+              "delay_1_note": "EighthNote",
+              "delay_1_pan": {
+                "Left": 64
+              },
+              "delay_2_level": 0,
+              "delay_2_mode": "Note",
+              "delay_2_ms": 600,
+              "delay_2_note": "QuarterNote",
+              "delay_2_pan": {
+                "Right": 63
+              },
+              "delay_3_feedback": "0%",
+              "delay_3_mode": "Note",
+              "delay_3_ms": 600,
+              "delay_3_note": "QuarterNote",
+              "delay_hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "rev_delay_feedback": "0%",
+              "rev_delay_hf_damp": "ByPass",
+              "rev_delay_level": 127,
+              "rev_delay_mode": "Note",
+              "rev_delay_ms": 600,
+              "rev_delay_note": "QuarterNote",
+              "rev_delay_pan": "Centre",
+              "threshold": 30,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "ReverseDelay"
@@ -2860,6 +3909,30 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "ShuffleDelay": {
+              "acceleration": 10,
+              "balance": "D10:90W",
+              "delay_mode": "Note",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "feedback": "20%",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "level_a": 127,
+              "level_b": 127,
+              "low_gain": 0,
+              "pan_a": {
+                "Left": 64
+              },
+              "pan_b": {
+                "Right": 63
+              },
+              "shuffle_rate": 67,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "ShuffleDelay"
@@ -2872,6 +3945,30 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Delay3D": {
+              "balance": "D20:80W",
+              "centre_feedback": "20%",
+              "centre_level": 40,
+              "delay_centre_mode": "Note",
+              "delay_centre_ms": 1200,
+              "delay_centre_note": "HalfNote",
+              "delay_left_mode": "Note",
+              "delay_left_ms": 400,
+              "delay_left_note": "QuarterNoteTriplet",
+              "delay_right_mode": "Note",
+              "delay_right_ms": 800,
+              "delay_right_note": "HalfNoteTriplet",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "left_level": 64,
+              "level": 127,
+              "low_gain": 0,
+              "output_mode": "Speaker",
+              "right_level": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Delay3D"
@@ -2884,6 +3981,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TimeCtrlDelay": {
+              "acceleration": 10,
+              "balance": "D10:90W",
+              "delay_mode": "Milliseconds",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "feedback": "20%",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "TimeCtrlDelay"
@@ -2896,6 +4008,22 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "LongTimeCtrlDelay": {
+              "acceleration": 10,
+              "balance": "D10:90W",
+              "delay_mode": "Milliseconds",
+              "delay_ms": 1200,
+              "delay_note": "HalfNote",
+              "feedback": "20%",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "LongTimeCtrlDelay"
@@ -2908,6 +4036,25 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TapeEcho": {
+              "bass": 0,
+              "direct_level": 127,
+              "echo_level": 64,
+              "head_long_pan": "Centre",
+              "head_middle_pan": "Centre",
+              "head_short_pan": "Centre",
+              "intensity": 64,
+              "level": 127,
+              "mode": "Long",
+              "repeat_rate": 64,
+              "tape_distortion": 0,
+              "treble": 0,
+              "unused_parameters": [],
+              "wow_flutter_depth": 20,
+              "wow_flutter_rate": 20
+            }
+          },
           "type": "object",
           "required": [
             "TapeEcho"
@@ -2920,6 +4067,33 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "LofiNoise": {
+              "balance": "D100:0W",
+              "disc_noise_level": 0,
+              "disc_noise_lpf": {
+                "Frequency": "2000Hz"
+              },
+              "disc_noise_type": "RND",
+              "high_gain": 0,
+              "hum_noise_level": 0,
+              "hum_noise_lpf": {
+                "Frequency": "2000Hz"
+              },
+              "hum_noise_type": "50Hz",
+              "level": 127,
+              "lofi_type": 5,
+              "low_gain": 0,
+              "noise_level": 0,
+              "noise_lpf": {
+                "Frequency": "2000Hz"
+              },
+              "noise_type": "White",
+              "post_filter_cutoff": "4000Hz",
+              "post_filter_type": "LowPassFilter",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "LofiNoise"
@@ -2932,6 +4106,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "LofiCompress": {
+              "balance": "D100:0W",
+              "high_gain": 0,
+              "level": 100,
+              "lofi_type": 5,
+              "low_gain": 0,
+              "post_filter_cutoff": "4000Hz",
+              "post_filter_type": "LowPassFilter",
+              "pre_filter_type": 2,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "LofiCompress"
@@ -2944,6 +4131,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "LofiRadio": {
+              "balance": "D100:0W",
+              "high_gain": 0,
+              "level": 127,
+              "lofi_type": 5,
+              "low_gain": 0,
+              "post_filter_cutoff": "4000Hz",
+              "post_filter_type": "LowPassFilter",
+              "radio_detune": 0,
+              "radio_noise_level": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "LofiRadio"
@@ -2956,6 +4157,15 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Telephone": {
+              "balance": "D100:0W",
+              "level": 127,
+              "treble": 0,
+              "unused_parameters": [],
+              "voice_quality": 3
+            }
+          },
           "type": "object",
           "required": [
             "Telephone"
@@ -2968,6 +4178,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Phonograph": {
+              "balance": "D100:0W",
+              "disc_type": "LP",
+              "dust_noise_level": 64,
+              "flutter": 80,
+              "frequencey_range": 90,
+              "hiss_noise_level": 64,
+              "level": 127,
+              "random": 80,
+              "scartch_noise_level": 64,
+              "signal_distortion": 10,
+              "total_noise_level": 0,
+              "total_wf": 50,
+              "unused_parameters": [],
+              "wow": 80
+            }
+          },
           "type": "object",
           "required": [
             "Phonograph"
@@ -2980,6 +4208,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "PitchShifter": {
+              "balance": "D50:50W",
+              "coarse_semitones": 0,
+              "delay_mode": "Milliseconds",
+              "delay_ms": 1,
+              "delay_note": "QuarterNote",
+              "feedback": "0%",
+              "fine_percent": "20%",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "PitchShifter"
@@ -2992,6 +4235,31 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "TwoVoicePitchShifter": {
+              "balance": "D50:50W",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pitch_1_coarse_semitones": 4,
+              "pitch_1_delay_mode": "Note",
+              "pitch_1_delay_ms": 300,
+              "pitch_1_delay_note": "EighthNote",
+              "pitch_1_feedback": "0%",
+              "pitch_1_fine_percent": "0%",
+              "pitch_1_level": 127,
+              "pitch_1_pan": "Centre",
+              "pitch_2_coarse_semitones": 7,
+              "pitch_2_delay_mode": "Note",
+              "pitch_2_delay_ms": 600,
+              "pitch_2_delay_note": "QuarterNote",
+              "pitch_2_feedback": "0%",
+              "pitch_2_fine_percent": "0%",
+              "pitch_2_level": 127,
+              "pitch_2_pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "TwoVoicePitchShifter"
@@ -3004,6 +4272,41 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "StepPitchShifter": {
+              "attack": 100,
+              "balance": "D100:0W",
+              "delay_mode": "Milliseconds",
+              "delay_ms": 1,
+              "delay_note": "WholeNote",
+              "feedback": "0%",
+              "fine_percent": "0%",
+              "gate_time": 100,
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "rate_hz": "0.50ms",
+              "rate_mode": "Note",
+              "rate_note": "WholeNote",
+              "step1": 2,
+              "step10": 3,
+              "step11": 0,
+              "step12": 3,
+              "step13": 0,
+              "step14": 0,
+              "step15": 2,
+              "step16": 0,
+              "step2": 0,
+              "step3": 0,
+              "step4": 0,
+              "step5": 3,
+              "step6": 0,
+              "step7": 0,
+              "step8": 3,
+              "step9": 0,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "StepPitchShifter"
@@ -3016,6 +4319,19 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Reverb": {
+              "balance": "D50:50W",
+              "character": "Stage1",
+              "hf_damp": "ByPass",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pre_delay": "1.0ms",
+              "time": 64,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "Reverb"
@@ -3028,6 +4344,18 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "GatedReverb": {
+              "balance": "D50:50W",
+              "gate_time": "400ms",
+              "gate_type": "Normal",
+              "high_gain": 0,
+              "level": 127,
+              "low_gain": 0,
+              "pre_delay": "1.0ms",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "GatedReverb"
@@ -3040,6 +4368,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "OverdriveChorus": {
+              "chorus_balance": "D50:50W",
+              "chorus_depth": 20,
+              "chorus_pre_delay": "2.0ms",
+              "chorus_rate_hz": "0.50ms",
+              "chorus_rate_mode": "Hertz",
+              "chorus_rate_note": "WholeNote",
+              "drive": 64,
+              "level": 80,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "OverdriveChorus"
@@ -3052,6 +4394,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "OverdriveFlanger": {
+              "drive": 64,
+              "flanger_balance": "D50:50W",
+              "flanger_depth": 40,
+              "flanger_feedback": "60%",
+              "flanger_pre_delay": "2.0ms",
+              "flanger_rate_hz": "0.50ms",
+              "flanger_rate_mode": "Note",
+              "flanger_rate_note": "WholeNote",
+              "level": 80,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "OverdriveFlanger"
@@ -3064,6 +4421,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "OverdriveDelay": {
+              "delay_balance": "D10:90W",
+              "delay_feedback": "20%",
+              "delay_hf_damp": "ByPass",
+              "delay_mode": "Note",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "drive": 64,
+              "level": 80,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "OverdriveDelay"
@@ -3076,6 +4447,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "DistortionChorus": {
+              "chorus_balance": "D50:50W",
+              "chorus_depth": 20,
+              "chorus_pre_delay": "2.0ms",
+              "chorus_rate_hz": "0.50ms",
+              "chorus_rate_mode": "Hertz",
+              "chorus_rate_note": "WholeNote",
+              "drive": 127,
+              "level": 70,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "DistortionChorus"
@@ -3088,6 +4473,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "DistortionFlanger": {
+              "drive": 127,
+              "flanger_balance": "D50:50W",
+              "flanger_depth": 40,
+              "flanger_feedback": "60%",
+              "flanger_pre_delay": "2.0ms",
+              "flanger_rate_hz": "0.50ms",
+              "flanger_rate_mode": "Note",
+              "flanger_rate_note": "WholeNote",
+              "level": 80,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "DistortionFlanger"
@@ -3100,6 +4500,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "DistortionDelay": {
+              "delay_balance": "D10:90W",
+              "delay_feedback": "20%",
+              "delay_hf_damp": "ByPass",
+              "delay_mode": "Note",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "drive": 127,
+              "level": 80,
+              "pan": "Centre",
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "DistortionDelay"
@@ -3112,6 +4526,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "EnhancerChorus": {
+              "chorus_balance": "D50:50W",
+              "chorus_depth": 20,
+              "chorus_pre_delay": "2.0ms",
+              "chorus_rate_hz": "0.50ms",
+              "chorus_rate_mode": "Hertz",
+              "chorus_rate_note": "WholeNote",
+              "enhancer_mix": 64,
+              "enhancer_sensitivity": 64,
+              "level": 100,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "EnhancerChorus"
@@ -3124,6 +4552,21 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "EnhancerFlanger": {
+              "enhancer_mix": 64,
+              "enhancer_sensitivity": 64,
+              "flanger_balance": "D50:50W",
+              "flanger_depth": 40,
+              "flanger_feedback": "60%",
+              "flanger_pre_delay": "2.0ms",
+              "flanger_rate_hz": "0.50ms",
+              "flanger_rate_mode": "Note",
+              "flanger_rate_note": "WholeNote",
+              "level": 127,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "EnhancerFlanger"
@@ -3136,6 +4579,20 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "EnhancerDelay": {
+              "delay_balance": "D10:90W",
+              "delay_feedback": "20%",
+              "delay_hf_damp": "ByPass",
+              "delay_mode": "Note",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "enhancer_mix": 64,
+              "enhancer_sensitivity": 64,
+              "level": 127,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "EnhancerDelay"
@@ -3148,6 +4605,24 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "ChorusDelay": {
+              "chorus_balance": "D50:50W",
+              "chorus_depth": 20,
+              "chorus_pre_delay": "2.0ms",
+              "chorus_rate_hz": "0.50ms",
+              "chorus_rate_mode": "Hertz",
+              "chorus_rate_note": "WholeNote",
+              "delay_balance": "D10:90W",
+              "delay_feedback": "20%",
+              "delay_hf_damp": "ByPass",
+              "delay_mode": "Note",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "level": 100,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "ChorusDelay"
@@ -3160,6 +4635,25 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "FlangerDelay": {
+              "delay_balance": "D10:90W",
+              "delay_feedback": "20%",
+              "delay_hf_damp": "ByPass",
+              "delay_mode": "Note",
+              "delay_ms": 600,
+              "delay_note": "QuarterNote",
+              "flanger_balance": "D50:50W",
+              "flanger_depth": 40,
+              "flanger_feedback": "60%",
+              "flanger_pre_delay": "2.0ms",
+              "flanger_rate_hz": "0.50ms",
+              "flanger_rate_mode": "Note",
+              "flanger_rate_note": "WholeNote",
+              "level": 100,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "FlangerDelay"
@@ -3172,6 +4666,25 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "ChorusFlanger": {
+              "chorus_balance": "D50:50W",
+              "chorus_depth": 20,
+              "chorus_pre_delay": "2.0ms",
+              "chorus_rate_hz": "0.50ms",
+              "chorus_rate_mode": "Hertz",
+              "chorus_rate_note": "WholeNote",
+              "flanger_balance": "D50:50W",
+              "flanger_depth": 40,
+              "flanger_feedback": "60%",
+              "flanger_pre_delay": "2.0ms",
+              "flanger_rate_hz": "0.50ms",
+              "flanger_rate_mode": "Note",
+              "flanger_rate_note": "WholeNote",
+              "level": 100,
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "ChorusFlanger"
@@ -3184,6 +4697,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedVrChorus": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedVrChorus"
@@ -3196,6 +4714,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedVrTremolo": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedVrTremolo"
@@ -3208,6 +4731,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedVrAutoWah": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedVrAutoWah"
@@ -3220,6 +4748,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedVrPhaser": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedVrPhaser"
@@ -3232,6 +4765,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedOrganMulti": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedOrganMulti"
@@ -3244,6 +4782,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedLinedrive": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedLinedrive"
@@ -3256,6 +4799,11 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "UnusedSmallPhaser": {
+              "unused": []
+            }
+          },
           "type": "object",
           "required": [
             "UnusedSmallPhaser"
@@ -3268,6 +4816,36 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "SympatheticResonance": {
+              "damper": 0,
+              "damper_offset": 0,
+              "depth": 52,
+              "hf_damp": {
+                "Frequency": "3150Hz"
+              },
+              "level": 127,
+              "lf_damp": {
+                "Frequency": "200Hz"
+              },
+              "lid_open": 5,
+              "p_sft_amount": 23,
+              "p_sft_hpf": "ByPass",
+              "p_sft_level": 99,
+              "p_sft_lpf": {
+                "Frequency": "10000Hz"
+              },
+              "p_sft_to_rev": 127,
+              "peaking_freq": "250Hz",
+              "peaking_gain": 3,
+              "peaking_q": "0.5",
+              "pre_hpf": "ByPass",
+              "pre_lpf": {
+                "Frequency": "5000Hz"
+              },
+              "unused_parameters": []
+            }
+          },
           "type": "object",
           "required": [
             "SympatheticResonance"
@@ -3280,6 +4858,12 @@
           "additionalProperties": false
         },
         {
+          "default": {
+            "Other": {
+              "mfx_number": 86,
+              "unknown": []
+            }
+          },
           "type": "object",
           "required": [
             "Other"

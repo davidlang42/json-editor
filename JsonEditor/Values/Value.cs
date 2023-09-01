@@ -96,7 +96,7 @@ namespace JsonEditor.Values
                     ObjectType = schema.Title
                 },
                 null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, value ?? schema.Default?.DeepClone(), schema.OneOf.ToArray()),
-                _ => new RawValue(value, schema)
+                _ => new RawValue(value ?? schema.Default?.DeepClone(), schema)
             };
         }
     }

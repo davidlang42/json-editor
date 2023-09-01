@@ -3,22 +3,33 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Models
 {
-    public class JsonModel
+    public class JsonModel : INotifyPropertyChanged
     {
         public delegate void EditAction(JsonPath path, JObject obj, JSchema schema);
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public JsonFile File { get; }
         public JsonPath Path { get; }
         public List<Property> Properties { get; }
         public Action<JsonModel>? NavigateAction { get; set; }
         public string OriginalJson { get; }
+
+        public bool AnyChanges => Properties.Any(p => p.ChangesToCommit);
 
         readonly JObject obj;
         readonly string? objectType;
@@ -33,7 +44,21 @@ namespace JsonEditor.Models
             IEnumerable<KeyValuePair<string, JSchema>> properties_to_show = schema.Properties;
             if (File.HideProperties is Regex regex)
                 properties_to_show = properties_to_show.Where(i => !regex.IsMatch(i.Key));
-            Properties = properties_to_show.Select(i => new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key))).ToList();
+            Properties = new List<Property>();
+            foreach (var i in properties_to_show)
+            {
+                var p = new Property(this, obj, i.Key, i.Value, schema.Required.Contains(i.Key));
+                p.PropertyChanged += Properties_PropertyChanged;
+                Properties.Add(p);
+            }
+        }
+
+        private void Properties_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Property.ChangesToCommit))
+            {
+                NotifyPropertyChanged(nameof(AnyChanges));
+            }
         }
 
         public void EditObject(JsonPath path, JObject obj, JSchema schema)
@@ -50,14 +75,6 @@ namespace JsonEditor.Models
                 property.Commit();
             post_commit_json = obj.ToString();
             return post_commit_json != pre_commit;
-        }
-
-        /// <summary>Returns true if this object has changed since the model was created.
-        /// NOTE: This could be direct changes on this model, or changes to sub-objects.</summary>
-        public bool HasChanged(out string new_json)
-        {
-            new_json = obj.ToString();
-            return new_json != OriginalJson;
         }
 
         public JObject CloneObject() => (JObject)obj.DeepClone();

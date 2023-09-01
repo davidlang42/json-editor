@@ -32,7 +32,20 @@ namespace JsonEditor.Models
                 {
                     _include = value;
                     NotifyPropertyChanged();
+                    NotifyPropertyChanged(nameof(ChangesToCommit));
                 }
+            }
+        }
+
+        public bool ChangesToCommit
+        {
+            get
+            {
+                if (Include != parent.ContainsKey(Key))
+                    return true;
+                if (!Include)
+                    return false;
+                return parent[Key]?.ToString() != Value.AsJToken().ToString();
             }
         }
 
@@ -52,7 +65,14 @@ namespace JsonEditor.Models
             Key = key;
             Required = required;
             Value = Value.For((p, o, s) => Model.EditObject(p.Append(key), o, s), parent[key] ?? schema.Default?.DeepClone(), schema);
+            Value.PropertyChanged += Value_PropertyChanged;
             Include = required || parent.ContainsKey(key);
+        }
+
+        private void Value_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            // assume any changes to the Value object means AsJToken() might have changed
+            NotifyPropertyChanged(nameof(ChangesToCommit));
         }
 
         public void Commit()

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Values
@@ -54,7 +55,7 @@ namespace JsonEditor.Values
         /// <summary>Recursively list all Values nested under (and including) this one.</summary>
         public virtual IEnumerable<Value> Recurse() => this.Yield();
 
-        public static Value For(JsonModel.EditAction edit_object_action, JToken? value, JSchema schema)
+        public static Value For(JsonModel.EditAction edit_object_action, Regex? hide_properties, Regex? name_properties, JToken? value, JSchema schema)
         {
             return schema.Type switch
             {
@@ -88,14 +89,14 @@ namespace JsonEditor.Values
                     Value = (value as JValue)?.Value as bool? ?? (schema.Default?.DeepClone() as JValue)?.Value as bool? ?? false
                 },
                 JSchemaType.Array when schema.Items.SingleOrDefaultSafe() is JSchema one_type_of_item
-                    => new ArrayValue(edit_object_action, value as JArray ?? (schema.Default?.DeepClone() as JArray) ?? new JArray(), one_type_of_item, schema.MinimumItems, schema.MaximumItems),
-                JSchemaType.Object => new ObjectValue(edit_object_action)
+                    => new ArrayValue(edit_object_action, hide_properties, name_properties, value as JArray ?? (schema.Default?.DeepClone() as JArray) ?? new JArray(), one_type_of_item, schema.MinimumItems, schema.MaximumItems),
+                JSchemaType.Object => new ObjectValue(edit_object_action, hide_properties, name_properties)
                 {
                     Value = value as JObject ?? schema.Default?.DeepClone() as JObject ?? new JObject(),
                     ObjectSchema = schema,
                     ObjectType = schema.Title
                 },
-                null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, value ?? schema.Default?.DeepClone(), schema.OneOf.ToArray()),
+                null when schema.OneOf.Count > 0 => new OneOfValue(edit_object_action, hide_properties, name_properties, value ?? schema.Default?.DeepClone(), schema.OneOf.ToArray()),
                 _ => new RawValue(value ?? schema.Default?.DeepClone(), schema)
             };
         }

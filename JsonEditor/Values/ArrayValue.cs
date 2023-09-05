@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Values
@@ -27,12 +28,16 @@ namespace JsonEditor.Values
         public bool CanAdd => !MaxItems.HasValue || Items.Count < MaxItems.Value;
         public bool CanRemove => Items.Count > (MinItems ?? 0);
 
-        private JsonModel.EditAction editObjectAction;
-        private JSchema itemSchema;
+        readonly JsonModel.EditAction editObjectAction;
+        readonly Regex? hideProperties;
+        readonly Regex? nameProperties;
+        readonly JSchema itemSchema;
 
-        public ArrayValue(JsonModel.EditAction edit_object_action, JArray array, JSchema item_schema, long? min_items, long? max_items)
+        public ArrayValue(JsonModel.EditAction edit_object_action, Regex? hide_properties, Regex? name_properties, JArray array, JSchema item_schema, long? min_items, long? max_items)
         {
             editObjectAction = edit_object_action;
+            hideProperties = hide_properties;
+            nameProperties = name_properties;
             itemSchema = item_schema;
             MinItems = min_items;
             MaxItems = max_items;
@@ -61,7 +66,7 @@ namespace JsonEditor.Values
         private Value MakeNewItem(JToken token)
         {
             Value? v = null;
-            v = For((p, o, s) => editObjectAction(p.Array(Items.IndexOf(v!)), o, s), token, itemSchema);
+            v = For((p, o, s) => editObjectAction(p.Array(Items.IndexOf(v!)), o, s), hideProperties, nameProperties, token, itemSchema);
             return v;
         }
 

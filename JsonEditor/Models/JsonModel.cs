@@ -1,4 +1,5 @@
-﻿using JsonEditor.Values;
+﻿using JsonEditor.Extensions;
+using JsonEditor.Values;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using System;
@@ -63,8 +64,21 @@ namespace JsonEditor.Models
 
         public void EditObject(JsonPath path, JObject obj, JSchema schema)
         {
-            var model = new JsonModel(File, Path.AppendReversed(path), obj, schema);
-            NavigateAction?.Invoke(model);
+            if (File.ShortcutSingleObjectProperties
+                && schema.Properties.SingleOrDefaultSafe() is (string single_name, JSchema single_schema)
+                && single_schema.Type == JSchemaType.Object
+                && obj.TryGetValue(single_name, out var existing_value)
+                && existing_value is JObject existing_object)
+            {
+                // special case: automatically navigate into single object properties as long as they have a value
+                EditObject(path.Prepend(single_name), existing_object, single_schema);
+            }
+            else
+            {
+                // normal case: edit the object we were given
+                var model = new JsonModel(File, Path.AppendReversed(path), obj, schema);
+                NavigateAction?.Invoke(model);
+            }
         }
 
         /// <summary>Returns true if this commit made any changes</summary>

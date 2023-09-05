@@ -64,7 +64,7 @@ namespace JsonEditor.Models
             this.parent = parent;
             Key = key;
             Required = required;
-            Value = Value.For((p, o, s) => Model.EditObject(p.Append(key), o, s), parent[key] ?? schema.Default?.DeepClone(), schema);
+            Value = Value.For((p, o, s) => Model.EditObject(p.Append(key), o, s), model.File.HideProperties, model.File.NameProperties, parent[key] ?? schema.Default?.DeepClone(), schema);
             Value.PropertyChanged += Value_PropertyChanged;
             Include = required || parent.ContainsKey(key);
         }

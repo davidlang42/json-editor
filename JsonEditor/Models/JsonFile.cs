@@ -16,17 +16,25 @@ namespace JsonEditor.Models
         public string Filename { get; set; }
         public JObject Root { get; }
         public JSchema Schema { get; }
-        public Regex? HideProperties { get; set; }
-        public Dictionary<string, JsonPath[]> ObjectsByType { get; }
+        public Regex? HideProperties { get; }
+        public Regex? NameProperties { get; }
+        public bool ShortcutSingleObjectProperties { get; }
 
-        public JsonFile(string filename, JObject root, JSchema schema, Regex? hide_properties = null)
+        Dictionary<string, JsonPath[]>? objectsByType = null;
+
+        public JsonFile(string filename, JObject root, JSchema schema, Regex? hide_properties, Regex? name_properties, bool ignore_matching_objects, bool shortcut_single_object_properties)
         {
             Filename = filename;
             Root = root;
             Schema = schema;
             HideProperties = hide_properties;
-            ObjectsByType = EnumerateObjectsByType(schema, new(schema.Title ?? "root"))
-                .GroupBy(p => p.ObjectType).ToDictionary(g => g.Key, g => g.Select(p => p.Path).ToArray());
+            NameProperties = name_properties;
+            if (!ignore_matching_objects)
+            {
+                objectsByType = EnumerateObjectsByType(schema, new(schema.Title ?? "root"))
+                    .GroupBy(p => p.ObjectType).ToDictionary(g => g.Key, g => g.Select(p => p.Path).ToArray());
+            }
+            ShortcutSingleObjectProperties = shortcut_single_object_properties;
         }
 
         public void Save()
@@ -36,18 +44,19 @@ namespace JsonEditor.Models
 
         public IEnumerable<JsonReference> FindObjectPaths(string object_type, JsonPath excluding)
         {
-            if (!ObjectsByType.TryGetValue(object_type, out var schema_paths))
+            // objectsByType will be null if the constructor was told to ignore matching objects
+            if (objectsByType == null || !objectsByType.TryGetValue(object_type, out var schema_paths))
                 yield break;
             foreach (var schema_path in schema_paths)
                 foreach (var result in schema_path.Follow(Root, excluding))
                     yield return result;
         }
 
-        public static JsonFile Load(string schemaFile, string jsonFile)
+        public static JsonFile Load(string schemaFile, string jsonFile, Regex? hide_properties, Regex? name_regex, bool ignore_matching_objects, bool shortcut_single_object_properties)
         {
             var schema = JSchema.Parse(AddDefinitionTitlesToSchema(File.ReadAllText(schemaFile)));
             var root = JObject.Parse(File.ReadAllText(jsonFile));
-            return new(jsonFile, root, schema);
+            return new(jsonFile, root, schema, hide_properties, name_regex, ignore_matching_objects, shortcut_single_object_properties);
         }
 
         static string AddDefinitionTitlesToSchema(string schema_json)

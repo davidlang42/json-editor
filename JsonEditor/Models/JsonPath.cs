@@ -39,6 +39,12 @@ namespace JsonEditor.Models
             return new(Paths.Concat(path.Yield()).ToArray());
         }
 
+        public JsonPath Prepend(string path)
+        {
+            CheckValid(path);
+            return new(path.Yield().Concat(Paths).ToArray());
+        }
+
         private static void CheckValid(string path)
         {
             if (path.Contains(SEPARATOR))

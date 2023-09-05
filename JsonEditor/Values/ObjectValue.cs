@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace JsonEditor.Values
@@ -32,10 +33,14 @@ namespace JsonEditor.Values
         public JSchema? ObjectSchema { get; init; }
 
         readonly JsonModel.EditAction editAction;
+        readonly Regex? hideProperties;
+        readonly Regex? nameProperties;
 
-        public ObjectValue(JsonModel.EditAction edit_action)
+        public ObjectValue(JsonModel.EditAction edit_action, Regex? hide_properties, Regex? name_properties)
         {
             editAction = edit_action;
+            hideProperties = hide_properties;
+            nameProperties = name_properties;
         }
 
         public override JToken AsJToken() => Value;
@@ -71,9 +76,26 @@ namespace JsonEditor.Values
                 paste.Clicked += Paste_Clicked;
                 var button = new Button
                 {
-                    Text = $"Edit {this}"
+                    BindingContext = this
                 };
+                button.SetBinding(Button.TextProperty, new Binding
+                {
+                    Path = nameof(Value),
+                    Converter = new JsonPreview
+                    {
+                        IncludeOnlyProperties = nameProperties,
+                        MaximumSegements = 1,
+                        FallbackValue = ToString()
+                    },
+                    StringFormat = "Edit {0}"
+                });
                 button.Clicked += Edit_Clicked;
+                button.SetBinding(ToolTipProperties.TextProperty, nameof(Value), converter: new JsonPreview
+                {
+                    DontTraverseProperties = hideProperties,
+                    ExcludeProperties = hideProperties,
+                    Schema = ObjectSchema
+                });
                 var layout = new FlexLayout
                 {
                     AlignItems = Microsoft.Maui.Layouts.FlexAlignItems.Start,

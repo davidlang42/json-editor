@@ -26,6 +26,10 @@ public class OpenFiles : ContentPage
                 EntryAndBrowse(nameof(FilePaths.JsonFile), File_Clicked),
                 new Label { Text = "Properties to hide while editing:" },
                 RegexEntry(nameof(FilePaths.HidePropertiesRegex)),
+                new Label { Text = "Properties to use as 'pretty' object names:" },
+                RegexEntry(nameof(FilePaths.NamePropertiesRegex)),
+                CheckBoxAndLabel("Offer to update common objects:", nameof(FilePaths.OfferCommonObjectUpdates)),
+                CheckBoxAndLabel("Automatically edit single object properties:", nameof(FilePaths.ShortcutSingleObjectProperties)),
                 OpenButton(Open_Clicked)
             }
         };
@@ -80,6 +84,23 @@ public class OpenFiles : ContentPage
         return entry;
     }
 
+    static View CheckBoxAndLabel(string label, string binding_path)
+    {
+        var checkbox = new CheckBox();
+        checkbox.SetBinding(CheckBox.IsCheckedProperty, binding_path);
+        var layout = new Grid
+        {
+            Padding = 5,
+            ColumnDefinitions = new ColumnDefinitionCollection
+            {
+                new ColumnDefinition(GridLength.Auto),
+                new ColumnDefinition(GridLength.Star)
+            }
+        };
+        layout.Add(new Label { Text = label });
+        layout.Add(checkbox, 1);
+        return layout;
+    }
     private async void Open_Clicked(object? sender, EventArgs e)
     {
         if (!File.Exists(files.SchemaFile))
@@ -92,12 +113,12 @@ public class OpenFiles : ContentPage
             await DisplayAlert("Error", $"The JSON file does not exist: {files.JsonFile}", "Ok");
             return;
         }
-        Regex? regex = null;
+        Regex? hide_regex = null;
         if (!string.IsNullOrEmpty(files.HidePropertiesRegex))
         {
             try
             {
-                regex = new Regex(files.HidePropertiesRegex, RegexOptions.Compiled);
+                hide_regex = new Regex(files.HidePropertiesRegex, RegexOptions.Compiled);
             }
             catch (ArgumentException)
             {
@@ -105,9 +126,21 @@ public class OpenFiles : ContentPage
                 return;
             }
         }
+        Regex? name_regex = null;
+        if (!string.IsNullOrEmpty(files.NamePropertiesRegex))
+        {
+            try
+            {
+                name_regex = new Regex(files.NamePropertiesRegex, RegexOptions.Compiled);
+            }
+            catch (ArgumentException)
+            {
+                await DisplayAlert("Error", $"The pattern for finding name properties is not a valid Regular Expression: {files.NamePropertiesRegex}\nLeave this blank to show all properties.", "Ok");
+                return;
+            }
+        }
         files.SaveToUserPreferences();
-        var json_file = JsonFile.Load(files.SchemaFile, files.JsonFile);
-        json_file.HideProperties = regex;
+        var json_file = JsonFile.Load(files.SchemaFile, files.JsonFile, hide_regex, name_regex, !files.OfferCommonObjectUpdates, files.ShortcutSingleObjectProperties);
         var json_model = new JsonModel(json_file, new(json_file.Schema.Title ?? "Root"), json_file.Root, json_file.Schema);
         await Navigation.PushAsync(new EditJson(json_model));
     }

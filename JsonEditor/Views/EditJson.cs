@@ -154,6 +154,13 @@ public class EditJson : ContentPage
     #region Action handlers
     private async void Cancel_Clicked(object? sender, EventArgs e)
     {
+        if (model.AnyChanges)
+        {
+            if (!await DisplayAlert("Discard changes", $"Changes have been made to the value of this object, are you sure you want to discard them?", "Yes", "Cancel"))
+            {
+                return;
+            }
+        }
         await Navigation.PopAsync();
     }
 

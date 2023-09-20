@@ -9,6 +9,7 @@ using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -59,15 +60,33 @@ namespace JsonEditor.Values
 
         private void Items_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            NotifyPropertyChanged(nameof(CanAdd));
-            NotifyPropertyChanged(nameof(CanRemove));
+            if (e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                NotifyPropertyChanged(nameof(CanAdd));
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                NotifyPropertyChanged(nameof(CanRemove));
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Move || e.Action == NotifyCollectionChangedAction.Replace)
+            {
+                NotifyPropertyChanged(nameof(Value.AsJToken));
+            }
         }
 
         private Value MakeNewItem(JToken token)
         {
             Value? v = null;
             v = For((p, o, s) => editObjectAction(p.Array(Items.IndexOf(v!)), o, s), hideProperties, nameProperties, token, itemSchema);
+            v.PropertyChanged += ItemValue_PropertyChanged;
             return v;
+        }
+
+        private void ItemValue_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            NotifyPropertyChanged(nameof(Value.AsJToken));
         }
 
         public override JToken AsJToken()

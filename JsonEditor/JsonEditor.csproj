@@ -107,8 +107,8 @@
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
 		<AndroidKeyStore>true</AndroidKeyStore>
-		<AndroidSigningKeyStore>JsonEditor_SigningIdentity.keystore</AndroidSigningKeyStore>
-		<AndroidSigningKeyAlias>JsonEditor_SigningIdentity</AndroidSigningKeyAlias>
+		<AndroidSigningKeyStore>JsonEditor.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyAlias>JsonEditor</AndroidSigningKeyAlias>
 		<AndroidSigningKeyPass>env:AndroidSigningPassword</AndroidSigningKeyPass>
 		<AndroidSigningStorePass>env:AndroidSigningPassword</AndroidSigningStorePass>
 	</PropertyGroup>
